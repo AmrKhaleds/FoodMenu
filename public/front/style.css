@@ -1818,7 +1818,7 @@ body.has-active-menu {
 .menu-price {
     position: absolute;
     top: 0px;
-    right: 15px;
+    right: 0px;
 }
 
 .menu-title {
@@ -1861,11 +1861,17 @@ body.has-active-menu {
 
 .menu-post-desc {
     margin-left: 0;
+    margin-top: 20px;
 }
 
 .menu-text {
     font-size: 14px;
     font-style: italic;
+}
+
+.menu-desc {
+    text-align: right;
+    margin-right: 20px;
 }
 
 

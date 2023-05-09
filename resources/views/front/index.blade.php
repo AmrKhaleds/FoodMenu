@@ -66,7 +66,14 @@
                                 </div>
                                 <div class="menu-holder row">
                                     @foreach ($category->product as $product)
-                                        <div class="menu-post col-md-4">
+                                    <div class="menu-container col-md-4" style="display: flex;flex-direction: column;">
+                                        <div class="menu-image">
+                                            <img src="https://cdn-icons-png.flaticon.com/512/575/575577.png"
+                                                width="30%" alt="" style="border-radius: 50%; float: right;margin-left: 10px;">
+                                                <p class="menu-desc">لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى)</p>
+
+                                        </div>
+                                        <div class="menu-post ">
                                             <div class="menu-post-desc">
                                                 <h4>
                                                     <span class="menu-title">{{ $product->price }}.00 EGP</span>
@@ -75,12 +82,15 @@
                                                 </h4>
                                                 <!-- div class="menu-text">Tomatoes / Olive Oil / Cheese</div -->
                                                 <div class="menu-text" style="float: right;">
-                                                    <label for="checkbox-{{ $product->id }}" style="margin-right: 10px;">اضف الى قائمة الحجز</label>
+                                                    <label for="checkbox-{{ $product->id }}"
+                                                        style="margin-right: 10px;">اضف الى قائمة الحجز</label>
                                                     <input id="checkbox-{{ $product->id }}" type="checkbox"
-                                                        value="{{ $product->id }}" data-cost="{{ $product->price }}" class="checkboxes" name="menu[]">
+                                                        value="{{ $product->id }}" data-cost="{{ $product->price }}"
+                                                        class="checkboxes" name="menu[]">
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
                                     @endforeach
                                 </div>
                                 <!--menu-3-col-->
@@ -112,10 +122,12 @@
                             <input type="text" name="name" class="reservation-fields inputs" placeholder="الإسم">
                         </div>
                         <div class="col-md-6">
-                            <input type="email" name="email" id="email" class="reservation-fields inputs" placeholder="الإيميل">
+                            <input type="email" name="email" id="email" class="reservation-fields inputs"
+                                placeholder="الإيميل">
                         </div>
                         <div class="col-md-6">
-                            <input type="text" name="phone" id="phone" class="reservation-fields inputs" placeholder="رقم التلفون">
+                            <input type="text" name="phone" id="phone" class="reservation-fields inputs"
+                                placeholder="رقم التلفون">
                         </div>
                         <div class="col-md-6">
                             <select name="request_type" id=""
