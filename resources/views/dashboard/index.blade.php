@@ -3,6 +3,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/fonts/simple-line-icons/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin/vendors/css/pages/lobilist/lobilist.css') }}">
 @endsection
+@section('title', 'Dashboard')
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">

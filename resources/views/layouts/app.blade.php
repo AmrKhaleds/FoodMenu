@@ -78,6 +78,7 @@
             }, 3000);
         });
     </script>
+    @yield('custom_js')
 </body>
 
 </html>

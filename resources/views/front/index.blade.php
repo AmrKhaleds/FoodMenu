@@ -68,9 +68,9 @@
                                     @foreach ($category->product as $product)
                                     <div class="menu-container col-md-4" style="display: flex;flex-direction: column;">
                                         <div class="menu-image">
-                                            <img src="https://cdn-icons-png.flaticon.com/512/575/575577.png"
-                                                width="30%" alt="" style="border-radius: 50%; float: right;margin-left: 10px;">
-                                                <p class="menu-desc">لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى)</p>
+                                            <img src="{{ asset('storage/products/' . $product->photo) }}"
+                                                width="30%" alt="" style="border-radius: 20px; float: right;margin-left: 10px;">
+                                                <p class="menu-desc">{{ $product->desc }}</p>
 
                                         </div>
                                         <div class="menu-post ">

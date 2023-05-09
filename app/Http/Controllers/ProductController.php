@@ -32,14 +32,26 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $requestData = $request->all();
+        if ($request->hasFile('photo')) {
+            $photoName = time();
+            $image = $request['photo'];
+            $photoWithOriginalExtention = $photoName . '.' . $request['photo']->getClientOriginalExtension();
+            $storage_path = 'public/products/';
+            $image->storeAs($storage_path, $photoWithOriginalExtention);
+            // dd("photo_upload successfullly");
+        }
         // dd($requestData);
-        $product = Product::create($requestData);
-        if($product){
+        $product = Product::create([
+            'name' => $requestData['name'],
+            'desc' => $requestData['desc'],
+            'photo' => $photoWithOriginalExtention,
+            'price' => $requestData['price'],
+            'category_id' => $requestData['category_id'],
+        ]);
+        if ($product) {
             return redirect()->route('products.create')->with(['success' => 'تم إنشاء المنتج بنجاح']);
         }
         return redirect()->route('products.index')->with(['error', 'حدث خطأ اثناء العملية']);
-
-        
     }
 
     /**
@@ -65,9 +77,27 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $product = Product::where('id', $id)->first();
         $requestData = $request->except(['_method', '_token']);
-        $update = Product::where('id', $id)->update($requestData);
-        if($update){
+        if ($request->hasFile('photo')) {
+            $photoName = time();
+            $image = $request['photo'];
+            $photoWithOriginalExtention = $photoName . '.' . $request['photo']->getClientOriginalExtension();
+            $storage_path = 'public/products/';
+            $image->storeAs($storage_path, $photoWithOriginalExtention);
+            // dd("photo_upload successfullly");
+        }else{
+            $photoWithOriginalExtention = $product->photo;
+            // dd($photoWithOriginalExtention);
+        }
+        $update = $product->update([
+            'name' => $requestData['name'],
+            'desc' => $requestData['desc'],
+            'photo' => $photoWithOriginalExtention,
+            'price' => $requestData['price'],
+            'category_id' => $requestData['category_id'],
+        ]);
+        if ($update) {
             return redirect()->route('products.index')->with(['success' => 'تم تحديث المنتج بنجاح']);
         }
         return redirect()->route('products.index')->with(['error' => 'حدثت مشكلة اثناء تحديث المنتج']);
@@ -79,7 +109,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        if($product->delete()){
+        if ($product->delete()) {
             return redirect()->route('products.index')->with(['success' => 'تم حذف المنتج بنجاح']);
         }
         return redirect()->route('products.index')->with(['error' => 'حدثت مشكلة اثناء حذف المنتج']);

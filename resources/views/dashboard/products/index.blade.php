@@ -46,6 +46,7 @@
                                         <table class="table table-striped table-bordered file-export">
                                             <thead>
                                                 <tr>
+                                                    <th>صوره المنتج</th>
                                                     <th>اسم المنتج</th>
                                                     <th>فئة المنتج</th>
                                                     <th>وصف المنتج</th>
@@ -57,6 +58,9 @@
                                                 @isset($products)
                                                     @foreach ($products as $product)
                                                         <tr>
+                                                            <td>
+                                                                <img style="width: 100px;" src="{{asset('storage/products/' . $product->photo)}}" alt="">
+                                                            </td>
                                                             <td>{{ $product->name }}</td>
                                                             <td><span class="badge badge badge-pill badge-info mr-2">{{ $product->category->name }}</span></td>
                                                             <td>{{ Str::limit($product->desc, 20) }}</td>
