@@ -1,0 +1,136 @@
+/*================================================================================
+	Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+	Version: 1.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination>* {
+    margin: 0 5px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: #333;
+}
+
+.pagination>.active>a {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.pagination>.disabled>span {
+    color: #ccc;
+}
+
+.toast {
+    width: 400px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 7px;
+    display: grid;
+    grid-template-columns: 1.3fr 6fr 0.5fr;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 9999;
+    /* transition: 0.5s ease-in-out; */
+    transform: translateX(100%);
+    animation: slide-in 0.5s ease-out forwards;
+}
+
+.success {
+    border-left: 8px solid #47d764;
+}
+
+.success i {
+    color: #47d764;
+}
+
+.container-1 i {
+    font-size: 35px;
+}
+
+.error {
+    border-left: 8px solid #ff355b;
+}
+
+.error i {
+    color: #ff355b;
+}
+
+.info {
+    border-left: 8px solid #2f86eb;
+}
+
+.info i {
+    color: #2f86eb;
+}
+
+.warning {
+    border-left: 8px solid #ffc021;
+}
+
+.warning i {
+    color: #ffc021;
+}
+
+.container-1,
+.container-2 {
+    align-self: center;
+    line-height: 1;
+}
+
+.container-2 p:first-child {
+    font-size: 16px;
+    color: #101020;
+    font-weight: 600;
+}
+
+.container-2 p:last-child {
+    font-size: 12px;
+    font-weight: 400;
+    color: #656565;
+}
+
+.toast button {
+    align-self: flex-start;
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    line-height: 0;
+    cursor: pointer;
+    color: #656565;
+}
+
+.toast:not(:last-child) {
+    margin-bottom: 50px;
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-out {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(100%);
+    }
+}
