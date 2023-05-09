@@ -44,7 +44,7 @@ class ProductController extends Controller
         $product = Product::create([
             'name' => $requestData['name'],
             'desc' => $requestData['desc'],
-            'photo' => $photoWithOriginalExtention,
+            'photo' => $photoWithOriginalExtention ?? 'product_photo.png',
             'price' => $requestData['price'],
             'category_id' => $requestData['category_id'],
         ]);
