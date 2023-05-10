@@ -55,6 +55,11 @@
             <form action="{{ route('request-order') }}" method="post">
                 @csrf
                 <div id="one" class="row product">
+                    <div class="error-container" style="width: 100%;text-align: center">
+                        @error('menu')
+                            <span id="name_error" class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                     @isset($categories)
                         @foreach ($categories as $category)
                             <div class="col-md-12">
@@ -66,31 +71,32 @@
                                 </div>
                                 <div class="menu-holder row">
                                     @foreach ($category->product as $product)
-                                    <div class="menu-container col-md-4" style="display: flex;flex-direction: column;">
-                                        <div class="menu-image">
-                                            <img src="{{ asset('storage/products/' . $product->photo) }}"
-                                                width="30%" alt="" style="border-radius: 20px; float: right;margin-left: 10px;">
+                                        <div class="menu-container col-md-4" style="display: flex;flex-direction: column;">
+                                            <div class="menu-image">
+                                                <img src="{{ asset('storage/products/' . $product->photo) }}" width="30%"
+                                                    alt=""
+                                                    style="border-radius: 20px; float: right;margin-left: 10px;">
                                                 <p class="menu-desc">{{ $product->desc }}</p>
 
-                                        </div>
-                                        <div class="menu-post ">
-                                            <div class="menu-post-desc">
-                                                <h4>
-                                                    <span class="menu-title">{{ $product->price }}.00 EGP</span>
-                                                    <!-- <span class="menu-dots"></span> -->
-                                                    <span class="menu-price">{{ $product->name }}</span>
-                                                </h4>
-                                                <!-- div class="menu-text">Tomatoes / Olive Oil / Cheese</div -->
-                                                <div class="menu-text" style="float: right;">
-                                                    <label for="checkbox-{{ $product->id }}"
-                                                        style="margin-right: 10px;">اضف الى قائمة الحجز</label>
-                                                    <input id="checkbox-{{ $product->id }}" type="checkbox"
-                                                        value="{{ $product->id }}" data-cost="{{ $product->price }}"
-                                                        class="checkboxes" name="menu[]">
+                                            </div>
+                                            <div class="menu-post ">
+                                                <div class="menu-post-desc">
+                                                    <h4>
+                                                        <span class="menu-title">{{ $product->price }}.00 EGP</span>
+                                                        <!-- <span class="menu-dots"></span> -->
+                                                        <span class="menu-price">{{ $product->name }}</span>
+                                                    </h4>
+                                                    <!-- div class="menu-text">Tomatoes / Olive Oil / Cheese</div -->
+                                                    <div class="menu-text" style="float: right;">
+                                                        <label for="checkbox-{{ $product->id }}"
+                                                            style="margin-right: 10px;">اضف الى قائمة الحجز</label>
+                                                        <input id="checkbox-{{ $product->id }}" type="checkbox"
+                                                            value="{{ $product->id }}" data-cost="{{ $product->price }}"
+                                                            class="checkboxes" name="menu[]">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endforeach
                                 </div>
                                 <!--menu-3-col-->
@@ -119,15 +125,25 @@
                     <div class="row" style="direction: rtl;">
 
                         <div class="col-md-6">
-                            <input type="text" name="name" class="reservation-fields inputs" placeholder="الإسم">
+                            <input type="text" name="name" class="reservation-fields inputs"
+                                placeholder="الإسم" value="{{ old('name') }}">
+                            @error('name')
+                                <span id="name_error" class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <input type="email" name="email" id="email" class="reservation-fields inputs"
-                                placeholder="الإيميل">
+                                placeholder="الإيميل" value="{{ old('email') }}">
+                            @error('email')
+                                <span id="name_error" class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <input type="text" name="phone" id="phone" class="reservation-fields inputs"
-                                placeholder="رقم التلفون">
+                                placeholder="رقم التلفون" value="{{ old('phone') }}">
+                            @error('phone')
+                                <span id="name_error" class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <select name="request_type" id=""
@@ -137,9 +153,12 @@
                             border: 2px solid white;
                             height: 40px;direction: rtl;">
                                 <option value="" selected disabled>نوع الطلب</option>
-                                <option value="in-resturant">داخل المطعم</option>
+                                <option value="resturant">داخل المطعم</option>
                                 <option value="delivery">ديليفرى</option>
                             </select>
+                            @error('request_type')
+                                <span id="name_error" class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-12">
                             <h5>

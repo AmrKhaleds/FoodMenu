@@ -37,6 +37,11 @@
                     </li>
                 </ul>
             </li>
+            <li class=" nav-item {{ Route::currentRouteNamed('front') ? 'active open' : '' }}">
+                <a href="{{ route('front') }}"><i class="la la-home"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">الموقع</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

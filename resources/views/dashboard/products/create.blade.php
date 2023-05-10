@@ -110,6 +110,10 @@
                                                             data-max-files="10" data-show-errors="true"
                                                             data-allowed-file-extensions="png jpg jpeg webp"
                                                             data-max-file-size="30M" multiple="">
+                                                        @error('photo')
+                                                            <span id="name_error"
+                                                                class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>

@@ -113,9 +113,6 @@
     <script src="{{ asset('assets/vendors/js/tables/vfs_fonts.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/js/tables/buttons.html5.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/vendors/js/tables/buttons.print.min.js') }}" type="text/javascript"></script>
-
-    <script src="{{ asset('assets/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/charts/echarts/echarts.js') }}" type="text/javascript"></script>
 @endsection
 @section('page_level_js')
     <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript">
