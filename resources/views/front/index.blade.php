@@ -24,6 +24,7 @@
         href="{{ asset('front/css/fontawesome/css/font-awesome.min.css') }}" type="text/css" media="all" />
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />
     <!-- Main CSS File -->
+    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
     <link rel="stylesheet" id="dina-style-css-css" href="{{ asset('front/style.css') }}" type="text/css"
         media="all" />
     <!-- favicons -->
@@ -73,16 +74,14 @@
                                     @foreach ($category->product as $product)
                                         <div class="menu-container col-md-4"
                                             style="display:flex;flex-direction:row-reverse;flex-wrap: wrap;flex-direction: row-reverse;justify-content: space-between;margin-bottom: 30px;">
-                                            <div class="menu-image"
-                                                style="width: 40%;">
+                                            <div class="menu-image" style="width: 40%;">
                                                 <img src="{{ asset('storage/products/' . $product->photo) }}" width="100%"
                                                     alt=""
                                                     style="border-radius: 20px; float: right;margin-left: 10px;">
                                                 {{-- <p class="menu-desc">{{ $product->desc }}</p> --}}
 
                                             </div>
-                                            <div class="menu-post "
-                                                style="width: 60%;">
+                                            <div class="menu-post " style="width: 60%;">
                                                 <div class="menu-post-desc">
                                                     {{-- <h4> --}}
                                                     {{-- <div
@@ -95,10 +94,13 @@
                                                         display: flex;
                                                         justify-content: space-between;
                                                         flex-direction: column;"> --}}
-                                                        <!-- <span class="menu-dots"></span> -->
-                                                        <span class="menu-price" style="position: relative;display: block;    text-align: right;">{{ $product->name }}</span>
+                                                    <!-- <span class="menu-dots"></span> -->
+                                                    <span class="menu-price"
+                                                        style="position: relative;display: block;    text-align: right;">{{ $product->name }}</span>
 
-                                                        <span class="menu-title" style="position: relative;display: block;    text-align: right;">{{ $product->price }}.00 EGP</span>
+                                                    <span class="menu-title"
+                                                        style="position: relative;display: block;    text-align: right;">{{ $product->price }}.00
+                                                        EGP</span>
 
                                                     {{-- </div> --}}
                                                     {{-- </h4> --}}
@@ -110,10 +112,10 @@
                                                             value="{{ $product->id }}" data-cost="{{ $product->price }}"
                                                             class="checkboxes" name="menu[]">
                                                     </div>
-                                                        
-                                                    
+
+
                                                 </div>
-                                                <p class="menu-desc" style="color: #ff6a6a;" >{{ $product->desc }}</p>
+                                                <p class="menu-desc" style="color: #ff6a6a;">{{ $product->desc }}</p>
                                             </div>
                                         </div>
                                     @endforeach
@@ -198,9 +200,11 @@
         <!--container-->
     </section>
     {{-- Total Cost --}}
-    <div class="total-cost">
-        <span id="totalCost">0</span> EGP: إجمالى الطلبات
-    </div>
+    <a onclick="openCity('two')" id="order" title="أضغط للطلب">
+        <div class="total-cost">
+            <span id="totalCost">0</span> EGP: إجمالى الطلبات
+        </div>
+    </a>
     <!-- /MAIN WRAP CONTENT -->
     <div class="taps">
         <a class="taps" id="next" onclick="openCity('two')" style="">
@@ -242,6 +246,8 @@
     <script src="{{ asset('front/js/owl-carousel/owl.carousel.min.js') }}"></script>
     <!-- MAIN JS -->
     <script src="{{ asset('front/js/init.js') }}"></script>
+    {{-- <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script> --}}
     <script>
         function openCity(cityName) {
             var i;
@@ -278,6 +284,14 @@
             });
         });
     </script>
+<script>
+
+// tippy('#order', {
+//                 content: 'ddd',
+//                 allowHTML: true,
+//                 });
+        
+</script>
 </body>
 
 </html>
