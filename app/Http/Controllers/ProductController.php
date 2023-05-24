@@ -44,7 +44,7 @@ class ProductController extends Controller
         // dd($requestData);
         $product = Product::create([
             'name' => $requestData['name'],
-            'desc' => $requestData['desc'],
+            'desc' => $requestData['desc'] ?? "لوريم إيبسوم(Lorem Ipsum) هو ببساطة نص شكلي (بمعنى أن الغاية هي الشكل وليس المحتوى)",
             'photo' => $photoWithOriginalExtention ?? 'product_photo.png',
             'price' => $requestData['price'],
             'category_id' => $requestData['category_id'],

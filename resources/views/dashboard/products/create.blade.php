@@ -64,7 +64,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="price">سعر المنتج</label>
-                                                            <input type="text" value="{{ old('name') }}" id="price"
+                                                            <input type="text" value="{{ old('price') }}" id="price"
                                                                 class="form-control" placeholder="سعر المنتج"
                                                                 name="price">
                                                             @error('price')
