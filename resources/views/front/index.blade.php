@@ -71,30 +71,48 @@
                                 </div>
                                 <div class="menu-holder row">
                                     @foreach ($category->product as $product)
-                                        <div class="menu-container col-md-4" style="display: flex;flex-direction: column;">
-                                            <div class="menu-image">
-                                                <img src="{{ asset('storage/products/' . $product->photo) }}" width="30%"
+                                        <div class="menu-container col-md-4"
+                                            style="display:flex;flex-direction:row-reverse;flex-wrap: wrap;flex-direction: row-reverse;justify-content: space-between;margin-bottom: 30px;">
+                                            <div class="menu-image"
+                                                style="width: 40%;">
+                                                <img src="{{ asset('storage/products/' . $product->photo) }}" width="100%"
                                                     alt=""
                                                     style="border-radius: 20px; float: right;margin-left: 10px;">
-                                                <p class="menu-desc">{{ $product->desc }}</p>
+                                                {{-- <p class="menu-desc">{{ $product->desc }}</p> --}}
 
                                             </div>
-                                            <div class="menu-post ">
+                                            <div class="menu-post "
+                                                style="width: 60%;">
                                                 <div class="menu-post-desc">
-                                                    <h4>
+                                                    {{-- <h4> --}}
+                                                    <div
+                                                        style="font-size: 15px;
+                                                        font-weight: 600;
+                                                        text-transform: uppercase;
+                                                        padding-right: 50px;
+                                                        position: relative;
+                                                        font-family: 'DroidArabicKufiRegular';
+                                                        display: flex;
+                                                        justify-content: space-between;
+                                                        flex-direction: column;">
                                                         <span class="menu-title">{{ $product->price }}.00 EGP</span>
                                                         <!-- <span class="menu-dots"></span> -->
-                                                        <span class="menu-price">{{ $product->name }}</span>
-                                                    </h4>
+
+                                                        <span class="menu-price" >{{ $product->name }}</span>
+                                                    </div>
+                                                    {{-- </h4> --}}
                                                     <!-- div class="menu-text">Tomatoes / Olive Oil / Cheese</div -->
-                                                    <div class="menu-text" style="float: right;">
+                                                    <div class="menu-text" style="text-align: right;">
                                                         <label for="checkbox-{{ $product->id }}"
                                                             style="margin-right: 10px;">اضف الى قائمة الحجز</label>
                                                         <input id="checkbox-{{ $product->id }}" type="checkbox"
                                                             value="{{ $product->id }}" data-cost="{{ $product->price }}"
                                                             class="checkboxes" name="menu[]">
                                                     </div>
+                                                        
+                                                    
                                                 </div>
+                                                <p class="menu-desc" style="color: #ff6a6a;" >ربع كفتة لحم بلدى مشوى على الفحم</p>
                                             </div>
                                         </div>
                                     @endforeach
