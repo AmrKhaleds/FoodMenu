@@ -85,7 +85,7 @@
                                                 style="width: 60%;">
                                                 <div class="menu-post-desc">
                                                     {{-- <h4> --}}
-                                                    <div
+                                                    {{-- <div
                                                         style="font-size: 15px;
                                                         font-weight: 600;
                                                         text-transform: uppercase;
@@ -94,12 +94,13 @@
                                                         font-family: 'DroidArabicKufiRegular';
                                                         display: flex;
                                                         justify-content: space-between;
-                                                        flex-direction: column;">
-                                                        <span class="menu-title">{{ $product->price }}.00 EGP</span>
+                                                        flex-direction: column;"> --}}
                                                         <!-- <span class="menu-dots"></span> -->
+                                                        <span class="menu-price" style="position: relative;display: block;    text-align: right;">{{ $product->name }}</span>
 
-                                                        <span class="menu-price" >{{ $product->name }}</span>
-                                                    </div>
+                                                        <span class="menu-title" style="position: relative;display: block;    text-align: right;">{{ $product->price }}.00 EGP</span>
+
+                                                    {{-- </div> --}}
                                                     {{-- </h4> --}}
                                                     <!-- div class="menu-text">Tomatoes / Olive Oil / Cheese</div -->
                                                     <div class="menu-text" style="text-align: right;">
