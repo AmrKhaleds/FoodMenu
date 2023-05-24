@@ -113,7 +113,7 @@
                                                         
                                                     
                                                 </div>
-                                                <p class="menu-desc" style="color: #ff6a6a;" >ربع كفتة لحم بلدى مشوى على الفحم</p>
+                                                <p class="menu-desc" style="color: #ff6a6a;" >{{ $product->desc }}</p>
                                             </div>
                                         </div>
                                     @endforeach
