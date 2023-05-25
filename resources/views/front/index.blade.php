@@ -30,7 +30,7 @@
     <link rel="stylesheet" id="dina-style-css-css" href="{{ asset('front/style.css') }}" type="text/css"
         media="all" />
     <!-- favicons -->
-    {!! htmlScriptTagJsApi() !!}
+    {{-- {!! htmlScriptTagJsApi() !!} --}}
 </head>
 
 <body class="body-header1"
@@ -105,7 +105,7 @@
                                                             style="margin-right: 10px;">اضف الى قائمة الحجز</label>
                                                         <input id="checkbox-{{ $product->id }}" type="checkbox"
                                                             value="{{ $product->id }}" data-cost="{{ $product->price }}"
-                                                            class="checkboxes" name="menu[]">
+                                                            class="checkboxes" name="menu[]" {{ old('menu') && in_array($product->id, old('menu')) ? 'checked' : '' }}>
                                                     </div>
                                                 </div>
                                                 <p class="menu-desc" style="color: #ff6a6a;">{{ $product->desc }}</p>
@@ -167,8 +167,8 @@
                             border: 2px solid white;
                             height: 40px;direction: rtl;">
                                 <option value="" selected disabled>نوع الطلب</option>
-                                <option value="resturant">داخل المطعم</option>
-                                <option value="delivery">ديليفرى</option>
+                                <option value="resturant" {{ old('request_type') == "resturant" ? "selected" : '' }}>داخل المطعم</option>
+                                <option value="delivery" {{ old('request_type') == "delivery" ? "selected" : '' }}>ديليفرى</option>
                             </select>
                             @error('request_type')
                                 <span id="name_error" class="text-danger">{{ $message }}</span>
@@ -181,7 +181,7 @@
                                 <span class="menu-price">إجمالى الطلبات</span>
                             </h5>
                         </div>
-                        {!! htmlFormSnippet() !!}
+                        {{-- {!! htmlFormSnippet() !!} --}}
                         <div class="col-md-12" style="text-align: center">
                             <button type="submit" id="submit">طلب</button>
                         </div>
