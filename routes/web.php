@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontController::class, 'index'])->name('front');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::post('/order', [FrontOrderController::class, 'store'])->name('request-order');
 

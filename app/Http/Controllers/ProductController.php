@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::orderBy('created_at', 'desc')->get();
         return view('dashboard.products.index', compact('products'));
     }
 
@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('created_at', 'desc')->get();
         return view('dashboard.products.create', compact('categories'));
     }
 
@@ -50,9 +50,11 @@ class ProductController extends Controller
             'category_id' => $requestData['category_id'],
         ]);
         if ($product) {
-            return redirect()->route('products.create')->with(['success' => 'تم إنشاء المنتج بنجاح']);
+            toastr()->success('تم إنشاء المنتج بنجاح');
+            return redirect()->route('products.create');
         }
-        return redirect()->route('products.index')->with(['error', 'حدث خطأ اثناء العملية']);
+        toastr()->error('حدث خطأ اثناء العملية');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -99,9 +101,11 @@ class ProductController extends Controller
             'category_id' => $requestData['category_id'],
         ]);
         if ($update) {
-            return redirect()->route('products.index')->with(['success' => 'تم تحديث المنتج بنجاح']);
+            toastr()->success('تم تحديث المنتج بنجاح');
+            return redirect()->route('products.index');
         }
-        return redirect()->route('products.index')->with(['error' => 'حدثت مشكلة اثناء تحديث المنتج']);
+        toastr()->error('حدثت مشكلة اثناء تحديث المنتج');
+        return redirect()->route('products.index');
     }
 
     /**
@@ -111,8 +115,10 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         if ($product->delete()) {
-            return redirect()->route('products.index')->with(['success' => 'تم حذف المنتج بنجاح']);
+            toastr()->success('تم حذف المنتج بنجاح');
+            return redirect()->route('products.index');
         }
-        return redirect()->route('products.index')->with(['error' => 'حدثت مشكلة اثناء حذف المنتج']);
+        toastr()->error('حدثت مشكلة اثناء حذف المنتج');
+        return redirect()->route('products.index');
     }
 }

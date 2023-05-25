@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('phone');
-            $table->enum('request_type', ['delivery', 'in-resturant']);
+            $table->enum('request_type', ['delivery', 'resturant']);
             $table->text('menu');
             $table->timestamps();
         });

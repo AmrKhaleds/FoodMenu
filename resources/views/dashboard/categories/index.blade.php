@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                        <table class="table table-striped table-bordered file-export">
+                                        <table class="table table-striped table-bordered file-export" id="categories">
                                             <thead>
                                                 <tr>
                                                     <th>اسم الفئة</th>
@@ -108,4 +108,14 @@
 @section('page_level_js')
     <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript">
     </script>
+@endsection
+@section('custom_js')
+<script>
+    $(document).ready(function() {
+        // Destroy the existing DataTable instance
+        $('#categories').DataTable().destroy();
+        // $('#order').DataTable();
+        $('#categories').DataTable({ "bSort" : false } )
+    });
+</script>
 @endsection

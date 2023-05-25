@@ -6,9 +6,12 @@
                     <span class="menu-title" data-i18n="nav.dash.main">الرئيسية</span>
                 </a>
             </li>
-            <li class=" nav-item {{ Route::currentRouteNamed('orders.index') ? 'active open' : '' }}"><a
-                    href="{{ route('orders.index') }}"><i class="la la-files-o"></i><span class="menu-title"
-                        data-i18n="nav.templates.main">الطلبات</span></a>
+            <li class=" nav-item {{ Route::currentRouteNamed('orders.index') ? 'active open' : '' }}">
+
+                <a href="{{ route('orders.index') }}">
+                    <i class="la la-files-o"></i>
+                    <span class="badge badge badge-danger badge-pill float-right">{{ App\Models\Order::count() }}</span>
+                    <span class="menu-title" data-i18n="nav.templates.main">الطلبات</span></a>
             </li>
             <li class=" nav-item"><a href="#"><i class="la la-files-o"></i><span class="menu-title"
                         data-i18n="nav.templates.main">الفئات</span></a>

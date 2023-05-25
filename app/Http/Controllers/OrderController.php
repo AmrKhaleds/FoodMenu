@@ -13,7 +13,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::orderBy('created_at', 'desc')->get();
         return view('dashboard.orders.index', compact('orders'));
     }
 
@@ -76,7 +76,8 @@ class OrderController extends Controller
     {
         $order = Order::find($id);
         if($order->delete()){
-            return redirect()->route('orders.index')->with(['success' => 'تم حذف الطلب بنجاح']);
+            toastr()->success('تم حذف الطلب بنجاح');
+            return redirect()->route('orders.index');
         }
     }
 }

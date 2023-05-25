@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('created_at', 'desc')->get();
         return view('dashboard.categories.index', compact('categories'));
     }
 
@@ -32,7 +32,8 @@ class CategoryController extends Controller
     {
         
         Category::create($request->all());
-        return redirect()->route('categories.index')->with(['success' => 'تم انشاء الفئة بنجاح']);
+        toastr()->success('تم انشاء الفئة بنجاح');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -60,9 +61,11 @@ class CategoryController extends Controller
         $requestData = $request->only(['name']);
         $category = Category::where('id', $id)->update($requestData);
         if($category){
-            return redirect()->route('categories.index')->with(['success' => 'تم تعديل الفئة بنجاح']);
+            toastr()->success('تم تعديل الفئة بنجاح');
+            return redirect()->route('categories.index');
         }
-        return redirect()->route('categories.index')->with(['error' => 'حدثت مشكلة اثناء تحديث الفئة']);
+        toastr()->error('حدثت مشكلة اثناء تحديث الفئة');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -72,8 +75,10 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         if($category->delete()){
-            return redirect()->route('categories.index')->with(['success' => 'تم حذف الفئة بنجاح']);
+            toastr()->success('تم حذف الفئة بنجاح');
+            return redirect()->route('categories.index');
         }
-        return redirect()->route('categories.index')->with(['error' => 'حدثت مشكلة اثناء حذف الفئة']);
+        toastr()->error('حدثت مشكلة اثناء حذف الفئة');
+        return redirect()->route('categories.index');
     }
 }

@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body card-dashboard">
-                                        <table class="table table-striped table-bordered file-export">
+                                        <table class="table table-striped table-bordered file-export" id="order">
                                             <thead>
                                                 <tr>
                                                     <th>اسم العميل</th>
@@ -50,6 +50,7 @@
                                                     <th>ايميل العميل</th>
                                                     <th>عدد الطلبات</th>
                                                     <th>من خلال</th>
+                                                    <th>تاريخ الطلب</th>
                                                     <th>العمليات</th>
                                                 </tr>
                                             </thead>
@@ -62,10 +63,12 @@
                                                             <td>{{ $order->email }}</td>
                                                             <td>{{ count($order->menu) }}</td>
                                                             <td>{{ $order->request_type }}</td>
+                                                            <td>{{ $order->created_at }}</td>
                                                             <td>
-                                                                <div class="btn-group" role="group"
-                                                                    aria-label="Basic example" style="flex-wrap: nowrap;">
-                                                                    <a href="{{ route('orders.show', $order->id) }}" class="btn btn-primary btn-sm rounded-5 mr-1">
+                                                                <div class="btn-group" role="group" aria-label="Basic example"
+                                                                    style="flex-wrap: nowrap;">
+                                                                    <a href="{{ route('orders.show', $order->id) }}"
+                                                                        class="btn btn-primary btn-sm rounded-5 mr-1">
                                                                         <i class="la la-eye"></i>
                                                                     </a>
                                                                     <form action="{{ route('orders.destroy', $order->id) }}"
@@ -73,7 +76,8 @@
                                                                         @method('DELETE')
                                                                         @csrf
                                                                         <button type="submit"
-                                                                            class="btn btn-danger btn-sm rounded-5 mr-1"><i class="la la-remove"></i></button>
+                                                                            class="btn btn-danger btn-sm rounded-5 mr-1"><i
+                                                                                class="la la-remove"></i></button>
                                                                     </form>
                                                                 </div>
                                                             </td>
@@ -88,6 +92,7 @@
                                                     <th>ايميل العميل</th>
                                                     <th>عدد الطلبات</th>
                                                     <th>من خلال</th>
+                                                    <th>تاريخ الطلب</th>
                                                     <th>العمليات</th>
                                                 </tr>
                                             </tfoot>
@@ -117,6 +122,15 @@
     <script src="{{ asset('assets/vendors/js/charts/echarts/echarts.js') }}" type="text/javascript"></script>
 @endsection
 @section('page_level_js')
-    <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript">
+    <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript"></script>
+@endsection
+@section('custom_js')
+    <script>
+        $(document).ready(function() {
+            // Destroy the existing DataTable instance
+            $('#order').DataTable().destroy();
+            // $('#order').DataTable();
+            $('#order').DataTable({ "bSort" : false } )
+        });
     </script>
 @endsection
