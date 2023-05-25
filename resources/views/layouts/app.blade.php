@@ -39,8 +39,8 @@
 
 <body class="vertical-layout vertical-menu-modern 2-columns   menu-expanded fixed-navbar" data-open="click"
     data-menu="vertical-menu-modern" data-col="2-columns">
-    @include('layouts.includes.alerts.success')
-    @include('layouts.includes.alerts.errors')
+    {{-- @include('layouts.includes.alerts.success')
+    @include('layouts.includes.alerts.errors') --}}
     @include('layouts.includes.header')
     @include('layouts.includes.sidebar')
     @yield('content')

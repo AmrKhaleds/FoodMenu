@@ -19,6 +19,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
         integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+
     <!-- Font Awesome Icons CSS -->
     <link rel="stylesheet" id="dina-font-awesome-css"
         href="{{ asset('front/css/fontawesome/css/font-awesome.min.css') }}" type="text/css" media="all" />
@@ -57,9 +59,15 @@
                 @csrf
                 <div id="one" class="row product">
                     <div class="error-container" style="width: 100%;text-align: center">
-                        @error('menu')
-                            <span id="name_error" class="text-danger">{{ $message }}</span>
-                        @enderror
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
                     </div>
                     @isset($categories)
                         @foreach ($categories as $category)
@@ -78,33 +86,19 @@
                                                 <img src="{{ asset('storage/products/' . $product->photo) }}" width="100%"
                                                     alt=""
                                                     style="border-radius: 20px; float: right;margin-left: 10px;">
-                                                {{-- <p class="menu-desc">{{ $product->desc }}</p> --}}
-
                                             </div>
                                             <div class="menu-post " style="width: 60%;">
                                                 <div class="menu-post-desc">
-                                                    {{-- <h4> --}}
-                                                    {{-- <div
-                                                        style="font-size: 15px;
-                                                        font-weight: 600;
-                                                        text-transform: uppercase;
-                                                        padding-right: 50px;
-                                                        position: relative;
-                                                        font-family: 'DroidArabicKufiRegular';
-                                                        display: flex;
-                                                        justify-content: space-between;
-                                                        flex-direction: column;"> --}}
-                                                    <!-- <span class="menu-dots"></span> -->
                                                     <span class="menu-price"
                                                         style="position: relative;display: block;    text-align: right;">{{ $product->name }}</span>
-
                                                     <span class="menu-title"
-                                                        style="position: relative;display: block;    text-align: right;">{{ $product->price }}.00
+                                                        style="font-size: 20px;
+                                                        position: relative;
+                                                        display: block;
+                                                        text-align: right;
+                                                        font-weight: bold;
+                                                        ">{{ $product->price }}.00
                                                         EGP</span>
-
-                                                    {{-- </div> --}}
-                                                    {{-- </h4> --}}
-                                                    <!-- div class="menu-text">Tomatoes / Olive Oil / Cheese</div -->
                                                     <div class="menu-text" style="text-align: right;">
                                                         <label for="checkbox-{{ $product->id }}"
                                                             style="margin-right: 10px;">اضف الى قائمة الحجز</label>
@@ -112,8 +106,6 @@
                                                             value="{{ $product->id }}" data-cost="{{ $product->price }}"
                                                             class="checkboxes" name="menu[]">
                                                     </div>
-
-
                                                 </div>
                                                 <p class="menu-desc" style="color: #ff6a6a;">{{ $product->desc }}</p>
                                             </div>
@@ -200,7 +192,7 @@
         <!--container-->
     </section>
     {{-- Total Cost --}}
-    <a onclick="openCity('two')" id="order" title="أضغط للطلب">
+    <a onclick="openCity('two')" id="order" title="أضغط للطلب" style="cursor: pointer">
         <div class="total-cost">
             <span id="totalCost">0</span> EGP: إجمالى الطلبات
         </div>
@@ -284,14 +276,12 @@
             });
         });
     </script>
-<script>
-
-// tippy('#order', {
-//                 content: 'ddd',
-//                 allowHTML: true,
-//                 });
-        
-</script>
+    <script>
+        // tippy('#order', {
+        //                 content: 'ddd',
+        //                 allowHTML: true,
+        //                 });
+    </script>
 </body>
 
 </html>

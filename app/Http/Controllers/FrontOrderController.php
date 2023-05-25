@@ -12,7 +12,8 @@ class FrontOrderController extends Controller
         // dd($request->all());
         $order = Order::create($request->all());
         if($order){
-            return redirect()->route('front')->with(['success' => 'تم الطلب بنجاح يرجى انتظار مكلمة من خدمة العملاء']);
+            toastr()->success('Data has been saved successfully!', 'Congrats');
+            return redirect()->route('front');
         }
     }
 }

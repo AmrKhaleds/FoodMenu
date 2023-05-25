@@ -34,7 +34,13 @@ class OrderRequest extends FormRequest
     public function messages()
     {
         return [
-            'menu.required' => "يجب إضافة المنتج الى قائمة الحجز اولاً"
+            'menu.required' => "يجب إضافة منتجات الى قائمة الحجز اولاً",
+            'name.required' => "لا يجب ترك خانة الأسم فارغه",
+            'phone.required' => "لا يجب ترك خانة التلفون فارغه",
+            'request_type.required' => "لا يجب ترك خانة نوع الطلب فارغه",
+            'email.required' => "لا يجب ترك خانة الإيميل فارغه",
+            'phone.digits_between' => "خانة التلفون يجب ان تحتوى على عدد ارقام من 10 الى 11 رقم",
+
         ];
     }
 }
