@@ -30,6 +30,7 @@
     <link rel="stylesheet" id="dina-style-css-css" href="{{ asset('front/style.css') }}" type="text/css"
         media="all" />
     <!-- favicons -->
+    {!! htmlScriptTagJsApi() !!}
 </head>
 
 <body class="body-header1"
@@ -180,6 +181,7 @@
                                 <span class="menu-price">إجمالى الطلبات</span>
                             </h5>
                         </div>
+                        {!! htmlFormSnippet() !!}
                         <div class="col-md-12" style="text-align: center">
                             <button type="submit" id="submit">طلب</button>
                         </div>
