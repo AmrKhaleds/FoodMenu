@@ -1,50 +1,10 @@
-<!DOCTYPE html>
-<html lang="en-US">
-
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MAX GRILL</title>
-    <meta name="robots" content="noodp" />
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet" />
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" id="dina-bootstrap-css-css" href="{{ asset('front/css/bootstrap/css/bootstrap.min.css') }}"
-        type="text/css" media="all" />
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
-        integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
-
-    <!-- Font Awesome Icons CSS -->
-    <link rel="stylesheet" id="dina-font-awesome-css"
-        href="{{ asset('front/css/fontawesome/css/font-awesome.min.css') }}" type="text/css" media="all" />
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />
-    <!-- Main CSS File -->
-    <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
-    <link rel="stylesheet" id="dina-style-css-css" href="{{ asset('front/style.css') }}" type="text/css"
-        media="all" />
-    <!-- favicons -->
-    {{-- {!! htmlScriptTagJsApi() !!} --}}
-</head>
-
-<body class="body-header1"
-    style="
-      background-color: rgb(23, 24, 25);
-      background-image: url('https://kalanidhithemes.com/live-preview/landing-page/delici/all-demo/Delici-Defoult/images/background/bg-5.png');
-    ">
+@extends('layouts.front')
+@section('content')
     <!-- TOP IMAGE HEADER -->
     <section class="topSingleBkg topPageBkg">
         <div class="item-content-bkg">
             <div class="item-img"
-                style="
-            background-image: url('https://scontent-hbe1-1.xx.fbcdn.net/v/t39.30808-6/327686260_1268680013683992_3014082107728065644_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeF5rewqi1NdOuvQ3gtr8utntIRNeoxjCx60hE16jGMLHt7OtKuprzKfe05pHCfgM8CMEdafhxj1IkX-MAIoOxRw&_nc_ohc=I47QoLQiY18AX-Q4hYz&_nc_ht=scontent-hbe1-1.xx&oh=00_AfDFGsUEzmk4stvSaQB_BPmRnBLz-eCaXzuQsk-0PJAFSA&oe=645C5209');
-          ">
+                style="background-image: url('https://scontent-hbe1-1.xx.fbcdn.net/v/t39.30808-6/327686260_1268680013683992_3014082107728065644_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeF5rewqi1NdOuvQ3gtr8utntIRNeoxjCx60hE16jGMLHt7OtKuprzKfe05pHCfgM8CMEdafhxj1IkX-MAIoOxRw&_nc_ohc=I47QoLQiY18AX-Q4hYz&_nc_ht=scontent-hbe1-1.xx&oh=00_AfDFGsUEzmk4stvSaQB_BPmRnBLz-eCaXzuQsk-0PJAFSA&oe=645C5209');">
             </div>
             <div class="inner-desc">
                 <!-- <h1 class="post-title single-post-title">MAX GRILL</h1> -->
@@ -55,10 +15,23 @@
     <!-- /TOP IMAGE HEADER -->
     <!-- MAIN WRAP CONTENT -->
     <section class="menu-3col-content">
+        <!--container-->
         <div class="container">
             <form action="{{ route('request-order') }}" method="post">
                 @csrf
-                <div id="one" class="row product">
+                <div id="one" class="row product tab-content">
+                    <section class="categories" id="categories" style="">
+                        <ul class="nav nav-pills" id="pills-tab" role="tablist" style="flex-wrap: nowrap;">
+                            @foreach ($categories as $key => $category)
+                                <li role="nav-link">
+                                    <a href="#{{ \Str::snake($category->slug, '-') }}"
+                                        aria-controls="{{ \Str::snake($category->slug, '-') }}" role="tab"
+                                        data-toggle="pill" class="cat-all nav-link {{ $key == 0 ? 'active' : '' }}"
+                                        aria-selected="{{ $key == 0 ? 'true' : 'false' }}">{{ $category->name }}</a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </section>
                     <div class="error-container" style="width: 100%;text-align: center">
                         @if ($errors->any())
                             <div class="alert alert-danger">
@@ -71,8 +44,10 @@
                         @endif
                     </div>
                     @isset($categories)
-                        @foreach ($categories as $category)
-                            <div class="col-md-12">
+                        @foreach ($categories as $key => $category)
+                            <div role="tabpanel" class="col-md-12 tab-pane fade {{ $key == 0 ? 'active show' : '' }}"
+                                aria-labelledby="{{ \Str::snake($category->slug, '-') }}"
+                                id="{{ \Str::snake($category->slug, '-') }}">
                                 <!-- STARTERS -->
                                 <div class="categ-name">
                                     <h2>{{ $category->name }}</h2>
@@ -85,8 +60,7 @@
                                             style="display:flex;flex-direction:row-reverse;flex-wrap: wrap;flex-direction: row-reverse;justify-content: space-between;margin-bottom: 30px;">
                                             <div class="menu-image" style="width: 40%;">
                                                 <img src="{{ asset('storage/products/' . $product->photo) }}" width="100%"
-                                                    alt=""
-                                                    style="border-radius: 20px; float: right;margin-left: 10px;">
+                                                    alt="" style="border-radius: 20px; float: right;margin-left: 10px;">
                                             </div>
                                             <div class="menu-post " style="width: 60%;">
                                                 <div class="menu-post-desc">
@@ -105,7 +79,8 @@
                                                             style="margin-right: 10px;">اضف الى قائمة الحجز</label>
                                                         <input id="checkbox-{{ $product->id }}" type="checkbox"
                                                             value="{{ $product->id }}" data-cost="{{ $product->price }}"
-                                                            class="checkboxes" name="menu[]" {{ old('menu') && in_array($product->id, old('menu')) ? 'checked' : '' }}>
+                                                            class="checkboxes" name="menu[]"
+                                                            {{ old('menu') && in_array($product->id, old('menu')) ? 'checked' : '' }}>
                                                     </div>
                                                 </div>
                                                 <p class="menu-desc" style="color: #ff6a6a;">{{ $product->desc }}</p>
@@ -139,8 +114,8 @@
                     <div class="row" style="direction: rtl;">
 
                         <div class="col-md-6">
-                            <input type="text" name="name" class="reservation-fields inputs"
-                                placeholder="الإسم" value="{{ old('name') }}">
+                            <input type="text" name="name" class="reservation-fields inputs" placeholder="الإسم"
+                                value="{{ old('name') }}">
                             @error('name')
                                 <span id="name_error" class="text-danger">{{ $message }}</span>
                             @enderror
@@ -167,8 +142,10 @@
                             border: 2px solid white;
                             height: 40px;direction: rtl;">
                                 <option value="" selected disabled>نوع الطلب</option>
-                                <option value="resturant" {{ old('request_type') == "resturant" ? "selected" : '' }}>داخل المطعم</option>
-                                <option value="delivery" {{ old('request_type') == "delivery" ? "selected" : '' }}>ديليفرى</option>
+                                <option value="resturant" {{ old('request_type') == 'resturant' ? 'selected' : '' }}>
+                                    داخل المطعم</option>
+                                <option value="delivery" {{ old('request_type') == 'delivery' ? 'selected' : '' }}>
+                                    ديليفرى</option>
                             </select>
                             @error('request_type')
                                 <span id="name_error" class="text-danger">{{ $message }}</span>
@@ -188,60 +165,23 @@
                     </div>
                 </div>
             </form>
-            <!--col-md-12-->
-            <!--row-->
         </div>
         <!--container-->
     </section>
     {{-- Total Cost --}}
     <a onclick="openCity('two')" id="order" title="أضغط للطلب" style="cursor: pointer">
         <div class="total-cost">
-            <span id="totalCost">0</span> EGP: إجمالى الطلبات
+            <span id="totalCost">0</span> EGP : اطلب الأن
         </div>
     </a>
     <!-- /MAIN WRAP CONTENT -->
     <div class="taps">
         <a class="taps" id="next" onclick="openCity('two')" style="">
-            احجز دلوقتى
+            اطلب الأن
         </a>
-        <!-- <button class="w3-bar-item w3-button" onclick="openCity('Tokyo')">Tokyo</button> -->
     </div>
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <!-- FOOTER COPYRIGHT -->
-            <div class="copyright">
-                Copyright &copy; 2023, Designed by
-                <a href="https://akeissa.com">AKEissa.com</a>
-            </div>
-            <!-- /FOOTER COPYRIGHT -->
-            <!-- FOOTER SCROLL UP -->
-            <div class="scrollup">
-                <a class="scrolltop" href="#">
-                    <i class="fas fa-chevron-up"></i>
-                </a>
-            </div>
-            <!-- /FOOTER SCROLL UP -->
-        </div>
-        <!--container-->
-    </footer>
-    <!-- /FOOTER -->
-    <!-- JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
-        integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="{{ asset('front/js/jquery.js') }}"></script>
-    <script src="{{ asset('front/js/jquery-migrate.min.js') }}"></script>
-    <script src="{{ asset('front/css/bootstrap/js/popper.min.js') }}"></script>
-    <script src="{{ asset('front/css/bootstrap/js/bootstrap.min.js') }}"></script>
-    <script src="{{ asset('front/js/jquery.easing.min.js') }}"></script>
-    <script src="{{ asset('front/js/jquery.fitvids.js') }}"></script>
-    <script src="{{ asset('front/js/jquery.magnific-popup.min.js') }}"></script>
-    <script src="{{ asset('front/js/owl-carousel/owl.carousel.min.js') }}"></script>
-    <!-- MAIN JS -->
-    <script src="{{ asset('front/js/init.js') }}"></script>
-    {{-- <script src="https://unpkg.com/@popperjs/core@2"></script>
-    <script src="https://unpkg.com/tippy.js@6"></script> --}}
+@endsection
+@section('custom_js')
     <script>
         function openCity(cityName) {
             var i;
@@ -278,12 +218,4 @@
             });
         });
     </script>
-    <script>
-        // tippy('#order', {
-        //                 content: 'ddd',
-        //                 allowHTML: true,
-        //                 });
-    </script>
-</body>
-
-</html>
+@endsection

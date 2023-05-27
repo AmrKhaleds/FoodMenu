@@ -47,6 +47,7 @@ class OrderController extends Controller
             $totalPrice += $price;
             $products[] = [
                 'name' => $getProduct->name,
+                'desc' => $getProduct->desc,
                 'price' => $price
             ];
         }

@@ -31,7 +31,9 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         
-        Category::create($request->all());
+        $category = new Category();
+        $category->name = $request['name']; // Replace with the actual name input
+        $category->save();
         toastr()->success('تم انشاء الفئة بنجاح');
         return redirect()->route('categories.index');
     }

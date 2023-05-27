@@ -91,7 +91,7 @@
                                                     <th scope="row">{{ $x }}</th>
                                                     <td>
                                                         <p>{{ $product['name'] }}</p>
-                                                        <p class="text-muted">{{ $product['desc'] ?? "لا يوجد وصف للمنتج" }}</p>
+                                                        <p class="text-muted">{{ $product['desc'] }}</p>
                                                     </td>
                                                     <td class="text-right">{{ $product['price'] }} EGP</td>
                                                 </tr>

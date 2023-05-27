@@ -63,6 +63,26 @@ https://matchthemes.com
     --headings-h6-size: 16px;
 }
 
+::-webkit-scrollbar {
+    width: 5px;
+    height: 8px;
+}
+
+ ::-webkit-scrollbar-track {
+    background: #27292b;
+    /* border: 1px so; */
+    border-radius: 20px;
+}
+
+ ::-webkit-scrollbar-thumb {
+    background: #fdd7a2;
+    border-radius: 10px;
+}
+
+ ::-webkit-scrollbar-thumb:hover {
+    background: #d1b183;
+}
+
 
 /*************************************
 
@@ -514,6 +534,11 @@ a,
 2. HEADER
 
 ************************************/
+
+.nav {
+    margin-bottom: 10px;
+    display: block;
+}
 
 .navbar {
     text-align: left;
@@ -4719,4 +4744,44 @@ select>option {
     to {
         transform: translateX(100%);
     }
+}
+
+.categories {
+    position: relative;
+    overflow: auto;
+    direction: rtl;
+    margin-bottom: 23px;
+    /* display: flex; */
+}
+
+.categories ul {
+    /* display: flex; */
+    position: relative;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.categories li {
+    background: none;
+    border: 2px solid rgb(228, 197, 144);
+    color: white;
+    padding: 6px;
+    margin: 0 7px;
+    border-radius: 20px;
+    display: inline-block;
+    list-style-type: none;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+    color: #ffffff;
+    background: none;
+}
+
+@media (min-width: 1200px) {
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl {}
 }
