@@ -48,7 +48,7 @@
             <!-- /FOOTER COPYRIGHT -->
             <!-- FOOTER SCROLL UP -->
             <div class="scrollup">
-                <a class="scrolltop" href="#">
+                <a class="scrolltop" href="#" id="scroll-up-button">
                     <i class="fas fa-chevron-up"></i>
                 </a>
             </div>
@@ -71,6 +71,28 @@
     <script src="{{ asset('front/js/owl-carousel/owl.carousel.min.js') }}"></script>
     <!-- MAIN JS -->
     <script src="{{ asset('front/js/init.js') }}"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            var scrollUpButton = document.getElementById('scroll-up-button');
+
+            function handleScroll() {
+                var viewHeight = window.innerHeight;
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                if (viewHeight === 0 || scrollTop === 0) {
+                    scrollUpButton.style.display = 'none';
+                } else {
+                    scrollUpButton.style.display = 'block';
+                }
+            }
+
+            window.addEventListener('scroll', handleScroll);
+            window.addEventListener('resize', handleScroll);
+
+            // Initial check on page load
+            handleScroll();
+        });
+    </script>
     @yield('custom_js')
 </body>
 
