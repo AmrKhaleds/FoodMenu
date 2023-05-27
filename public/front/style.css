@@ -118,6 +118,7 @@ p,
 blockquote,
 th,
 td {
+    scroll-behavior: smooth;
     margin: 0;
     padding: 0;
     -webkit-user-select: none;
@@ -3283,21 +3284,28 @@ select.reservation-fields {
 }
 
 .scrollup {
-    display: none;
+    display: block;
 }
 
 .scrollup i {
     width: 30px;
+    color: black;
     height: 30px;
     position: fixed;
-    background: var(--headings-color);
+    background: rgb(228, 197, 144);
     border-radius: 50%;
     bottom: 20px;
-    right: 20px;
+    left: 20px;
     text-align: center;
     padding-top: 6px;
     cursor: pointer;
     z-index: 110;
+    transition: 0.4s ease-in-out;
+}
+
+.scrollup i:hover {
+    background: rgb(255, 222, 165);
+    transition: 0.4s ease-in-out;
 }
 
 .pp_social {
