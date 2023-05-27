@@ -41,6 +41,7 @@
     data-menu="vertical-menu-modern" data-col="2-columns">
     {{-- @include('layouts.includes.alerts.success')
     @include('layouts.includes.alerts.errors') --}}
+
     @include('layouts.includes.header')
     @include('layouts.includes.sidebar')
     @yield('content')

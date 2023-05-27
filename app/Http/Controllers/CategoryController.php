@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Yoeunes\Toastr\Facades\Toastr;
 
 class CategoryController extends Controller
 {
@@ -35,7 +36,7 @@ class CategoryController extends Controller
         $category->name = $request['name']; // Replace with the actual name input
         $category->save();
         toastr()->success('تم انشاء الفئة بنجاح');
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.create');
     }
 
     /**
@@ -63,7 +64,7 @@ class CategoryController extends Controller
         $requestData = $request->only(['name']);
         $category = Category::where('id', $id)->update($requestData);
         if($category){
-            toastr()->success('تم تعديل الفئة بنجاح');
+            Toastr::success('تم تعديل الفئة بنجاح');
             return redirect()->route('categories.index');
         }
         toastr()->error('حدثت مشكلة اثناء تحديث الفئة');
