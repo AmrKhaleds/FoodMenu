@@ -30,4 +30,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function (){
     Route::resource('/orders', OrderController::class);
     Route::resource('/categories', CategoryController::class);
     Route::resource('/products', ProductController::class);
+    // Update Status
+    Route::post('/update-category-status', [CategoryController::class, 'updateCategoryStatus'])->name('updateCategoryStatus');
+    Route::post('/update-product-status', [ProductController::class, 'updateProductStatus'])->name('updateProductStatus');
 });

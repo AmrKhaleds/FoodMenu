@@ -124,13 +124,3 @@
 @section('page_level_js')
     <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript"></script>
 @endsection
-@section('custom_js')
-    <script>
-        $(document).ready(function() {
-            // Destroy the existing DataTable instance
-            $('#order').DataTable().destroy();
-            // $('#order').DataTable();
-            $('#order').DataTable({ "bSort" : false } )
-        });
-    </script>
-@endsection

@@ -56,36 +56,39 @@
                                 </div>
                                 <div class="menu-holder row">
                                     @foreach ($category->product as $product)
-                                        <div class="menu-container col-md-4"
-                                            style="display:flex;flex-direction:row-reverse;flex-wrap: wrap;flex-direction: row-reverse;justify-content: space-between;margin-bottom: 30px;">
-                                            <div class="menu-image" style="width: 40%;">
-                                                <img src="{{ asset('storage/products/' . $product->photo) }}" width="100%"
-                                                    alt="" style="border-radius: 20px; float: right;margin-left: 10px;">
-                                            </div>
-                                            <div class="menu-post " style="width: 60%;">
-                                                <div class="menu-post-desc">
-                                                    <span class="menu-price"
-                                                        style="position: relative;display: block;    text-align: right;">{{ $product->name }}</span>
-                                                    <span class="menu-title"
-                                                        style="font-size: 20px;
-                                                        position: relative;
-                                                        display: block;
-                                                        text-align: right;
-                                                        font-weight: bold;
-                                                        ">{{ $product->price }}.00
-                                                        EGP</span>
-                                                    <div class="menu-text" style="text-align: right;">
-                                                        <label for="checkbox-{{ $product->id }}"
-                                                            style="margin-right: 10px;">اضف الى قائمة الحجز</label>
-                                                        <input id="checkbox-{{ $product->id }}" type="checkbox"
-                                                            value="{{ $product->id }}" data-cost="{{ $product->price }}"
-                                                            class="checkboxes" name="menu[]"
-                                                            {{ old('menu') && in_array($product->id, old('menu')) ? 'checked' : '' }}>
-                                                    </div>
+                                        @if ($product->status)
+                                            <div class="menu-container col-md-4"
+                                                style="display:flex;flex-direction:row-reverse;flex-wrap: wrap;flex-direction: row-reverse;justify-content: space-between;margin-bottom: 30px;">
+                                                <div class="menu-image" style="width: 40%;">
+                                                    <img src="{{ asset('storage/products/' . $product->photo) }}"
+                                                        width="100%" alt=""
+                                                        style="border-radius: 20px; float: right;margin-left: 10px;">
                                                 </div>
-                                                <p class="menu-desc" style="color: #ff6a6a;">{{ $product->desc }}</p>
+                                                <div class="menu-post " style="width: 60%;">
+                                                    <div class="menu-post-desc">
+                                                        <span class="menu-price"
+                                                            style="position: relative;display: block;    text-align: right;">{{ $product->name }}</span>
+                                                        <span class="menu-title"
+                                                            style="font-size: 20px;
+                                                            position: relative;
+                                                            display: block;
+                                                            text-align: right;
+                                                            font-weight: bold;
+                                                            ">{{ $product->price }}.00
+                                                            EGP</span>
+                                                        <div class="menu-text" style="text-align: right;">
+                                                            <label for="checkbox-{{ $product->id }}"
+                                                                style="margin-right: 10px;">اضف الى قائمة الحجز</label>
+                                                            <input id="checkbox-{{ $product->id }}" type="checkbox"
+                                                                value="{{ $product->id }}" data-cost="{{ $product->price }}"
+                                                                class="checkboxes" name="menu[]"
+                                                                {{ old('menu') && in_array($product->id, old('menu')) ? 'checked' : '' }}>
+                                                        </div>
+                                                    </div>
+                                                    <p class="menu-desc" style="color: #ff6a6a;">{{ $product->desc }}</p>
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endif
                                     @endforeach
                                 </div>
                                 <!--menu-3-col-->
@@ -183,6 +186,7 @@
 @endsection
 @section('custom_js')
     <script>
+        // Taps Switch
         function openCity(cityName) {
             var i;
             var x = document.getElementsByClassName("product");

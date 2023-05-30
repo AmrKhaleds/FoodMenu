@@ -84,4 +84,30 @@ class CategoryController extends Controller
         toastr()->error('حدثت مشكلة اثناء حذف الفئة');
         return redirect()->route('categories.index');
     }
+
+    public function updateCategoryStatus(Request $request){
+        $requestData = $request->validate([
+            'category_id' => 'required',
+            'status' => 'required|in:0,1',
+        ]);
+    
+        $category = Category::find($requestData['category_id']);
+        if (!$category) {
+            return response()->json([
+                'status' => false,
+                'msg' => 'Category not found',
+            ]);
+        }
+    
+        $category->status = $requestData['status'];
+        $category->save();
+    
+        $message = $requestData['status'] == 1 ? 'تم تفعيل الفئة بنجاح' : 'تم إلغاء تفعيل الفئة بنجاح';
+    
+        return response()->json([
+            'status' => true,
+            'msg' => $message,
+        ]);
+    
+    }
 }

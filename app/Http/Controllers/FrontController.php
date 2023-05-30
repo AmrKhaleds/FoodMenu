@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class FrontController extends Controller
 {
     public function index(){
-        $categories = Category::all();
+        $categories = Category::query()->where('status', true)->get();
         return view('front.index', compact('categories'));
     }
     

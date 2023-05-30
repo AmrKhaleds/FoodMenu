@@ -121,4 +121,30 @@ class ProductController extends Controller
         toastr()->error('حدثت مشكلة اثناء حذف المنتج');
         return redirect()->route('products.index');
     }
+
+    public function updateProductStatus(Request $request){
+        $requestData = $request->validate([
+            'product_id' => 'required',
+            'status' => 'required|in:0,1',
+        ]);
+    
+        $category = Product::find($requestData['product_id']);
+        if (!$category) {
+            return response()->json([
+                'status' => false,
+                'msg' => 'Product not found',
+            ]);
+        }
+    
+        $category->status = $requestData['status'];
+        $category->save();
+    
+        $message = $requestData['status'] == 1 ? 'تم تفعيل المنتج بنجاح' : 'تم إلغاء تفعيل المنتج بنجاح';
+    
+        return response()->json([
+            'status' => true,
+            'msg' => $message,
+        ]);
+    
+    }
 }

@@ -51,6 +51,7 @@
                                                     <th>فئة المنتج</th>
                                                     <th>وصف المنتج</th>
                                                     <th>السعر يالمصرى</th>
+                                                    <th>الحالة</th>
                                                     <th>العمليات</th>
                                                 </tr>
                                             </thead>
@@ -59,24 +60,41 @@
                                                     @foreach ($products as $product)
                                                         <tr>
                                                             <td>
-                                                                <img style="width: 100px;" src="{{asset('storage/products/' . $product->photo)}}" alt="">
+                                                                <img style="width: 100px;"
+                                                                    src="{{ asset('storage/products/' . $product->photo) }}"
+                                                                    alt="">
                                                             </td>
                                                             <td>{{ $product->name }}</td>
-                                                            <td><span class="badge badge badge-pill badge-info mr-2">{{ $product->category->name }}</span></td>
+                                                            <td><span
+                                                                    class="badge badge badge-pill badge-info mr-2">{{ $product->category->name }}</span>
+                                                            </td>
                                                             <td>{{ Str::limit($product->desc, 20) }}</td>
                                                             <td>{{ $product->price }}</td>
                                                             <td>
-                                                                <div class="btn-group" role="group"
-                                                                    aria-label="Basic example" style="flex-wrap: nowrap;">
-                                                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-secondary btn-sm rounded-5 mr-1">
+                                                                <div class="container">
+                                                                    <label class="switch">
+                                                                        <input type="checkbox" name="status" class="status"
+                                                                            data-product-id="{{ $product->id }}"
+                                                                            @if ($product->status == 1) checked @endif />
+                                                                        <div></div>
+                                                                    </label>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-group" role="group" aria-label="Basic example"
+                                                                    style="flex-wrap: nowrap;">
+                                                                    <a href="{{ route('products.edit', $product->id) }}"
+                                                                        class="btn btn-secondary btn-sm rounded-5 mr-1">
                                                                         <i class="la la-edit"></i>
                                                                     </a>
-                                                                    <form action="{{ route('products.destroy', $product->id) }}"
+                                                                    <form
+                                                                        action="{{ route('products.destroy', $product->id) }}"
                                                                         method="POST">
                                                                         @method('DELETE')
                                                                         @csrf
                                                                         <button type="submit"
-                                                                            class="btn btn-danger btn-sm rounded-5 mr-1"><i class="la la-remove"></i></button>
+                                                                            class="btn btn-danger btn-sm rounded-5 mr-1"><i
+                                                                                class="la la-remove"></i></button>
                                                                     </form>
                                                                 </div>
                                                             </td>
@@ -91,6 +109,7 @@
                                                     <th>فئة المنتج</th>
                                                     <th>وصف المنتج</th>
                                                     <th>السعر يالمصرى</th>
+                                                    <th>الحالة</th>
                                                     <th>العمليات</th>
                                                 </tr>
                                             </tfoot>
@@ -117,6 +136,33 @@
     <script src="{{ asset('assets/vendors/js/tables/buttons.print.min.js') }}" type="text/javascript"></script>
 @endsection
 @section('page_level_js')
-    <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript">
+    <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript"></script>
+@endsection
+@section('custom_js')
+    <script>
+        $('.status').on('click', function() {
+            var product_id = $(this).data('product-id');
+            var isChecked = $(this).prop('checked') ? 1 : 0; // Get the checked state and convert it to 1 or 0
+            $.ajax({
+                url: '/dashboard/update-product-status',
+                type: 'POST',
+                data: {
+                    product_id: product_id,
+                    status: isChecked // Pass the updated status as data
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response.status) {
+                        toastr.success(response.msg, 'Success');
+                    } else {
+                        toastr.success(response.msg, 'Success');
+                    }
+                    // Handle UI updates based on the updated status
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText);
+                }
+            });
+        });
     </script>
 @endsection
