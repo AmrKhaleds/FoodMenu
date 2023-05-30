@@ -51,6 +51,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .switch input {
     position: absolute;
     opacity: 0;
+    right: 0;
 }
 
 .switch {

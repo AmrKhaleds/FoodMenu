@@ -75,7 +75,7 @@
                                                                     <label class="switch">
                                                                         <input type="checkbox" name="status" class="status"
                                                                             data-product-id="{{ $product->id }}"
-                                                                            @if ($product->status == 1) checked @endif />
+                                                                            @if ($product->status == true) checked @endif />
                                                                         <div></div>
                                                                     </label>
                                                                 </div>
