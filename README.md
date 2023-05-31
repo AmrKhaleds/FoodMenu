@@ -1,3 +1,3 @@
-# Resturant Menu System PHP Laravel
+# Restaurant Menu System using PHP/Laravel
 
 [Documentation] <= Comming SOON
