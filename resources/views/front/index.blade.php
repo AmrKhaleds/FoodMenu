@@ -1,10 +1,11 @@
 @extends('layouts.front')
+@section('title', $settings['site_name'])
 @section('content')
     <!-- TOP IMAGE HEADER -->
     <section class="topSingleBkg topPageBkg">
         <div class="item-content-bkg">
             <div class="item-img"
-                style="background-image: url('https://scontent-hbe1-1.xx.fbcdn.net/v/t39.30808-6/327686260_1268680013683992_3014082107728065644_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=e3f864&_nc_eui2=AeF5rewqi1NdOuvQ3gtr8utntIRNeoxjCx60hE16jGMLHt7OtKuprzKfe05pHCfgM8CMEdafhxj1IkX-MAIoOxRw&_nc_ohc=I47QoLQiY18AX-Q4hYz&_nc_ht=scontent-hbe1-1.xx&oh=00_AfDFGsUEzmk4stvSaQB_BPmRnBLz-eCaXzuQsk-0PJAFSA&oe=645C5209');">
+                style="background-image: url('http://maxgrill.akeissa.com/storage/327686260_1268680013683992_3014082107728065644_n.jpg')">
             </div>
             <div class="inner-desc">
                 <!-- <h1 class="post-title single-post-title">MAX GRILL</h1> -->
@@ -19,6 +20,7 @@
         <div class="container">
             <form action="{{ route('request-order') }}" method="post">
                 @csrf
+                <input type="hidden" name="order_number">
                 <div id="one" class="row product tab-content">
                     <section class="categories" id="categories" style="">
                         <ul class="nav nav-pills" id="pills-tab" role="tablist" style="flex-wrap: nowrap;">

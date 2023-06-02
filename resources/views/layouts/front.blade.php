@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MAX GRILL</title>
+    <title>@yield('title')</title>
     <meta name="robots" content="noodp" />
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,7 +43,7 @@
             <!-- FOOTER COPYRIGHT -->
             <div class="copyright">
                 Copyright &copy; 2023, Designed by
-                <a href="https://akeissa.com">AKEissa.com</a>
+                <a href="https://akeissa.com">{{ $settings['copyright'] }}</a>
             </div>
             <!-- /FOOTER COPYRIGHT -->
             <!-- FOOTER SCROLL UP -->

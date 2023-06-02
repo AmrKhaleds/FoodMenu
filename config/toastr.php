@@ -22,10 +22,4 @@ return array(
     |     'progressBar' => true,
     | ],
     */
-
-    'options' => array(
-        'progressBar' => true,
-        'positionClass'     => 'toast-bottom-left',
-        'rtl' => true
-    ),
 );

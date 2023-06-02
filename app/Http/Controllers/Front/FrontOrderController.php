@@ -9,12 +9,14 @@ use App\Http\Controllers\Controller;
 
 class FrontOrderController extends Controller
 {
-    public function store(OrderRequest $request){
-        // dd($request->all());
-        $order = Order::create($request->all());
-        if($order){
-            toastr()->success('تم طلب المنتج بنجاح');
-            return redirect()->route('front');
-        }
+    public function __invoke(OrderRequest $request){
+        $requestData = $request->all();
+        $latestOrder = Order::orderBy('created_at','DESC')->first();
+        $requestData['order_number'] = '#' . str_pad($latestOrder->id + 1, 8, "0", STR_PAD_LEFT);;
+        
+        Order::create($requestData);
+
+        toastr()->success('تم طلب المنتج بنجاح');
+        return redirect()->route('front');
     }
 }

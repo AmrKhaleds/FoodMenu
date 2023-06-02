@@ -40,6 +40,11 @@
                     </li>
                 </ul>
             </li>
+            <li class=" nav-item {{ Route::currentRouteNamed('settings.index') ? 'active open' : '' }}">
+                <a href="{{ route('settings.index') }}"><i class="la la-home"></i>
+                    <span class="menu-title" data-i18n="nav.dash.main">الإعدادت</span>
+                </a>
+            </li>
             <li class=" nav-item {{ Route::currentRouteNamed('front') ? 'active open' : '' }}">
                 <a href="{{ route('front') }}" target="_blank"><i class="la la-home"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">الموقع</span>

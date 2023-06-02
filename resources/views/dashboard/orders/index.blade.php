@@ -45,10 +45,10 @@
                                         <table class="table table-striped table-bordered file-export" id="order">
                                             <thead>
                                                 <tr>
+                                                    <th>#</th>
+                                                    <th>رقم الطلب</th>
                                                     <th>اسم العميل</th>
                                                     <th>تلفون العميل</th>
-                                                    <th>ايميل العميل</th>
-                                                    <th>عدد الطلبات</th>
                                                     <th>من خلال</th>
                                                     <th>تاريخ الطلب</th>
                                                     <th>العمليات</th>
@@ -58,10 +58,10 @@
                                                 @isset($orders)
                                                     @foreach ($orders as $order)
                                                         <tr>
+                                                            <td>{{ $loop->iteration }}</td>
+                                                            <td>{{ $order->order_number }}</td>
                                                             <td>{{ $order->name }}</td>
                                                             <td>{{ $order->phone }}</td>
-                                                            <td>{{ $order->email }}</td>
-                                                            <td>{{ count($order->menu) }}</td>
                                                             <td>{{ $order->request_type }}</td>
                                                             <td>{{ $order->created_at }}</td>
                                                             <td>
@@ -87,10 +87,10 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
+                                                    <th>#</th>
+                                                    <th>رقم الطلب</th>
                                                     <th>اسم العميل</th>
                                                     <th>تلفون العميل</th>
-                                                    <th>ايميل العميل</th>
-                                                    <th>عدد الطلبات</th>
                                                     <th>من خلال</th>
                                                     <th>تاريخ الطلب</th>
                                                     <th>العمليات</th>

@@ -13,6 +13,7 @@
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Quicksand:300,400,500,700"
         rel="stylesheet">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -54,6 +55,10 @@
     <!-- BEGIN VENDOR JS-->
     <script src="{{ asset('assets/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.7/jquery.timeago.min.js"
+        integrity="sha512-RlGrSmkje9EE/FXpJKWf0fvOlg4UULy/blvNsviBX9LFwMj/uewXVoanRbxTIRDXy/0A3fBQppTmJ/qOboJzmA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @yield('vendor_js')
     <!-- BEGIN VENDOR JS-->
     <!-- BEGIN MODERN JS-->
@@ -67,7 +72,7 @@
     <script type="text/javascript">
         toastr.options = {
             progressBar: true,
-            positionClass: 'toast-bottom-left',
+            positionClass: 'toast-bottom-right',
             rtl: true,
         };
     </script>
@@ -76,6 +81,36 @@
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
+        });
+    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript">
+        // Set Notification Time Ago
+        jQuery(document).ready(function() {
+            $("time.date-time").timeago();
+        });
+    </script>
+    <script>
+        // Mark All As Read when hitting notification bell
+        $('#notification-bell').on('click', function() {
+            $.ajax({
+                url: '/dashboard/mark-all-as-read', // Replace with your Laravel route or controller method URL
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    // Pass any required data here, such as user authentication details
+                },
+                success: function(response) {
+                    // Handle the response from the server, if needed
+                    const notify_input = document.getElementById('counter');
+                    notify_input.innerHTML = 0;
+
+                },
+                error: function(xhr, status, error) {
+                    // Handle the error, if any
+                    console.log(error);
+                }
+            });
         });
     </script>
     @yield('custom_js')

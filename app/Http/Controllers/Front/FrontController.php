@@ -9,8 +9,8 @@ use App\Http\Controllers\Controller;
 
 class FrontController extends Controller
 {
-    public function index(){
-        $categories = Category::query()->where('status', true)->get();
+    public function __invoke(){
+        $categories = Category::with('product')->where('status', true)->get();
         return view('front.index', compact('categories'));
     }
     

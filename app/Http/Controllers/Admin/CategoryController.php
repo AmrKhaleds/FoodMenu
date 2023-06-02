@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::orderBy('created_at', 'desc')->get();
+        $categories = Category::with('product')->orderBy('created_at', 'desc')->get();
         return view('dashboard.categories.index', compact('categories'));
     }
 

@@ -48,6 +48,7 @@
                                                 <tr>
                                                     <th>اسم الفئة</th>
                                                     <th>الحالة</th>
+                                                    <th>عدد المنتجات</th>
                                                     <th>العمليات</th>
                                                 </tr>
                                             </thead>
@@ -66,6 +67,7 @@
                                                                     </label>
                                                                 </div>
                                                             </td>
+                                                            <td>{{ count($category->product) }}</td>
                                                             <td>
                                                                 <div class="btn-group" role="group" aria-label="Basic example"
                                                                     style="flex-wrap: nowrap;">
@@ -92,6 +94,7 @@
                                                 <tr>
                                                     <th>اسم الفئة</th>
                                                     <th>الحالة</th>
+                                                    <th>عدد المنتجات</th>
                                                     <th>العمليات</th>
                                                 </tr>
                                             </tfoot>
