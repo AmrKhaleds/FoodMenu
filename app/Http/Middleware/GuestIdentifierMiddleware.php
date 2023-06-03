@@ -5,7 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class GuestIdentifierMiddleware
 {
@@ -16,12 +18,13 @@ class GuestIdentifierMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(!$request->hasCookie('guestIdentifier')){
-            // Generate a unique guest identifier
+        $sessionKey = 'guestIdentifier';
+        
+        if (!$request->hasCookie($sessionKey)) {
             $guestIdentifier = 'guest_' . uniqid();
-            // Set the guest identifier as a cookie
-            Cookie::queue(Cookie::make('guestIdentifier', $guestIdentifier, 60));
+            Session::put($sessionKey, $guestIdentifier);
         }
+
         return $next($request);
     }
 }

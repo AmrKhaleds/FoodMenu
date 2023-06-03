@@ -14,14 +14,17 @@ class OrderObserver
      */
     public function created(Order $order): void
     {
+        // Send Toaster After creating order
+        toastr()->success('تم طلب المنتج بنجاح');
+        // Send Realtime Notification After creating order
         event(new OrderNotificationEvent(
             $order->name,
             $order->email,
             url('/dashboard/orders/' . $order->id),
             $order->created_at,
         ));
-
-        Mail::to($order->email)->send(new OrderMail($order));
+        // Send Email To user with order deatils After creating order
+        // Mail::to($order->email)->send(new OrderMail($order));
     }
 
     /**

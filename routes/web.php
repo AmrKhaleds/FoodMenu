@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\NotificationController;
@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Route;
 // Front Routes
 Route::get('/', FrontController::class)->name('front');
 Route::post('order', FrontOrderController::class)->name('request-order');
+Route::resource('cart', CartController::class);
 
 // Admin Routes
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function (){

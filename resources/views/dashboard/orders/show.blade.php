@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-12 text-center text-md-right">
-                                <h2>فتورة مشتريات عميل</h2>
+                                <h2>فتورة رقم : {{ $order->order_number }}</h2>
                                 <ul class="px-0 list-unstyled">
                                     <li>من خلال</li>
                                     <li class="lead text-bold-800">{{ $order->request_type }}</li>

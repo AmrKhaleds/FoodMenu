@@ -11,7 +11,7 @@
                         <a class="navbar-brand" href="{{ route('dashboard') }}">
                             <img class="brand-logo" alt="modern admin logo"
                                 src="{{ asset('assets/images/logo/logo.png') }}">
-                            <h3 class="brand-text">AK Dashboard</h3>
+                            <h3 class="brand-text">{{ $settings['site_name'] }}</h3>
                         </a>
                     </li>
                     <li class="nav-item d-none d-md-block float-right"><a class="nav-link modern-nav-toggle pr-0"

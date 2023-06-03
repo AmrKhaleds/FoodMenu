@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('title')</title>
     <meta name="robots" content="noodp" />
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -71,6 +72,13 @@
     <script src="{{ asset('front/js/owl-carousel/owl.carousel.min.js') }}"></script>
     <!-- MAIN JS -->
     <script src="{{ asset('front/js/init.js') }}"></script>
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    </script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
             var scrollUpButton = document.getElementById('scroll-up-button');

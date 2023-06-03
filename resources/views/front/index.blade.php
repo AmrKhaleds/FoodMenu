@@ -80,11 +80,16 @@
                                                             EGP</span>
                                                         <div class="menu-text" style="text-align: right;">
                                                             <label for="checkbox-{{ $product->id }}"
-                                                                style="margin-right: 10px;">اضف الى قائمة الحجز</label>
+                                                                style="margin-right: 10px;">اضف الى السلة</label>
                                                             <input id="checkbox-{{ $product->id }}" type="checkbox"
-                                                                value="{{ $product->id }}" data-cost="{{ $product->price }}"
-                                                                class="checkboxes" name="menu[]"
-                                                                {{ old('menu') && in_array($product->id, old('menu')) ? 'checked' : '' }}>
+                                                                value="{{ $product->id }}"
+                                                                data-product-id="{{ $product->id }}"
+                                                                data-cost="{{ $product->price }}" class="checkboxes"
+                                                                name="menu[]"
+                                                                @foreach ($getContent as $id => $item)
+                                                                    @if ($product->id == $id)
+                                                                        checked
+                                                                    @endif @endforeach>
                                                         </div>
                                                     </div>
                                                     <p class="menu-desc" style="color: #ff6a6a;">{{ $product->desc }}</p>
@@ -158,7 +163,7 @@
                         </div>
                         <div class="col-md-12">
                             <h5>
-                                <span class="" id="totalCostCheckout">0</span>.00 EGP
+                                <span class="" id="totalCostCheckout">{{ $subTotal }}</span> EGP
                                 <!-- <span class="menu-dots"></span> -->
                                 <span class="menu-price">إجمالى الطلبات</span>
                             </h5>
@@ -176,7 +181,26 @@
     {{-- Total Cost --}}
     <a onclick="openCity('two')" id="order" title="أضغط للطلب" style="cursor: pointer">
         <div class="total-cost">
-            <span id="totalCost">0</span> EGP : اطلب الأن
+            {{-- <div></div> --}}
+
+
+            <span id="totalCost">{{ $subTotal }}</span> EGP : اطلب الأن
+            <span>
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                <span id="cartItemCount" style="background: red;
+                /* width: 15px; */
+                /* height: 15px; */
+                display: inline-block;
+                border-radius: 50%;
+                position: relative;
+                right: 7px;
+                top: -9px;
+                line-height: 1;
+                padding: 3px;
+                text-align: center;
+                font-size: 13px;">{{ count($getContent) }}</span>    
+            </span>
+        
         </div>
     </a>
     <!-- /MAIN WRAP CONTENT -->
@@ -208,19 +232,52 @@
         // Get all the checkboxes
         var checkboxes = document.querySelectorAll('input[type=checkbox]');
         var totalCostSpan = document.getElementById('totalCost');
+        var cartItemCount = document.getElementById('cartItemCount');
         var totalCostCheckout = document.getElementById('totalCostCheckout');
         var totalCost = 0;
         // Loop through each checkbox
         checkboxes.forEach(function(checkbox) {
             // Add an event listener to the checkbox
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
-                    totalCost += parseInt(this.getAttribute('data-cost'));
-                } else {
-                    totalCost -= parseInt(this.getAttribute('data-cost'));
+            const productId = checkbox.dataset.productId;
+            checkbox.addEventListener('change', function()
+            {
+                if (this.checked)
+                {
+                    $.ajax({
+                        url: '/cart',
+                        type: 'POST',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                            id: productId
+                        },
+                        success: function(res) {
+                            console.log(res);
+                            totalCostSpan.innerHTML = totalCostCheckout.innerHTML = res
+                            .subTotal;
+                            cartItemCount.innerHTML = parseInt(cartItemCount.innerHTML) + 1; 
+                        },
+                        error: function(res) {
+                            console.log(res);
+                        }
+                    });
+                }else
+                {
+                    $.ajax({
+                        url: '/cart/' + productId,
+                        type: 'DELETE',
+                        data: {
+                            "_token": "{{ csrf_token() }}",
+                        },
+                        success: function(res) {
+                            console.log(res);
+                            totalCostSpan.innerHTML = totalCostCheckout.innerHTML = res.subTotal;
+                            cartItemCount.innerHTML = parseInt(cartItemCount.innerHTML) - 1; 
+                        },
+                        error: function(res) {
+                            console.log(res);
+                        }
+                    });
                 }
-                // console.log(totalCost);
-                totalCostSpan.innerHTML = totalCostCheckout.innerHTML = totalCost;
             });
         });
     </script>

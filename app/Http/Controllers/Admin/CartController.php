@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Session;
 
 class CartController extends Controller
 {
@@ -12,8 +15,7 @@ class CartController extends Controller
      */
     public function index()
     {
-        $getTotalPrice = \Cart::getTotal();
-        dd($getTotalPrice);
+        //
     }
 
     /**
@@ -29,7 +31,27 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requestData = $request->all();
+        $value = Session::get('guestIdentifier');
+        $getProduct = Product::find($requestData['id']);
+        $cart = \Cart::session($value);
+
+        // array format
+        $cartItems = [
+            'id' => $getProduct['id'], // inique row ID
+            'name' => $getProduct['name'],
+            'price' => $getProduct['price'],
+            'quantity' => 1,
+            'attributes' => array()
+        ];
+        $cart->add($cartItems);
+        $subTotal = \Cart::session($value)->getTotal();
+
+        return response()->json([
+            'status' => true,
+            'msg' => 'تم اضافة المنتج بنجاح',
+            'subTotal' => $subTotal
+        ]);
     }
 
     /**
@@ -37,7 +59,7 @@ class CartController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
     }
 
     /**
@@ -61,6 +83,16 @@ class CartController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $value = Session::get('guestIdentifier');
+        $cart = \Cart::session($value);
+        $cart->remove($id);
+        $subTotal = \Cart::session($value)->getTotal();
+
+        return response()->json([
+            'status' => true,
+            'msg' => 'تم حذف المنتج بنجاح',
+            'subTotal' => $subTotal
+        ]);
+        // dd($id);
     }
 }
