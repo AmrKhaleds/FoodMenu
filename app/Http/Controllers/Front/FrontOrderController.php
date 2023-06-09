@@ -20,14 +20,15 @@ class FrontOrderController extends Controller
             $requestData['order_number'] = $orderNumber;
 
             Order::create($requestData);
-    
+
             $value = Session::get('guestIdentifier');
             $cart = \Cart::session($value);
             $cart->clear();
-    
+            
+            toast('تم الطلب بنجاح','success')->position('top-end');
             return redirect()->route('front');
         } catch (\Exception $e) {
-            toastr()->error('حدث خطأ أثناء طلب المنتج. الرجاء المحاولة مرة أخرى.');
+            toast('حدث خطأ أثناء طلب المنتج. الرجاء المحاولة مرة أخرى.','error')->position('top-end');
             return back()->withErrors(['error' => $e->getMessage()])->withInput();
         }
     }

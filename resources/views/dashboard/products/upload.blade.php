@@ -1,8 +1,10 @@
 @extends('layouts.app')
 @section('vendor_css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css"
+        integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
-@section('title', 'تعديل فئة')
+@section('title', 'رفع شيت منتجات')
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -11,9 +13,7 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
-                                </li>
-                                <li class="breadcrumb-item"><a href=""> الفئات </a>
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">الرئيسية </a>
                                 </li>
                                 <li class="breadcrumb-item active">@yield('title')
                                 </li>
@@ -42,23 +42,22 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" id="form" method="POST" action="{{ route('categories.update', $category->id) }}"
-                                            enctype="multipart/form-data" data-dropzone="true">
-                                            @method('PUT')
+                                        <form class="form" id="form" method="POST"
+                                            action="{{ route('uploadProducts.upload') }}" enctype="multipart/form-data"
+                                            data-dropzone="true">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label for="name">اسم الفئة</label>
-                                                            <input type="text" value="{{ $category->name }}"
-                                                                id="name" class="form-control"
-                                                                placeholder="اسم الفئة" name="name">
-                                                            @error('name')
-                                                                <span id="name_error"
-                                                                    class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                        </div>
+                                                    <div class="col-md-12">
+                                                        <label for="formFileLg">شيت المنتجات</label>
+                                                        <input class="dropify" type="file" name="excel" id="formFileLg"
+                                                            data-max-files="10" data-show-errors="true"
+                                                            data-allowed-file-extensions="csv xlsx xls"
+                                                            data-max-file-size="30M">
+                                                        @error('excel')
+                                                            <span id="name_error"
+                                                                class="text-danger">{{ $message }}</span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -80,12 +79,12 @@
     </div>
 @endsection
 @section('vendor_js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
+        integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endsection
 @section('custom_js')
     <script>
         $('.dropify').dropify();
-        $('.dropify2').dropify();
     </script>
 @endsection

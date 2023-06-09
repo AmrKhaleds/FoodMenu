@@ -45,6 +45,7 @@
                                         <table class="table table-striped table-bordered file-export" id="order">
                                             <thead>
                                                 <tr>
+                                                    <th>#</th>
                                                     <th>اسم الإشعار</th>
                                                     <th>وصف الإشعار</th>
                                                     <th>لينك خارجى</th>
@@ -56,6 +57,7 @@
                                                 @isset($notifications)
                                                     @foreach ($notifications as $notification)
                                                         <tr>
+                                                            <td>{{ ++$loop->index }}</td>
                                                             <td>{{ $notification->title }}</td>
                                                             <td>{{ $notification->message }}</td>
                                                             <td><a href="{{ $notification->link }}">{{ $notification->link }}</a></td>
@@ -83,6 +85,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
+                                                    <th>#</th>
                                                     <th>اسم الإشعار</th>
                                                     <th>وصف الإشعار</th>
                                                     <th>لينك خارجى</th>

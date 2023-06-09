@@ -46,6 +46,7 @@
                                         <table class="table table-striped table-bordered file-export">
                                             <thead>
                                                 <tr>
+                                                    <th>#</th>
                                                     <th>صوره المنتج</th>
                                                     <th>اسم المنتج</th>
                                                     <th>فئة المنتج</th>
@@ -59,6 +60,7 @@
                                                 @isset($products)
                                                     @foreach ($products as $product)
                                                         <tr>
+                                                            <td>{{ ++$loop->index }}</td>
                                                             <td>
                                                                 <img style="width: 100px;"
                                                                     src="{{ asset('storage/products/' . $product->photo) }}"
@@ -69,7 +71,7 @@
                                                                     class="badge badge badge-pill badge-info mr-2">{{ $product->category->name }}</span>
                                                             </td>
                                                             <td>{{ Str::limit($product->desc, 20) }}</td>
-                                                            <td>{{ $product->price }}</td>
+                                                            <td>{{ $product->price }} EGP</td>
                                                             <td>
                                                                 <div class="container">
                                                                     <label class="switch">
@@ -104,6 +106,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
+                                                    <th>#</th>
                                                     <th>صوره المنتج</th>
                                                     <th>اسم المنتج</th>
                                                     <th>فئة المنتج</th>
@@ -153,9 +156,15 @@
                 success: function(response) {
                     console.log(response);
                     if (response.status) {
-                        toastr.success(response.msg, 'Success');
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.msg
+                        });
                     } else {
-                        toastr.success(response.msg, 'Success');
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.msg
+                        });
                     }
                     // Handle UI updates based on the updated status
                 },

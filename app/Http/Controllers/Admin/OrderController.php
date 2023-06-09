@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx\Rels;
 
 class OrderController extends Controller
 {
@@ -81,5 +82,27 @@ class OrderController extends Controller
             toastr()->success('تم حذف الطلب بنجاح');
             return redirect()->route('orders.index');
         }
+    }
+
+    public function updateOrderStatus(Request $request){
+        $requestData = $request->all();
+        $order = Order::findOrFail($requestData['order_id']);
+
+        if (!$order) {
+            return response()->json([
+                'status' => false,
+                'msg' => 'Order not found',
+            ]);
+        }
+        // update status on change
+        $order->status = $requestData['status'];
+        $order->save();
+    
+        $message = $requestData['status'] == 1 ? 'تم إكمال الطلب بنجاح' : 'لم يتم إكمال الطلب بنجاح';
+
+        return response()->json([
+            'status' => true,
+            'msg' => $message,
+        ]);
     }
 }

@@ -4,7 +4,7 @@
         integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 @endsection
-@section('title', 'انشاء منتج جديده')
+@section('title', 'انشاء عرض جديد')
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -15,7 +15,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{ route('products.index') }}"> المنتجات </a>
+                                <li class="breadcrumb-item"><a href="{{ route('products.index') }}"> العروض </a>
                                 </li>
                                 <li class="breadcrumb-item active">@yield('title')
                                 </li>
@@ -45,18 +45,16 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <form class="form" id="form" method="POST"
-                                            action="{{ route('products.update', $product->id) }}"
-                                            enctype="multipart/form-data" data-dropzone="true">
-                                            @method('PUT')
+                                            action="{{ route('offers.store') }}" enctype="multipart/form-data"
+                                            data-dropzone="true">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="name">اسم المنتج</label>
-                                                            <input type="text" value="{{ $product->name }}"
-                                                                id="name" class="form-control" placeholder="اسم الفئة"
-                                                                name="name">
+                                                            <label for="name">اسم العرض</label>
+                                                            <input type="text" value="{{ old('name') }}" id="name"
+                                                                class="form-control" placeholder="اسم الفئة" name="name">
                                                             @error('name')
                                                                 <span id="name_error"
                                                                     class="text-danger">{{ $message }}</span>
@@ -65,11 +63,9 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="price">سعر المنتج</label>
-                                                            <input type="text" value="{{ $product->price }}"
-                                                                id="price" class="form-control" placeholder="سعر المنتج"
-                                                                name="price">
-                                                            @error('price')
+                                                            <label for="start_date">تاريخ البداية</label>
+                                                            <input type="date" class="form-control" name="start_date">
+                                                            @error('start_date')
                                                                 <span id="name_error"
                                                                     class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -77,11 +73,39 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="desc">وصف المنتج</label>
-                                                            <input type="text" value="{{ $product->desc }}"
-                                                                id="desc" class="form-control" placeholder="وصف المنتج"
-                                                                name="desc">
-                                                            @error('desc')
+                                                            <label for="end_date"> تاريخ النهاية</label>
+                                                            <input type="date" class="form-control" name="end_date">
+                                                            @error('end_date')
+                                                                <span id="name_error"
+                                                                    class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="category">نوع الخصم</label>
+                                                            <select name="discount_type" class="form-control"
+                                                                id="discount_type">
+                                                                <option selected disabled>اختار نوع الخصم</option>
+                                                                <option value="percentage">نسبة مئوية</option>
+                                                                <option value="price">سعر</option>
+                                                            </select>
+                                                            @error('discount_type')
+                                                                <span id="name_error"
+                                                                    class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="discount">قيمة الخصم</label>
+                                                            <input type="number" value="{{ old('discount') }}"
+                                                                class="form-control" placeholder="قيمة الخصم"
+                                                                name="discount">
+                                                            @error('discount')
                                                                 <span id="name_error"
                                                                     class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -89,13 +113,14 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="category">فئة المنتج</label>
-                                                            <select name="category_id" class="form-control"
-                                                                id="basicSelect">
-                                                                <option value="" disabled>اختار فئة المنتج</option>
+                                                            <label for="category">الفئة</label>
+                                                            <select class="form-control" id="category_id">
+                                                                <option selected disabled>اختار فئة المنتج</option>
+                                                                <option value="" data-category-id="all">كل المنتجات
+                                                                </option>
                                                                 @foreach ($categories as $category)
-                                                                    <option value="{{ $category->id }}"
-                                                                        @if ($product->category_id == $category->id) selected @endif>
+                                                                    <option value="{{ $category->name }}"
+                                                                        data-category-id="{{ $category->id }}">
                                                                         {{ $category->name }}</option>
                                                                 @endforeach
                                                             </select>
@@ -105,13 +130,8 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <input class="dropify" type="file" name="photo" id="formFileLg"
-                                                            data-max-files="10" data-show-errors="true"
-                                                            data-allowed-file-extensions="png jpg jpeg webp"
-                                                            data-max-file-size="30M" multiple="" data-default-file="{{ asset('storage/products/' . $product->photo) }}">
-                                                    </div>
                                                 </div>
+                                                <div class="row" id="allProducts"></div>
                                             </div>
                                             <div class="form-actions">
                                                 <button type="submit" class="btn btn-primary">
@@ -134,11 +154,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
         integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
 @endsection
 @section('custom_js')
     <script>
-        $('.dropify').dropify();
-        $('.dropify2').dropify();
+        $(document).ready(function() {
+            $('#category_id').change(function() {
+                var categoryId = $(this).find(':selected').data('category-id');
+                $.ajax({
+                    url: "{{ route('getProducts') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        categoryId: categoryId
+                    },
+                    success: function(response) {
+                        // Process the retrieved products
+                        var productsHtml = ''; // Variable to accumulate product elements
+                        $.each(response.data, function(key, value) {
+                            var productElement = `
+                                <div class="col-md-4 mb-1">
+                                    <div class="fancy-checkbox">
+                                        <label>
+                                            <input id="product-${value.id}" type="checkbox" name="products[]" value="${value.id}">
+                                            <span></span>
+                                        </label>
+                                        <img src="https://smartmart-eg.com/storage/products/17736.jpg" alt="" class="rounded" style="width: 2rem;">
+                                        <span>${value.name}</span>
+                                    </div>
+                                </div>
+                                `;
+
+                            productsHtml += productElement; // Accumulate the product elements
+                        });
+
+                        $('#allProducts').html(productsHtml); // Set the HTML of #allProducts
+                    },
+                    error: function(xhr) {
+                        // Handle the error
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        });
     </script>
 @endsection

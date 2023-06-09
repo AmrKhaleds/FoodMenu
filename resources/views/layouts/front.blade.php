@@ -20,7 +20,6 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css"
         integrity="sha512-ZnR2wlLbSbr8/c9AgLg3jQPAattCUImNsae6NHYnS9KrIwRdcY9DxFotXhNAKIKbAXlRnujIqUWoXXwqyFOeIQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 
     <!-- Font Awesome Icons CSS -->
     <link rel="stylesheet" id="dina-font-awesome-css"
@@ -28,16 +27,14 @@
     <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />
     <!-- Main CSS File -->
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
-    <link rel="stylesheet" id="dina-style-css-css" href="{{ asset('front/style.css') }}" type="text/css"
-        media="all" />
+    <link rel="stylesheet" id="dina-style-css-css" href="{{ asset('front/style.css') }}" type="text/css" media="all" />
     <!-- favicons -->
 </head>
 
 <body class="body-header1"
-    style="
-      background-color: rgb(23, 24, 25);
-      background-image: url('https://kalanidhithemes.com/live-preview/landing-page/delici/all-demo/Delici-Defoult/images/background/bg-5.png');
-    ">
+    style="background-color: rgb(23, 24, 25); background-image: url('https://kalanidhithemes.com/live-preview/landing-page/delici/all-demo/Delici-Defoult/images/background/bg-5.png');">
+
+    @include('sweetalert::alert')
     @yield('content')
     <footer>
         <div class="container">

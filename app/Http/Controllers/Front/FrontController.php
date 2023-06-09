@@ -16,7 +16,7 @@ class FrontController extends Controller
         $getContent = \Cart::session($guestIdentifier)->getContent();
         $subTotal = \Cart::session($guestIdentifier)->getTotal();
         $categories = Category::with('product')->where('status', true)->get();
-
+        
         return view('front.index', compact('categories', 'subTotal', 'getContent'));
     }
 }

@@ -18,10 +18,11 @@
         integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://maxcdn.icons8.com/fonts/line-awesome/1.1/css/line-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
     <!-- BEGIN VENDOR CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css-rtl/vendors.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.11/sweetalert2.min.css"
+        integrity="sha512-t00UpSiOSq/o/rWkM0Fv+aD9FjlOzEEc4qLqvGqh0Do1RgvMEKmUYYo5Yb8Te77ux9wkTdoDVD0vwQLJMRLZCQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     @yield('vendor_css')
     <!-- END VENDOR CSS-->
     <!-- BEGIN MODERN CSS-->
@@ -46,7 +47,7 @@
     data-menu="vertical-menu-modern" data-col="2-columns">
     {{-- @include('layouts.includes.alerts.success')
     @include('layouts.includes.alerts.errors') --}}
-
+    @include('sweetalert::alert')
     @include('layouts.includes.header')
     @include('layouts.includes.sidebar')
     @yield('content')
@@ -54,13 +55,16 @@
 
     <!-- BEGIN VENDOR JS-->
     <script src="{{ asset('assets/vendors/js/vendors.min.js') }}" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     {{-- <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-timeago/1.6.7/jquery.timeago.min.js"
         integrity="sha512-RlGrSmkje9EE/FXpJKWf0fvOlg4UULy/blvNsviBX9LFwMj/uewXVoanRbxTIRDXy/0A3fBQppTmJ/qOboJzmA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @yield('vendor_js')
     <!-- BEGIN VENDOR JS-->
+    {{-- Sweetalert --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.11/sweetalert2.min.js"
+        integrity="sha512-N41zI1J3Fe0qxUlhBhZ+dBO2po5k7Vbed92xNADfBeNAqpRsTZiY2+5bBl7u2RLnF6Ngf9xenn9mr53X2uSiPw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- BEGIN MODERN JS-->
     <script src="{{ asset('assets/js/core/app-menu.js') }}" type="text/javascript"></script>
     <script src="{{ asset('assets/js/core/app.js') }}" type="text/javascript"></script>
@@ -69,21 +73,27 @@
     <!-- BEGIN PAGE LEVEL JS-->
     @yield('page_level_js')
     <!-- END PAGE LEVEL JS-->
-    <script type="text/javascript">
-        toastr.options = {
-            progressBar: true,
-            positionClass: 'toast-bottom-right',
-            rtl: true,
-        };
-    </script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script>
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        // Toaster Settings
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-start',
+            showConfirmButton: false,
+            timer: 7000,
+            timerProgressBar: true,
+            showCloseButton: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
     </script>
-    <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript">
         // Set Notification Time Ago
         jQuery(document).ready(function() {

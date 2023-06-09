@@ -14,11 +14,9 @@ class OrderObserver
      */
     public function created(Order $order): void
     {
-        // Send Toaster After creating order
-        toastr()->success('تم طلب المنتج بنجاح');
         // Send Realtime Notification After creating order
         event(new OrderNotificationEvent(
-            $order->name,
+            $order->order_number,
             $order->email,
             url('/dashboard/orders/' . $order->id),
             $order->created_at,

@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Exception;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Exports\ProductsExport;
+use App\Imports\ProductsImport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use RealRashid\SweetAlert\Facades\Alert;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use App\Http\Requests\UpdateProductStatusRequest;
 
 class ProductController extends Controller
 {
@@ -34,15 +41,15 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $requestData = $request->all();
+
         if ($request->hasFile('photo')) {
             $photoName = time();
             $image = $request['photo'];
             $photoWithOriginalExtention = $photoName . '.' . $request['photo']->getClientOriginalExtension();
             $storage_path = 'public/products/';
             $image->storeAs($storage_path, $photoWithOriginalExtention);
-            // dd("photo_upload successfullly");
         }
-        // dd($requestData);
+
         $product = Product::create([
             'name' => $requestData['name'],
             'desc' => $requestData['desc'],
@@ -51,10 +58,10 @@ class ProductController extends Controller
             'category_id' => $requestData['category_id'],
         ]);
         if ($product) {
-            toastr()->success('تم إنشاء المنتج بنجاح');
+            toast('تم إنشاء المنتج بنجاح', 'success');
             return redirect()->route('products.create');
         }
-        toastr()->error('حدث خطأ اثناء العملية');
+        toast('حدث خطأ اثناء العملية', 'error');
         return redirect()->route('products.index');
     }
 
@@ -69,9 +76,8 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        $product = Product::find($id);
         $categories = Category::all();
         return view('dashboard.products.edit', compact('product', 'categories'));
     }
@@ -89,10 +95,8 @@ class ProductController extends Controller
             $photoWithOriginalExtention = $photoName . '.' . $request['photo']->getClientOriginalExtension();
             $storage_path = 'public/products/';
             $image->storeAs($storage_path, $photoWithOriginalExtention);
-            // dd("photo_upload successfullly");
         }else{
             $photoWithOriginalExtention = $product->photo;
-            // dd($photoWithOriginalExtention);
         }
         $update = $product->update([
             'name' => $requestData['name'],
@@ -102,10 +106,10 @@ class ProductController extends Controller
             'category_id' => $requestData['category_id'],
         ]);
         if ($update) {
-            toastr()->success('تم تحديث المنتج بنجاح');
+            toast('تم تحديث المنتج بنجاح', 'success');
             return redirect()->route('products.index');
         }
-        toastr()->error('حدثت مشكلة اثناء تحديث المنتج');
+        toast('حدثت مشكلة اثناء تحديث المنتج', 'error');
         return redirect()->route('products.index');
     }
 
@@ -114,38 +118,81 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         if ($product->delete()) {
-            toastr()->success('تم حذف المنتج بنجاح');
+            toast('تم حذف المنتج بنجاح', 'success');
             return redirect()->route('products.index');
         }
-        toastr()->error('حدثت مشكلة اثناء حذف المنتج');
+        toast('حدثت مشكلة اثناء حذف المنتج', 'error');
         return redirect()->route('products.index');
     }
+    /**
+     * Update Product status on change with ajax methodoligy
+     */
+    public function updateProductStatus(UpdateProductStatusRequest $request){
+        $requestData = $request->all();
+        $category = Product::findOrFail($requestData['product_id']);
 
-    public function updateProductStatus(Request $request){
-        $requestData = $request->validate([
-            'product_id' => 'required',
-            'status' => 'required|in:0,1',
-        ]);
-    
-        $category = Product::find($requestData['product_id']);
         if (!$category) {
             return response()->json([
                 'status' => false,
                 'msg' => 'Product not found',
             ]);
         }
-    
+        // update status on change
         $category->status = $requestData['status'];
         $category->save();
     
         $message = $requestData['status'] == 1 ? 'تم تفعيل المنتج بنجاح' : 'تم إلغاء تفعيل المنتج بنجاح';
-    
+
         return response()->json([
             'status' => true,
             'msg' => $message,
         ]);
     
+    }
+    /**
+     * Export Products as Excle Sheet 
+     * 
+     * @return file
+     */
+    public function downloadProducts()
+    {
+        return Excel::download(new ProductsExport, 'Products.xlsx');
+    }
+    /**
+     * Upload Products excle sheet
+     * 
+     */
+    public function uplaodBulkProducts(Request $request)
+    {
+        if ($request->hasFile('excel')) {
+            try {
+                Excel::import(new ProductsImport, $request->file('excel'));
+                Alert::success('نجاح', 'تم رفع شيت المنتجات بنجاح')->autoClose(false);
+            } catch (WithHeadingRow $exception) {
+                Alert::error('خطأ', 'تنسيق الملف غير صحيح')->autoClose(false);
+            } catch (\Exception $exception) {
+                Alert::error('خطأ', 'حدث خطأ أثناء رفع الملف')->autoClose(false);
+            }
+        }
+    
+        return redirect()->route('uploadProducts.index');
+    }
+    /**
+     * Delete All products table records
+     * 
+     */
+    public function databaseDestroy()
+    {
+        try{
+            Product::truncate();
+            Alert::alert('نجاح', 'تم مسح جميع المنتجات بنجاح', 'success')->autoClose(false);
+            return redirect()->route('databaseDestroy.index');
+        }catch(Exception $e)
+        {
+            Alert::alert('فشل', 'حدث خطأ ما', 'error')->autoClose(false);
+            return redirect()->route('databaseDestroy.index');
+        }
     }
 }

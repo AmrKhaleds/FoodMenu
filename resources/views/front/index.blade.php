@@ -62,6 +62,18 @@
                                             <div class="menu-container col-md-4"
                                                 style="display:flex;flex-direction:row-reverse;flex-wrap: wrap;flex-direction: row-reverse;justify-content: space-between;margin-bottom: 30px;">
                                                 <div class="menu-image" style="width: 40%;">
+                                                    @if ($product->offer)
+                                                        <span class="sales"
+                                                            style="padding: 5px;
+                                                        background: red;
+                                                        border-radius: 50%;
+                                                        font-weight: bold;
+                                                        position: absolute;
+                                                        right: 22px;
+                                                        top: 8px;">
+                                                            {{ $product->offer->discount }}{{ $product->offer->discount_type == 'price' ? '-' : '%'}}
+                                                        </span>
+                                                    @endif
                                                     <img src="{{ asset('storage/products/' . $product->photo) }}"
                                                         width="100%" alt=""
                                                         style="border-radius: 20px; float: right;margin-left: 10px;">
@@ -70,14 +82,38 @@
                                                     <div class="menu-post-desc">
                                                         <span class="menu-price"
                                                             style="position: relative;display: block;    text-align: right;">{{ $product->name }}</span>
-                                                        <span class="menu-title"
+                                                        @if ($product->offer)
+                                                            <span class="menu-title"
+                                                                style="font-size: 20px;
+                                                                    position: relative;
+                                                                    display: block;
+                                                                    text-align: right;
+                                                                    font-weight: bold;
+                                                                    ">
+                                                                    <s>
+                                                                        {{ $product->price }}
+                                                                        EGP
+                                                                    </s>
+                                                            </span>
+                                                            <span class="menu-title"
                                                             style="font-size: 20px;
+                                                                position: relative;
+                                                                display: block;
+                                                                text-align: right;
+                                                                font-weight: bold;
+                                                                ">{{ $product->getDiscountPrice() }} EGP</span>
+                                                        @else
+                                                            <span class="menu-title"
+                                                                style="font-size: 20px;
                                                             position: relative;
                                                             display: block;
                                                             text-align: right;
                                                             font-weight: bold;
-                                                            ">{{ $product->price }}.00
-                                                            EGP</span>
+                                                            ">
+                                                                {{ $product->price }}
+                                                                EGP
+                                                            </span>
+                                                        @endif
                                                         <div class="menu-text" style="text-align: right;">
                                                             <label for="checkbox-{{ $product->id }}"
                                                                 style="margin-right: 10px;">اضف الى السلة</label>
@@ -181,13 +217,11 @@
     {{-- Total Cost --}}
     <a onclick="openCity('two')" id="order" title="أضغط للطلب" style="cursor: pointer">
         <div class="total-cost">
-            {{-- <div></div> --}}
-
-
             <span id="totalCost">{{ $subTotal }}</span> EGP : اطلب الأن
             <span>
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                <span id="cartItemCount" style="background: red;
+                <span id="cartItemCount"
+                    style="background: red;
                 /* width: 15px; */
                 /* height: 15px; */
                 display: inline-block;
@@ -198,9 +232,8 @@
                 line-height: 1;
                 padding: 3px;
                 text-align: center;
-                font-size: 13px;">{{ count($getContent) }}</span>    
+                font-size: 13px;">{{ count($getContent) }}</span>
             </span>
-        
         </div>
     </a>
     <!-- /MAIN WRAP CONTENT -->
@@ -239,10 +272,8 @@
         checkboxes.forEach(function(checkbox) {
             // Add an event listener to the checkbox
             const productId = checkbox.dataset.productId;
-            checkbox.addEventListener('change', function()
-            {
-                if (this.checked)
-                {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
                     $.ajax({
                         url: '/cart',
                         type: 'POST',
@@ -253,15 +284,14 @@
                         success: function(res) {
                             console.log(res);
                             totalCostSpan.innerHTML = totalCostCheckout.innerHTML = res
-                            .subTotal;
-                            cartItemCount.innerHTML = parseInt(cartItemCount.innerHTML) + 1; 
+                                .subTotal;
+                            cartItemCount.innerHTML = parseInt(cartItemCount.innerHTML) + 1;
                         },
                         error: function(res) {
                             console.log(res);
                         }
                     });
-                }else
-                {
+                } else {
                     $.ajax({
                         url: '/cart/' + productId,
                         type: 'DELETE',
@@ -270,8 +300,9 @@
                         },
                         success: function(res) {
                             console.log(res);
-                            totalCostSpan.innerHTML = totalCostCheckout.innerHTML = res.subTotal;
-                            cartItemCount.innerHTML = parseInt(cartItemCount.innerHTML) - 1; 
+                            totalCostSpan.innerHTML = totalCostCheckout.innerHTML = res
+                            .subTotal;
+                            cartItemCount.innerHTML = parseInt(cartItemCount.innerHTML) - 1;
                         },
                         error: function(res) {
                             console.log(res);

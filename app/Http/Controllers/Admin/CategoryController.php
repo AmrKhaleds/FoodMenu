@@ -36,7 +36,8 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name = $request['name']; // Replace with the actual name input
         $category->save();
-        toastr()->success('تم انشاء الفئة بنجاح');
+
+        toast('تم انشاء الفئة بنجاح','success');
         return redirect()->route('categories.create');
     }
 
@@ -65,10 +66,11 @@ class CategoryController extends Controller
         $requestData = $request->only(['name']);
         $category = Category::where('id', $id)->update($requestData);
         if($category){
-            Toastr::success('تم تعديل الفئة بنجاح');
+
+            toast('تم تعديل الفئة بنجاح','success');
             return redirect()->route('categories.index');
         }
-        toastr()->error('حدثت مشكلة اثناء تحديث الفئة');
+        toast('حدثت مشكلة اثناء تحديث الفئة', 'error');
         return redirect()->route('categories.index');
     }
 
@@ -79,7 +81,8 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         if($category->delete()){
-            toastr()->success('تم حذف الفئة بنجاح');
+            // toastr()->success('تم حذف الفئة بنجاح');
+            toast('تم حذف الفئة بنجاح','success');
             return redirect()->route('categories.index');
         }
         toastr()->error('حدثت مشكلة اثناء حذف الفئة');

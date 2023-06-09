@@ -46,6 +46,7 @@
                                         <table class="table table-striped table-bordered file-export" id="categories">
                                             <thead>
                                                 <tr>
+                                                    <th>#</th>
                                                     <th>اسم الفئة</th>
                                                     <th>الحالة</th>
                                                     <th>عدد المنتجات</th>
@@ -56,6 +57,7 @@
                                                 @isset($categories)
                                                     @foreach ($categories as $category)
                                                         <tr>
+                                                            <td>{{ ++$loop->index }}</td>
                                                             <td>{{ $category->name }}</td>
                                                             <td>
                                                                 <div class="container">
@@ -92,6 +94,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
+                                                    <th>#</th>
                                                     <th>اسم الفئة</th>
                                                     <th>الحالة</th>
                                                     <th>عدد المنتجات</th>
@@ -138,9 +141,15 @@
                 success: function(response) {
                     console.log(response);
                     if (response.status) {
-                        toastr.success(response.msg, 'Success');
+                        Toast.fire({
+                            icon: 'success',
+                            title: response.msg
+                        });
                     } else {
-                        toastr.success(response.msg, 'Success');
+                        Toast.fire({
+                            icon: 'error',
+                            title: response.msg
+                        });
                     }
                     // Handle UI updates based on the updated status
                 },

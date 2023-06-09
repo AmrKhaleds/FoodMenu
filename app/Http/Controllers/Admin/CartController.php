@@ -36,11 +36,21 @@ class CartController extends Controller
         $getProduct = Product::find($requestData['id']);
         $cart = \Cart::session($value);
 
+        $price = $getProduct['price'];
         // array format
+        if($getProduct->offer){
+            $discount = $getProduct->offer->discount;
+            if($getProduct->offer->discount_type == 'price'){
+                $price = $price - $discount;
+            }else{
+                $price = $price- ($price * $discount / 100);
+            }
+        }
+
         $cartItems = [
             'id' => $getProduct['id'], // inique row ID
             'name' => $getProduct['name'],
-            'price' => $getProduct['price'],
+            'price' => $price,
             'quantity' => 1,
             'attributes' => array()
         ];

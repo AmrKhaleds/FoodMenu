@@ -1,8 +1,5 @@
 @extends('layouts.app')
-@section('vendor_css')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-@endsection
-@section('title', 'تعديل فئة')
+@section('title', 'مسح قاعدة بيانات المنتجات')
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -11,9 +8,7 @@
                     <div class="row breadcrumbs-top">
                         <div class="breadcrumb-wrapper col-12">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="">الرئيسية </a>
-                                </li>
-                                <li class="breadcrumb-item"><a href=""> الفئات </a>
+                                <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">الرئيسية </a>
                                 </li>
                                 <li class="breadcrumb-item active">@yield('title')
                                 </li>
@@ -42,31 +37,49 @@
                                 </div>
                                 <div class="card-content collapse show">
                                     <div class="card-body">
-                                        <form class="form" id="form" method="POST" action="{{ route('categories.update', $category->id) }}"
-                                            enctype="multipart/form-data" data-dropzone="true">
-                                            @method('PUT')
+                                        <form class="form" id="form" method="POST"
+                                            action="{{ route('databaseDestroy.index') }}" enctype="multipart/form-data"
+                                            data-dropzone="true">
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row">
-                                                    <div class="col-md-3">
-                                                        <div class="form-group">
-                                                            <label for="name">اسم الفئة</label>
-                                                            <input type="text" value="{{ $category->name }}"
-                                                                id="name" class="form-control"
-                                                                placeholder="اسم الفئة" name="name">
-                                                            @error('name')
-                                                                <span id="name_error"
-                                                                    class="text-danger">{{ $message }}</span>
-                                                            @enderror
+                                                    <div class="col-md-12">
+                                                        {{-- <h3 style="color: red;margin-bottom: 20px;">انت على وشك مسح جميع بيانات المنتجات</h3> --}}
+                                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                            data-target="#exampleModal">
+                                                            مسح جميع بيانات المنتجات
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Button trigger modal -->
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title text-danger" id="exampleModalLabel">هل تريد مسح البيانات نهائياً</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-dismiss="modal">إلغاء</button>
+                                                            <button type="submit" class="btn btn-danger">مسح</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="form-actions">
+                                            {{-- <div class="form-actions">
                                                 <button type="submit" class="btn btn-primary">
                                                     <i class="la la-check-square-o"></i> حفظ
                                                 </button>
-                                            </div>
+                                            </div> --}}
                                         </form>
                                     </div>
                                 </div>
@@ -78,14 +91,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('vendor_js')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-@endsection
-@section('custom_js')
-    <script>
-        $('.dropify').dropify();
-        $('.dropify2').dropify();
-    </script>
 @endsection

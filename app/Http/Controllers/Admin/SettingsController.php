@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Settings\GeneralSettings;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SettingsController extends Controller
 {
@@ -33,7 +34,19 @@ class SettingsController extends Controller
     {
         $settings->site_name = $request->input('site_name');
         $settings->about_us = $request->input('about_us');
-        $settings->site_logo = $request->input('site_logo');
+        if ($request->hasFile('site_logo')) {
+            // Delete old logo
+            $oldLogo = $settings->site_logo;
+            if ($oldLogo) {
+                Storage::delete('public/settings/logo/' . $oldLogo);
+            }
+        
+            // Upload and save new logo
+            $logo = $request->file('site_logo');
+            $fileName = time() . '.' . $logo->getClientOriginalExtension();
+            $logo->storeAs('public/settings/logo', $fileName);
+            $settings->site_logo = $fileName;
+        }
         $settings->email = $request->input('email');
         $settings->phone = $request->input('phone');
         $settings->copyright = $request->input('copyright');

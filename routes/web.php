@@ -4,9 +4,11 @@ use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\NotificationController;
+use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\FrontOrderController;
 use App\Models\Notification;
@@ -27,19 +29,30 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', FrontController::class)->name('front');
 Route::post('order', FrontOrderController::class)->name('request-order');
 Route::resource('cart', CartController::class);
+Route::get('/upload', [UserController::class, 'import'])->name('import');
 
 // Admin Routes
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function (){
     Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+    // Orders Routes
+    Route::post('orders/updateOrderStatus', [OrderController::class, 'updateOrderStatus'])->name('updateOrderStatus');
     Route::resource('orders', OrderController::class);
+    // Category Routes
     Route::resource('categories', CategoryController::class);
+    // Products Routes
+    Route::view('products/database-delete', 'dashboard.products.deleteDatabase')->name('databaseDestroy.index');
+    Route::view('products/download', 'dashboard.products.download')->name('downloadProducts.index');
+    Route::view('products/upload', 'dashboard.products.upload')->name('uploadProducts.index');
+    Route::post('products/database-delete', [ProductController::class, 'databaseDestroy'])->name('databaseDestroy.delete');
+    Route::post('products/download', [ProductController::class, 'downloadProducts'])->name('downloadProducts.download');
+    Route::post('products/upload', [ProductController::class, 'uplaodBulkProducts'])->name('uploadProducts.upload');
     Route::resource('products', ProductController::class);
+    // Settings route
     Route::resource('settings', SettingsController::class);
-    Route::get('notifications', [NotificationController::class, 'index'])->name('notification.index');
-    // Update Status
-    Route::post('update-category-status', [CategoryController::class, 'updateCategoryStatus'])->name('updateCategoryStatus');
-    Route::post('update-product-status', [ProductController::class, 'updateProductStatus'])->name('updateProductStatus');
-    //Mark All As Read
+    // Offers Route
+    Route::post('offers/product', [OfferController::class, 'getProducts'])->name('getProducts');
+    Route::resource('offers', OfferController::class);
+    // Notification Route
     Route::post('/mark-all-as-read', function(){
         Notification::where('is_read', false)->update(['is_read' => true]);
         return response()->json([
@@ -47,6 +60,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function (){
             'msg' => 'successfully mark all as read'
         ]);
     })->name('resetNotificationCounter');
+    Route::get('notifications', [NotificationController::class, 'index'])->name('notification.index');
+    // Update Status
+    Route::post('update-category-status', [CategoryController::class, 'updateCategoryStatus'])->name('updateCategoryStatus');
+    Route::post('update-product-status', [ProductController::class, 'updateProductStatus'])->name('updateProductStatus');
 });
 // Auth Routes
 Auth::routes(['register' => false]);

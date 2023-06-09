@@ -159,8 +159,11 @@ return [
         /*
          * Package Service Providers...
          */
-        Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
+        // Biscolab\ReCaptcha\ReCaptchaServiceProvider::class,
         Darryldecode\Cart\CartServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -185,8 +188,10 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-        'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
-        'Cart' => Darryldecode\Cart\Facades\CartFacade::class
+        // 'ReCaptcha' => Biscolab\ReCaptcha\Facades\ReCaptcha::class,
+        'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
     ])->toArray(),
 
 ];

@@ -6,7 +6,7 @@
 @endsection
 @section('title', 'انشاء منتج جديده')
 @section('content')
-    <div class="app-content content" style="font-family: 'Cairo', Georgia, 'Times New Roman', Times, serif;">
+    <div class="app-content content">
         <div class="content-wrapper">
             <div class="content-header row">
                 <div class="content-header-left col-md-6 col-12 mb-2">
