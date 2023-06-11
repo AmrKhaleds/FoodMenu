@@ -1,8 +1,5 @@
 @extends('layouts.app')
 @section('title', 'جميع الطلبات')
-@section('vendor_css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/css/tables/datatable/datatables.min.css') }}">
-@endsection
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -57,15 +54,21 @@
                             </div>
                             <div class="col-md-6 col-sm-12 text-center text-md-left">
                                 <ul class="px-0 list-unstyled">
-                                    <li class="text-bold-800"> <h4 style="font-weight: bold">{{ $order->name }}</h4> </li>
-                                    <li><h4 style="font-weight: bold">{{ $order->email }}</h4></li>
-                                    <li><h4 style="font-weight: bold">{{ $order->phone }}</h4></li>
+                                    <li class="text-bold-800">
+                                        <h4 style="font-weight: bold">{{ $order->name }}</h4>
+                                    </li>
+                                    <li>
+                                        <h4 style="font-weight: bold">{{ $order->email }}</h4>
+                                    </li>
+                                    <li>
+                                        <h4 style="font-weight: bold">{{ $order->phone }}</h4>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="col-md-6 col-sm-12 text-center text-md-right">
                                 <p>
-                                    <h3 class="text-muted" style="font-weight: bold">تاريخ الفتورة</h3> 
-                                        <h4 style="font-weight: bold">{{ $order->created_at }}</h4>
+                                <h3 class="text-muted" style="font-weight: bold">تاريخ الفتورة</h3>
+                                <h4 style="font-weight: bold">{{ $order->created_at }}</h4>
                                 </p>
                             </div>
                         </div>
@@ -96,8 +99,8 @@
                                                     <td class="text-right">{{ $product['price'] }} EGP</td>
                                                 </tr>
                                                 @php
-                                                    $x++
-                                            @endphp
+                                                    $x++;
+                                                @endphp
                                             @endforeach
                                         </tbody>
                                     </table>
@@ -169,7 +172,7 @@
                                 <div class="col-md-5 col-sm-12 text-center">
                                     <button type="button" class="btn btn-info btn-lg my-1"><i
                                             class="la la-paper-plane-o"></i> Send Invoice</button>
-                                </div>--}}
+                                </div> --}}
                             </div>
                         </div>
                         <!--/ Invoice Footer -->
@@ -179,20 +182,4 @@
         </div>
     </div>
 @endsection
-@section('vendor_js')
-    <script src="{{ asset('assets/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/datatable/dataTables.buttons.min.js') }}" type="text/javascript">
-    </script>
-    <script src="{{ asset('assets/vendors/js/tables/buttons.flash.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/jszip.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/pdfmake.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/vfs_fonts.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/buttons.html5.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/buttons.print.min.js') }}" type="text/javascript"></script>
 
-    <script src="{{ asset('assets/vendors/js/charts/chart.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/charts/echarts/echarts.js') }}" type="text/javascript"></script>
-@endsection
-@section('page_level_js')
-    <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript"></script>
-@endsection

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\OfferController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Front\FrontController;
@@ -52,6 +53,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function (){
     // Offers Route
     Route::post('offers/product', [OfferController::class, 'getProducts'])->name('getProducts');
     Route::resource('offers', OfferController::class);
+    // Profile Route
+    Route::get('profile/{user}', [ProfileController::class, 'index'])->name('profile.index');
     // Notification Route
     Route::post('/mark-all-as-read', function(){
         Notification::where('is_read', false)->update(['is_read' => true]);

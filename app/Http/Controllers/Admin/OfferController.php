@@ -52,7 +52,7 @@ class OfferController extends Controller
             $offer->product()->saveMany($products);
 
             // dd($products);
-            toastr()->success('تم انشاء العرض بنجاح');
+            toast('تم انشاء العرض بنجاح', 'success');
             return redirect()->route('offers.create');
             // dd('suucess');
         }catch(Exception $e){

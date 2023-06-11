@@ -24,15 +24,9 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $generalSettings = app(GeneralSettings::class);
-        View::share('settings', $generalSettings->getAllSettings());
-        // Using closure based composers...
-        View::composer('*', function ($view) {
-            if (auth()->check()) {
-                // The user is logged in...
-                $notificationCount = Notification::where('is_read', false)->count();
-                $notifications = Notification::orderBy('created_at', 'desc')->get();
-                $view->with(['notifications' => $notifications, 'notificationCount' => $notificationCount]);
-            }
-        });
+        $notificationCount = Notification::where('is_read', false)->count();
+        $notifications = Notification::orderBy('created_at', 'desc')->get();
+        
+        View::share(['notifications' => $notifications, 'notificationCount' => $notificationCount, 'settings' => $generalSettings->getAllSettings()]);
     }
 }

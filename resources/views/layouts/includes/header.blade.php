@@ -93,7 +93,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="">
+                                <a class="dropdown-item" href="{{ route('profile.index', auth()->user()->id ) }}">
                                     <i class="ft-power"></i> {{ __('الملف الشخصى') }}
                                 </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"

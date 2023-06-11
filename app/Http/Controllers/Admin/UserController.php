@@ -9,10 +9,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function import() 
+    public function index()
     {
-        Excel::import(new UsersImport, public_path('users.xlsx'));
         
-        return redirect('/')->with('success', 'All good!');
     }
 }
