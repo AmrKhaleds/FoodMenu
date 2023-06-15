@@ -52,6 +52,7 @@
                                                     <th>فئة المنتج</th>
                                                     <th>وصف المنتج</th>
                                                     <th>السعر يالمصرى</th>
+                                                    <th>الكمية المتاحة</th>
                                                     <th>الحالة</th>
                                                     <th>العمليات</th>
                                                 </tr>
@@ -72,6 +73,7 @@
                                                             </td>
                                                             <td>{{ Str::limit($product->desc, 20) }}</td>
                                                             <td>{{ $product->price }} EGP</td>
+                                                            <td>{{ $product->quantity }}</td>
                                                             <td>
                                                                 <div class="container">
                                                                     <label class="switch">
@@ -112,6 +114,7 @@
                                                     <th>فئة المنتج</th>
                                                     <th>وصف المنتج</th>
                                                     <th>السعر يالمصرى</th>
+                                                    <th>الكمية المتاحة</th>
                                                     <th>الحالة</th>
                                                     <th>العمليات</th>
                                                 </tr>

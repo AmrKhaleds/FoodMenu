@@ -105,6 +105,18 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="quantity">الكمية المتاحة</label>
+                                                            <input type="text" value="{{ $product->quantity }}"
+                                                                id="quantity" class="form-control" placeholder="الكمية التلقائية (0)"
+                                                                name="quantity">
+                                                            @error('quantity')
+                                                                <span id="name_error"
+                                                                    class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-12">
                                                         <input class="dropify" type="file" name="photo" id="formFileLg"
                                                             data-max-files="10" data-show-errors="true"

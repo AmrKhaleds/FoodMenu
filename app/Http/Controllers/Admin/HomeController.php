@@ -25,8 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $orders = Order::select('name', 'menu', 'order_number')->get();
+        // $orders = Order::select('name', 'menu', 'order_number')->get();
         // dd($orders);
-        return view('dashboard.index', compact('orders'));
+        return view('dashboard.index');
     }
 }

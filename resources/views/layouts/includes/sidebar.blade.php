@@ -10,7 +10,7 @@
 
                 <a href="{{ route('orders.index') }}">
                     <i class="la la-users"></i>
-                    <span class="badge badge badge-danger badge-pill float-right">{{ App\Models\Order::where('status', false)->count() }}</span>
+                    <span class="badge badge badge-danger badge-pill float-right">{{ App\Models\Order::where('order_status', false)->count() }}</span>
                     <span class="menu-title" data-i18n="nav.templates.main">الطلبات</span></a>
             </li>
             <li class=" nav-item"><a href="#"><i class="la la-file-o"></i><span class="menu-title"

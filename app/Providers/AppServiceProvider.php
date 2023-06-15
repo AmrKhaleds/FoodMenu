@@ -25,11 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Validator::extend('recaptcha', 'App\\Validators\\ReCaptcha@validate');
-        $notificationCount = Notification::where('is_read', false)->count();
-        $notifications = Notification::orderBy('created_at', 'desc')->get();
-        View::share(['notifications' => $notifications, 'notificationCount' => $notificationCount]);
-
         Order::observe(OrderObserver::class);
     }
 }

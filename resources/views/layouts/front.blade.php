@@ -29,12 +29,17 @@
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
     <link rel="stylesheet" id="dina-style-css-css" href="{{ asset('front/style.css') }}" type="text/css" media="all" />
     <!-- favicons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.css" integrity="sha512-yX1R8uWi11xPfY7HDg7rkLL/9F1jq8Hyiz8qF4DV2nedX4IVl7ruR2+h3TFceHIcT5Oq7ooKi09UZbI39B7ylw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @livewireStyles
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
 </head>
 
 <body class="body-header1"
     style="background-color: rgb(23, 24, 25); background-image: url('https://kalanidhithemes.com/live-preview/landing-page/delici/all-demo/Delici-Defoult/images/background/bg-5.png');">
 
     @include('sweetalert::alert')
+    @include('front.parts.imageHeader')
     @yield('content')
     <footer>
         <div class="container">
@@ -59,6 +64,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
         integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
     <script src="{{ asset('front/js/jquery.js') }}"></script>
     <script src="{{ asset('front/js/jquery-migrate.min.js') }}"></script>
     <script src="{{ asset('front/css/bootstrap/js/popper.min.js') }}"></script>
@@ -99,6 +105,43 @@
         });
     </script>
     @yield('custom_js')
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.js" integrity="sha512-JbRQ4jMeFl9Iem8w6WYJDcWQYNCEHP/LpOA11LaqnbJgDV6Y8oNB9Fx5Ekc5O37SwhgnNJdmnasdwiEdvMjW2Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-right',
+            showConfirmButton: false,
+            showCloseButton: true,
+            timer: 1500,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        });
+
+        window.addEventListener('alert', ({
+            detail: {
+                type,
+                message
+            }
+        }) => {
+            Toast.fire({
+                icon: type,
+                title: message
+            })
+        })
+    </script>
+    <script>
+        document.addEventListener('livewire:load', function () {
+            Livewire.on('sessionCleared', function () {
+                // Reload the page
+                location.reload();
+            });
+        });
+    </script>
+    @livewireScripts
 </body>
 
 </html>

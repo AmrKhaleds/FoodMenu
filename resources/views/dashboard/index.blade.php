@@ -88,7 +88,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse ($orders as $order)
+                                        {{-- @forelse ($orders as $order)
                                             <tr class="bg-success bg-lighten-5">
                                                 <td>{{ $order->order_number }}</td>
                                                 <td><i class="cc BTC-alt"></i> {{ count($order->menu) }}</td>
@@ -96,7 +96,7 @@
                                             </tr>
                                         @empty
                                             
-                                        @endforelse
+                                        @endforelse --}}
                                     </tbody>
                                 </table>
                             </div>

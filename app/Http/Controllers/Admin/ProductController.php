@@ -41,7 +41,7 @@ class ProductController extends Controller
     public function store(ProductRequest $request)
     {
         $requestData = $request->all();
-
+        // dd($requestData);
         if ($request->hasFile('photo')) {
             $photoName = time();
             $image = $request['photo'];
@@ -55,6 +55,7 @@ class ProductController extends Controller
             'desc' => $requestData['desc'],
             'photo' => $photoWithOriginalExtention ?? 'product_photo.png',
             'price' => $requestData['price'],
+            'quantity' => $requestData['quantity'],
             'category_id' => $requestData['category_id'],
         ]);
         if ($product) {
@@ -103,6 +104,7 @@ class ProductController extends Controller
             'desc' => $requestData['desc'],
             'photo' => $photoWithOriginalExtention,
             'price' => $requestData['price'],
+            'quantity' => $requestData['quantity'],
             'category_id' => $requestData['category_id'],
         ]);
         if ($update) {
@@ -171,8 +173,11 @@ class ProductController extends Controller
                 Excel::import(new ProductsImport, $request->file('excel'));
                 Alert::success('نجاح', 'تم رفع شيت المنتجات بنجاح')->autoClose(false);
             } catch (WithHeadingRow $exception) {
+                dd($exception);
                 Alert::error('خطأ', 'تنسيق الملف غير صحيح')->autoClose(false);
             } catch (\Exception $exception) {
+                dd($exception);
+
                 Alert::error('خطأ', 'حدث خطأ أثناء رفع الملف')->autoClose(false);
             }
         }

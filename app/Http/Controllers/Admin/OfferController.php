@@ -115,7 +115,7 @@ class OfferController extends Controller
             $offer->product()->update(['offer_id' => null]); // Remove offer_id association from products
             $offer->delete(); 
 
-            toastr()->success('تم حذف العرض بنجاح');
+            toast('تم حذف العرض بنجاح', 'success');
             return redirect()->route('offers.index');
         }catch(Exception $e){
             dd($e);

@@ -10,11 +10,13 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\FrontController;
 use App\Http\Controllers\Front\FrontOrderController;
 use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,10 +29,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // Front Routes
-Route::get('/', FrontController::class)->name('front');
+Route::view('/', 'front.index')->name('front');
 Route::post('order', FrontOrderController::class)->name('request-order');
-Route::resource('cart', CartController::class);
-Route::get('/upload', [UserController::class, 'import'])->name('import');
+Route::get('checkout', function(){
+        $value = Session::get('guestIdentifier');
+        $items = \Cart::session($value)->getContent();
+        return view('front.checkout', compact('items'));
+})->name('checkout');
+// Route::get('/clear', function(){
+//     $value = Session::get('guestIdentifier');
+//     $cart = \Cart::session($value);
+//     $cart->clear();
+// });
+Route::get('/cartInfo', function(){
+    $value = Session::get('guestIdentifier');
+    $cart = \Cart::session($value);
+    // \Cart::session($value)->update(3,[
+    //     'quantity' => 3,
+    // ]);
+    return ($cart->getContent());
+});
 
 // Admin Routes
 Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function (){

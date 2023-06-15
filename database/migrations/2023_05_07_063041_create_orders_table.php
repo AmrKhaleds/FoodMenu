@@ -14,11 +14,20 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_number');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
+            $table->float('order_amount');
+            $table->float('order_tax');
+            $table->string('order_status');
+            $table->integer('order_traking_number');
+
+            $table->string('order_user_name');
+            $table->string('order_user_email');
+            $table->bigInteger('order_user_phone');
+            $table->string('order_user_address')->nullable();
+            $table->string('order_user_address2')->nullable();
+            $table->string('order_user_city')->nullable();
+            $table->string('order_user_country')->nullable();
+
             $table->enum('request_type', ['delivery', 'resturant']);
-            $table->text('menu');
             $table->timestamps();
         });
     }

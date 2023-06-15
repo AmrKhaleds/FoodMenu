@@ -155,12 +155,12 @@ $(this).toggleClass('active').next().slideDown();
          }
      });
 
-$("a.scrolltop[href^='#']").on('click', function(e) {
-   e.preventDefault();
-   var hash = this.hash;
-   $('html, body').stop().animate({scrollTop:0}, 1000, 'easeOutExpo');
+// $("a.scrolltop[href^='#']").on('click', function(e) {
+//    e.preventDefault();
+//    var hash = this.hash;
+//    $('html, body').stop().animate({scrollTop:0}, 1000, 'easeOutExpo');
 
-});
+// });
 
  
 })(jQuery);

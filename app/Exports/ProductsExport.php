@@ -21,6 +21,7 @@ class ProductsExport implements FromCollection, WithHeadings, WithMapping
             'وصف المنتج',
             'سعر المنتج',
             'حالة المنتج',
+            'كمية المنتج',
             'فئة المنتج'
         ];
     }
@@ -29,7 +30,7 @@ class ProductsExport implements FromCollection, WithHeadings, WithMapping
     */
     public function collection()
     {
-        return Product::with('category')->select('id', 'name', 'desc', 'price', 'status', 'category_id')->get();
+        return Product::with('category')->select('id', 'name', 'desc', 'price', 'quantity', 'status', 'category_id')->get();
     }
 
     /**
@@ -43,6 +44,7 @@ class ProductsExport implements FromCollection, WithHeadings, WithMapping
             $invoice->desc,
             $invoice->price,
             $invoice->status ? 'مفعل' : 'غير مفعل',
+            $invoice->quantity ?? 0,
             $invoice->category->name,
         ];
     }
