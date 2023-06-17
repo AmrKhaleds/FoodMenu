@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Livewire;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\CheckoutRequest;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Livewire\Component;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class CheckoutController extends Controller
+class RestaurantOrder extends Component
 {
-    public function index()
+    public function render()
     {
         $value = Session::get('guestIdentifier');
         $items = \Cart::session($value)->getContent();
-        return view('front.checkout', compact('items'));
+        return view('livewire.restaurant-order', compact('items'));
     }
 
     private function removeQuantity()
@@ -25,11 +24,10 @@ class CheckoutController extends Controller
         Session::put('product_quantities', []);
     }
 
-    public function deliveryOrder(CheckoutRequest $request)
+    public function restaurantOrder(CheckoutRequest $request)
     {
         try{
             $latestOrder = Order::orderBy('created_at', 'DESC')->first();
-            // dd($latestOrder);
             $getUserSession = Session::get('guestIdentifier');
             $userSession = \Cart::session($getUserSession);
             $getTotal = $userSession->getTotal();
@@ -66,15 +64,6 @@ class CheckoutController extends Controller
         }catch(Exception $e){
             toast('حدث خطأ أثناء طلب المنتج. الرجاء المحاولة مرة أخرى.','error')->position('top-end');
             return back()->withErrors(['error' => $e->getMessage()])->withInput();
-        }
-    }
-
-    public function restaurantOrder(Request $request)
-    {
-        try{
-            
-        }catch(Exception $e){
-            
         }
     }
 }

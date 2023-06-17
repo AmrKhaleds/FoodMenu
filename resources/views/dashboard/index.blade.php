@@ -74,7 +74,7 @@
                             <h4 class="card-title">إحصائيات المبيعات</h4>
                             <a class="heading-elements-toggle"><i class="la la-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
-                                <p class="text-muted">إجمالى المبيعات : 654 EGP</p>
+                                <p class="text-muted">إجمالى المبيعات : {{ $total }} EGP</p>
                             </div>
                         </div>
                         <div class="card-content">
@@ -88,15 +88,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {{-- @forelse ($orders as $order)
+                                        @forelse ($orders as $order)
+                                        {{-- {{$order->orderDetail}} --}}
                                             <tr class="bg-success bg-lighten-5">
                                                 <td>{{ $order->order_number }}</td>
-                                                <td><i class="cc BTC-alt"></i> {{ count($order->menu) }}</td>
-                                                <td>{{ $order->order_number }} EGP</td>
+                                                <td><i class="cc BTC-alt"></i> {{ count($order->orderDetail) }}</td>
+                                                <td>{{ $order->order_amount }} EGP</td>
                                             </tr>
                                         @empty
                                             
-                                        @endforelse --}}
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

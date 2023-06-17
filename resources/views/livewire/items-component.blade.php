@@ -51,7 +51,7 @@
                                                             <i class="bi bi-plus"></i>
                                                         </span>
                                                         <span class="quantity-counter">
-                                                            <input type="text" class="counter-input" value="{{ $quantities[$product->id] ?? 1 }}">
+                                                            <input type="text" class="counter-input" value="{{ $quantities[$product->id] ?? 1 }}" disabled>
                                                         </span>
                                                         <span class="decrease" wire:click='decrease({{ $product->id }})'>
                                                             <i class="bi bi-dash"></i>

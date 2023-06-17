@@ -79,7 +79,7 @@ class OrderController extends Controller
     {
         $order = Order::find($id);
         if($order->delete()){
-            toastr()->success('تم حذف الطلب بنجاح');
+            toast('تم حذف الطلب بنجاح', 'success');
             return redirect()->route('orders.index');
         }
     }

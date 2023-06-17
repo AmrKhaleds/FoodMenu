@@ -10,7 +10,7 @@
 
                 <a href="{{ route('orders.index') }}">
                     <i class="la la-users"></i>
-                    <span class="badge badge badge-danger badge-pill float-right">{{ App\Models\Order::where('order_status', false)->count() }}</span>
+                    <span class="badge badge badge-danger badge-pill float-right">{{ App\Models\Order::where('order_status', 'pending')->count() }}</span>
                     <span class="menu-title" data-i18n="nav.templates.main">الطلبات</span></a>
             </li>
             <li class=" nav-item"><a href="#"><i class="la la-file-o"></i><span class="menu-title"
@@ -62,6 +62,20 @@
                     <li class="{{ Route::currentRouteNamed('offers.create') ? 'active open' : '' }}">
                         <a class="menu-item" href="{{ route('offers.create') }}"
                             data-i18n="nav.templates.horz.main">إضافة عرض جديد</a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item"><a href="#"><i class="la l
+                la-bullhorn"></i><span class="menu-title"
+                        data-i18n="nav.templates.main">تفاصيل المطعم</span></a>
+                <ul class="menu-content">
+                    <li class="{{ Route::currentRouteNamed('rooms.index') ? 'active open' : '' }}">
+                        <a class="menu-item" href="{{ route('rooms.index') }}"
+                            data-i18n="nav.templates.vert.main">القاعات</a>
+                    </li>
+                    <li class="{{ Route::currentRouteNamed('tables.index') ? 'active open' : '' }}">
+                        <a class="menu-item" href="{{ route('tables.index') }}"
+                            data-i18n="nav.templates.horz.main">الطاولات</a>
                     </li>
                 </ul>
             </li>

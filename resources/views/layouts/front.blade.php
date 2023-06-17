@@ -24,15 +24,13 @@
     <!-- Font Awesome Icons CSS -->
     <link rel="stylesheet" id="dina-font-awesome-css"
         href="{{ asset('front/css/fontawesome/css/font-awesome.min.css') }}" type="text/css" media="all" />
-    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" />
+    {{-- <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-kufi" type="text/css" /> --}}
     <!-- Main CSS File -->
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
     <link rel="stylesheet" id="dina-style-css-css" href="{{ asset('front/style.css') }}" type="text/css" media="all" />
     <!-- favicons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.css" integrity="sha512-yX1R8uWi11xPfY7HDg7rkLL/9F1jq8Hyiz8qF4DV2nedX4IVl7ruR2+h3TFceHIcT5Oq7ooKi09UZbI39B7ylw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @livewireStyles
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
 </head>
 
 <body class="body-header1"
@@ -46,7 +44,7 @@
             <!-- FOOTER COPYRIGHT -->
             <div class="copyright">
                 Copyright &copy; 2023, Designed by
-                <a href="https://akeissa.com">{{ $settings['copyright'] }}</a>
+                <a href="https://akeissa.com" style="color: rgb(228, 197, 144);;">{{ $settings['copyright'] }}</a>
             </div>
             <!-- /FOOTER COPYRIGHT -->
             <!-- FOOTER SCROLL UP -->

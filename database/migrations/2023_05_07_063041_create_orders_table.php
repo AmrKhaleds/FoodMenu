@@ -15,19 +15,22 @@ return new class extends Migration
             $table->id();
             $table->string('order_number');
             $table->float('order_amount');
-            $table->float('order_tax');
+            $table->float('order_tax')->nullable();
             $table->string('order_status');
             $table->integer('order_traking_number');
 
             $table->string('order_user_name');
-            $table->string('order_user_email');
             $table->bigInteger('order_user_phone');
-            $table->string('order_user_address')->nullable();
-            $table->string('order_user_address2')->nullable();
-            $table->string('order_user_city')->nullable();
+            $table->string('order_user_email')->nullable();
+            // delivery
+            $table->string('room_number')->nullable();
+            $table->string('table_number')->nullable();
+            // resturant
+            $table->text('order_user_address')->nullable();
+            $table->string('order_user_place')->nullable();
             $table->string('order_user_country')->nullable();
 
-            $table->enum('request_type', ['delivery', 'resturant']);
+            $table->enum('order_type', ['delivery', 'resturant']);
             $table->timestamps();
         });
     }

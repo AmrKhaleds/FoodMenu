@@ -55,12 +55,5 @@
         <!-- BEGIN PAGE LEVEL JS-->
         <script src="{{ asset('assets/js/scripts/forms/form-login-register.js') }}" type="text/javascript"></script>
         <!-- END PAGE LEVEL JS-->
-        <script type="text/javascript">
-            $(document).ready(function() {
-                setTimeout(() => {
-                    $('.toast').fadeOut();
-                }, 5000);
-            });
-        </script>
     </body>
 </html>

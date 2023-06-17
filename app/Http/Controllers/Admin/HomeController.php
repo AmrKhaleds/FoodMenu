@@ -25,8 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $orders = Order::select('name', 'menu', 'order_number')->get();
+        $orders = Order::with('orderDetail')->where('order_status', 'complete')->orderBy('created_at', 'desc')->get();
+        $total = Order::where('order_status', 'complete')->sum('order_amount');
         // dd($orders);
-        return view('dashboard.index');
+        return view('dashboard.index', compact('orders', 'total'));
     }
 }

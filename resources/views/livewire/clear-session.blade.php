@@ -11,7 +11,8 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                border-radius: 0 20px 20px 0;" 
+                border-radius: 0 20px 20px 0;
+                z-index: 999;" 
         wire:click='clear()'>
     <i class="bi bi-trash"></i>
 </div>

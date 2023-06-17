@@ -35,6 +35,37 @@ https://matchthemes.com
 *
 * 
 */
+@font-face {
+    font-family: 'DroidArabicKufiBold';
+    src: url('/front/css/fontawesome/kufi/DroidArabicKufiBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'DroidArabicKufiRegular';
+    src: url('/front/css/fontawesome/kufi/DroidArabicKufiRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* The following rules are deprecated. */
+
+@font-face {
+    font-family: 'Droid Arabic Kufi';
+    src: url('/front/css/fontawesome/kufi/DroidArabicKufiBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+
+
+@font-face {
+    font-family: 'Droid Arabic Kufi';
+    src: url('/front/css/fontawesome/kufi/DroidArabicKufiRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 :root {
     --body-font: 'DroidArabicKufiRegular';
@@ -1854,7 +1885,6 @@ body.has-active-menu {
 }
 
 .menu-price {
-    font-size: 23px;
     font-weight: bold;
 }
 
@@ -1886,13 +1916,14 @@ body.has-active-menu {
     background-size: 4px 4px;
     background-repeat: repeat-x;
 }
-.menu-image .product-image{
+
+.menu-image .product-image {
     border-radius: 20px;
     width: 100%;
     transition: 0.3s ease-in-out;
 }
 
-.menu-image .quantity{
+.menu-image .quantity {
     height: 100%;
     display: flex;
     width: 35px;
@@ -1910,15 +1941,16 @@ body.has-active-menu {
 
 
 }
+
 .menu-image .quantity .increase,
-.menu-image .quantity .decrease{
+.menu-image .quantity .decrease {
     width: 35px;
     text-align: center;
     cursor: pointer;
 
 }
 
-.menu-image .quantity .quantity-counter .counter-input{
+.menu-image .quantity .quantity-counter .counter-input {
     width: 35px;
     text-align: center;
     background: none;
@@ -1926,15 +1958,15 @@ body.has-active-menu {
     border: none;
 }
 
-.menu-image:hover .product-image{
-    opacity:0.70;
-    transform:scale(1.02,1.02);
+.menu-image:hover .product-image {
+    opacity: 0.70;
+    transform: scale(1.02, 1.02);
 }
 
 .menu-post-img {
     display: block;
     float: left;
-    position:;
+    /* position: ; */
     top: -5px;
 }
 
@@ -1948,7 +1980,8 @@ body.has-active-menu {
     font-size: 14px;
     font-style: italic;
 }
-.add-to-cart{
+
+.add-to-cart {
     width: 100%;
     font-size: 20px;
     background: none;
@@ -1959,7 +1992,7 @@ body.has-active-menu {
 }
 
 .menu-desc {
-    color: rgb(167,167,167);
+    color: rgb(167, 167, 167);
     margin-top: -8px;
 }
 
@@ -1972,6 +2005,7 @@ body.has-active-menu {
 .quantity.fade-leave-to {
     opacity: 0;
 }
+
 /* menu 2 col */
 
 .menu-2col .menu-post {
@@ -4769,6 +4803,7 @@ MEDIA QUERIES
     background: transparent;
     direction: rtl;
     /* margin: 10px; */
+    border-radius: 5px;
 }
 
 select>option {
@@ -4933,7 +4968,8 @@ select>option {
         transform: translateX(100%);
     }
 }
-#cartItemCount{
+
+#cartItemCount {
     background: red;
     /* width: 15px; */
     /* height: 15px; */
@@ -5020,13 +5056,16 @@ select>option {
     font-weight: bold;
 
 }
+
 .orderItems {
     direction: rtl;
-    height: 300px;
+    height: 214px;
     overflow: auto;
+    margin-left: 0;
     margin-bottom: 20px;
 }
-.orderItems ul{
+
+.orderItems ul {
     list-style-type: none;
     padding-left: 0px;
     margin: 0;
@@ -5035,48 +5074,146 @@ select>option {
 .item {
     height: 110px;
     margin-bottom: 5px;
+    margin-left: 13px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: stretch;
 }
 
-.item .cart-info{
+.item .cart-info {
     display: flex;
     flex-direction: column;
-    width: 100%; 
+    width: 100%;
     margin-left: 20px;
 }
 
-.item .cart-info .product-name{
+.item .cart-info .product-name {
     display: block;
-    width: 100%; 
+    width: 100%;
     font-weight: bold;
     color: #fdd7a2;
 }
 
-.item .cart-info .product-price{
+.item .cart-info .product-price {
     display: block;
     width: 100%;
 }
 
-.item .cart-info .product-quantity{
+.item .cart-info .product-quantity {
     display: block;
     width: 100%;
     font-size: 12px;
     color: rgb(255, 91, 91);
 }
 
-.item .remove{
+.item .remove {
     position: relative;
     top: -8px;
     left: 4px;
     font-size: 20px;
     font-weight: bold;
+    /* width: 23px; */
+    height: max-content;
+    background: none;
+    color: white;
+    border: none;
+    transition: 0.5s ease-in-out;
+}
+.item .remove:hover {
+    color: #fdd7a2;
+    transition: 0.5s ease-in-out;
+
 }
 
 
-.item .right .cart-photo{
+.item .right .cart-photo {
     width: 88px;
     border-radius: 20px;
+}
+
+.wrapper {
+    display: inline-flex;
+    background: #2b2c2d;
+    height: 87px;
+    /* width: 400px; */
+    align-items: center;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    padding: 20px 15px;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    margin-bottom: 50px;
+}
+
+.wrapper .option {
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 0 10px;
+    border: 2px solid lightgrey;
+    transition: all 0.3s ease;
+}
+
+.wrapper .option .dot {
+    height: 20px;
+    width: 20px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    position: relative;
+}
+
+.wrapper .option .dot::before {
+    position: absolute;
+    content: "";
+    top: 4px;
+    left: 4px;
+    width: 12px;
+    height: 12px;
+    background: #2b2c2d;
+    border-radius: 50%;
+    opacity: 0;
+    transform: scale(1.5);
+    transition: all 0.3s ease;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+#option-1:checked:checked~.option-1,
+#option-2:checked:checked~.option-2 {
+    border-color: #fe2323ad;
+    background: #fe2323ad;
+}
+
+#option-1:checked:checked~.option-1 .dot,
+#option-2:checked:checked~.option-2 .dot {
+    background: #fff;
+}
+
+#option-1:checked:checked~.option-1 .dot::before,
+#option-2:checked:checked~.option-2 .dot::before {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.wrapper .option span {
+    font-size: 15px;
+    color: #494949;
+}
+
+#option-1:checked:checked~.option-1 span,
+#option-2:checked:checked~.option-2 span {
+    color: #fff;
+}
+.swal2-html-container a{
+    color: #ff0000;
+    text-decoration: underline;
 }

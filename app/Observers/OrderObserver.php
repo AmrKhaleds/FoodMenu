@@ -17,7 +17,7 @@ class OrderObserver
         // Send Realtime Notification After creating order
         event(new OrderNotificationEvent(
             $order->order_number,
-            $order->email,
+            "New Order",
             url('/dashboard/orders/' . $order->id),
             $order->created_at,
         ));

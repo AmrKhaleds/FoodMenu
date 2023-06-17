@@ -61,10 +61,10 @@
                                                         <tr>
                                                             <td>{{ ++$loop->index }}</td>
                                                             <td>{{ $order->order_number }}</td>
-                                                            <td>{{ $order->name }}</td>
-                                                            <td>{{ $order->phone }}</td>
-                                                            <td>{{ $order->request_type }}</td>
-                                                            <td>{{ $order->created_at }}</td>
+                                                            <td>{{ $order->order_user_name }}</td>
+                                                            <td><a href="https://wa.me/{{ $order->order_user_phone }}/?text=تم استلام طلبك بنجاح" target="_blank">{{ $order->order_user_phone }}</a></td>
+                                                            <td><span class="badge badge badge-pill badge-info mr-2">{{ $order->order_type }}</span></td>
+                                                            <td><span style="color: red">{{ $order->created_at->diffForHumans() }}</span> <br> {{ $order->created_at }}</td>
                                                             <td>
                                                                 <div class="container">
                                                                     <label class="switch">
