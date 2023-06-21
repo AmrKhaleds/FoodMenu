@@ -10,7 +10,7 @@ class Offer extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'product_id', 'discount_type', 'discount', 'start_date', 'end_date', 'created_at','updated_at'];
+    protected $fillable = ['name', 'product_id', 'discount_type', 'discount', 'status', 'start_date', 'end_date', 'created_at','updated_at'];
 
     public function product()
     {

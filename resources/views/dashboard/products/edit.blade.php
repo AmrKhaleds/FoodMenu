@@ -117,6 +117,18 @@
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-3">
+                                                        <div class="form-group">
+                                                            <label for="status">حالة الفئة</label>
+                                                            <div class="container">
+                                                                <label class="switch">
+                                                                    <input type="checkbox" name="status" class="status" id="status" value="1"
+                                                                        @if ($product->status == 1) checked @endif />
+                                                                    <div></div>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-md-12">
                                                         <input class="dropify" type="file" name="photo" id="formFileLg"
                                                             data-max-files="10" data-show-errors="true"

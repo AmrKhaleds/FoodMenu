@@ -27,7 +27,8 @@ class OfferController extends Controller
     public function create()
     {
         $categories = Category::select('id','name')->orderBy('created_at', 'desc')->get();
-        return view('dashboard.offers.create', compact('categories'));
+        $products = Product::with('category')->orderBy('created_at', 'desc')->get();
+        return view('dashboard.offers.create', compact('products', 'categories'));
     }
 
     /**
@@ -38,7 +39,6 @@ class OfferController extends Controller
         // dd($request->all());
         $requestData = $request->all();
         try{
-            // foreach($productsRequest as $product_id){
             $offer = Offer::create([
                 'name' => $requestData['name'],
                 'discount_type' => $requestData['discount_type'],
@@ -47,7 +47,8 @@ class OfferController extends Controller
                 'end_date' => $requestData['end_date'],
             ]);
             $productsRequest = $requestData['products'];
-            $products = Product::whereIn('id', $productsRequest)->get();
+            // foreach($productsRequest as $product_id){
+                $products = Product::whereIn('id', $productsRequest)->get();
             // }
             $offer->product()->saveMany($products);
 
@@ -73,7 +74,11 @@ class OfferController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $offer = Offer::findOrFail($id);
+        $categories = Category::select('id','name')->orderBy('created_at', 'desc')->get();
+        $products = Product::orderBy('created_at', 'desc')->get();
+
+        return view('dashboard.offers.show', compact('offer', 'products', 'categories'));
     }
 
     /**
@@ -81,7 +86,30 @@ class OfferController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        /*
+            WHen Makeing Order::where('id', $id)->update($request);
+            it return integer of effected rows 
+            not instance of the model then i can't get any relation in offer model
+        */
+        $requestData = $request->all();
+        try{
+            $offer = Offer::find($id);
+            $offer->update([
+                'name' => $requestData['name'],
+                'discount_type' => $requestData['discount_type'],
+                'discount' => $requestData['discount'],
+                'start_date' => $requestData['start_date'],
+                'end_date' => $requestData['end_date'],
+            ]);
+            $productsRequest = $requestData['products'];
+            $products = Product::whereIn('id', $productsRequest)->get();
+            $offer->product()->saveMany($products);
+
+            toast('تم تحديث العرض بنجاح', 'success');
+            return redirect()->route('offers.index');
+        }catch(Exception $e){
+            dd($e);
+        }
     }
 
     public function getProducts(Request $request)
@@ -120,5 +148,28 @@ class OfferController extends Controller
         }catch(Exception $e){
             dd($e);
         }
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $requestData = $request->all();
+        $offer = Offer::findOrFail($requestData['offer_id']);
+
+        if (!$offer) {
+            return response()->json([
+                'status' => false,
+                'msg' => 'Product not found',
+            ]);
+        }
+        // update status on change
+        $offer->status = $requestData['status'];
+        $offer->save();
+    
+        $message = $requestData['status'] == 1 ? 'تم تفعيل العرض بنجاح' : 'تم إلغاء تفعيل العرض بنجاح';
+
+        return response()->json([
+            'status' => true,
+            'msg' => $message,
+        ]);
     }
 }

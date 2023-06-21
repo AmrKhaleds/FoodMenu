@@ -66,7 +66,7 @@ return [
     |
     */
 
-    'timer' => env('SWEET_ALERT_TIMER', false),
+    'timer' => env('SWEET_ALERT_TIMER', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -185,6 +185,9 @@ return [
     */
 
     'timer_progress_bar' => env('SWEET_ALERT_TIMER_PROGRESS_BAR', true),
+
+    'timer' => env('SWEET_ALERT_MIDDLEWARE_ALERT_CLOSE_TIME', 6000),
+
 
     /*
     |--------------------------------------------------------------------------

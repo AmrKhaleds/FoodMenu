@@ -15,8 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('created_at', 'desc')->get();
-        return view('dashboard.orders.index', compact('orders'));
+        return view('dashboard.orders.index');
     }
 
     /**
@@ -40,20 +39,17 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        $order = Order::find($id);
+        $order = Order::with('orderDetail')->find($id);
         $products = [];
-        $totalPrice = 0;
-        foreach($order->menu as $menuItem){
-            $getProduct = Product::find($menuItem);
-            $price = $getProduct->price;
-            $totalPrice += $price;
+        // $totalPrice = 0;
+        foreach($order->orderDetail as $menuItem){
             $products[] = [
-                'name' => $getProduct->name,
-                'desc' => $getProduct->desc,
-                'price' => $price
+                'name' => $menuItem->product_name,
+                'price' => $menuItem->product_price,
+                'quantity' => $menuItem->product_quantity,
             ];
         }
-        return view('dashboard.orders.show', compact('order', 'products', 'totalPrice'));
+        return view('dashboard.orders.show', compact('order', 'products'));
     }
 
     /**

@@ -1,10 +1,8 @@
 @extends('layouts.app')
 @section('vendor_css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css"
-        integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/css/tables/datatable/datatables.min.css') }}">
 @endsection
-@section('title', 'انشاء منتج جديده')
+@section('title', 'انشاء عرض جديد')
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -15,7 +13,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="{{ route('products.index') }}"> المنتجات </a>
+                                <li class="breadcrumb-item"><a href="{{ route('products.index') }}"> العروض </a>
                                 </li>
                                 <li class="breadcrumb-item active">@yield('title')
                                 </li>
@@ -45,18 +43,16 @@
                                 <div class="card-content collapse show">
                                     <div class="card-body">
                                         <form class="form" id="form" method="POST"
-                                            action="{{ route('products.update', $product->id) }}"
-                                            enctype="multipart/form-data" data-dropzone="true">
+                                            action="{{ route('offers.update', $offer->id) }}">
                                             @method('PUT')
                                             @csrf
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="name">اسم المنتج</label>
-                                                            <input type="text" value="{{ $product->name }}"
-                                                                id="name" class="form-control" placeholder="اسم الفئة"
-                                                                name="name">
+                                                            <label for="name">اسم العرض</label>
+                                                            <input type="text" value="{{ $offer->name }}" id="name"
+                                                                class="form-control" placeholder="اسم الفئة" name="name">
                                                             @error('name')
                                                                 <span id="name_error"
                                                                     class="text-danger">{{ $message }}</span>
@@ -65,11 +61,9 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="price">سعر المنتج</label>
-                                                            <input type="text" value="{{ $product->price }}"
-                                                                id="price" class="form-control" placeholder="سعر المنتج"
-                                                                name="price">
-                                                            @error('price')
+                                                            <label for="start_date">تاريخ البداية</label>
+                                                            <input type="date" class="form-control" name="start_date" value="{{ $offer->start_date }}">
+                                                            @error('start_date')
                                                                 <span id="name_error"
                                                                     class="text-danger">{{ $message }}</span>
                                                             @enderror
@@ -77,39 +71,83 @@
                                                     </div>
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="desc">وصف المنتج</label>
-                                                            <input type="text" value="{{ $product->desc }}"
-                                                                id="desc" class="form-control" placeholder="وصف المنتج"
-                                                                name="desc">
-                                                            @error('desc')
+                                                            <label for="end_date"> تاريخ النهاية</label>
+                                                            <input type="date" class="form-control" name="end_date" value="{{ $offer->end_date }}">
+                                                            @error('end_date')
                                                                 <span id="name_error"
                                                                     class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="row">
                                                     <div class="col-md-4">
                                                         <div class="form-group">
-                                                            <label for="category">فئة المنتج</label>
-                                                            <select name="category_id" class="form-control"
-                                                                id="basicSelect">
-                                                                <option value="" disabled>اختار فئة المنتج</option>
-                                                                @foreach ($categories as $category)
-                                                                    <option value="{{ $category->id }}"
-                                                                        @if ($product->category_id == $category->id) selected @endif>
-                                                                        {{ $category->name }}</option>
-                                                                @endforeach
+                                                            <label for="category">نوع الخصم</label>
+                                                            <select name="discount_type" class="form-control"
+                                                                id="discount_type">
+                                                                <option selected disabled>اختار نوع الخصم</option>
+                                                                <option value="percentage" {{ $offer->discount_type == 'percentage' ? 'selected' : '' }}>نسبة مئوية</option>
+                                                                <option value="price" {{ $offer->discount_type == 'price' ? 'selected' : '' }}>سعر</option>
                                                             </select>
-                                                            @error('category_id')
+                                                            @error('discount_type')
                                                                 <span id="name_error"
                                                                     class="text-danger">{{ $message }}</span>
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-12">
-                                                        <input class="dropify" type="file" name="photo" id="formFileLg"
-                                                            data-max-files="10" data-show-errors="true"
-                                                            data-allowed-file-extensions="png jpg jpeg webp"
-                                                            data-max-file-size="30M" multiple="" data-default-file="{{ asset('storage/products/' . $product->photo) }}">
+
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="discount">قيمة الخصم</label>
+                                                            <input type="number" value="{{ $offer->discount }}"
+                                                                class="form-control" placeholder="قيمة الخصم"
+                                                                name="discount">
+                                                            @error('discount')
+                                                                <span id="name_error"
+                                                                    class="text-danger">{{ $message }}</span>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col" id="allProducts">
+                                                        <label for="discount">جميع المنتجات</label>
+                                                        <div class="card-content collapse show">
+                                                            <div class="card-body card-dashboard">
+                                                                <table class="table table-striped table-bordered dom-positioning dataTable">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>اسم المنتج</th>
+                                                                            <th>الفئة</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @isset($products)
+                                                                            @foreach ($products as $product)
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <input id="product-{{ $product->id }}" type="checkbox" name="products[]" value="{{ $product->id }}" @checked($product->offer_id == $offer->id)>
+                                                                                    </td>
+                                                                                    <td>{{ $product->name }}</td>
+                                                                                    <td>
+                                                                                        <span class="badge badge badge-pill badge-info mr-2">{{ $product->category->name }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        @endisset
+                                                                    </tbody>
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>اسم المنتج</th>
+                                                                            <th>الفئة</th>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                </table>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,14 +169,8 @@
     </div>
 @endsection
 @section('vendor_js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
-        integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script src="{{ asset('assets/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript"></script>
 @endsection
-@section('custom_js')
-    <script>
-        $('.dropify').dropify();
-        $('.dropify2').dropify();
-    </script>
+@section('page_level_js')
+    <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-basic.js') }}" type="text/javascript"></script>
 @endsection

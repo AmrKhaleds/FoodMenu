@@ -37,8 +37,7 @@ class ItemsComponent extends Component
     {
         $product = Product::find($productId);
         if(!$product->quantity == 0){
-            if($product->offer){
-                // dd("under Sale");
+            if($product->offer && $product->offer->status){
                 $product->price = $product->getDiscountPrice();
             }
             \Cart::session($this->userSession)->add([

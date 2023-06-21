@@ -38,8 +38,9 @@
                                         <div class="menu-container offer-block-three col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-2">
                                             <div class="menu-image" style="position: relative;">
                                                 {{-- <i class="far fa-heart heart-icon"></i> --}}
-                                                @if ($product->offer)
-                                                    <span class="sales">
+                                                @if ($product->offer && $product->offer->status)
+                                                {{-- {{ $product->offer->status }} --}}
+                                                <span class="sales">
                                                         {{ $product->offer->discount }}{{ $product->offer->discount_type == 'price' ? '-' : '%' }}
                                                     </span>
                                                 @endif
@@ -62,7 +63,7 @@
                                             <div class="menu-post-desc" style="text-align: center;">
                                                 <span class="menu-price" style="">{{ $product->name }}</span>
                                                 <p class="menu-desc">{{ $product->desc }}</p>
-                                                @if ($product->offer)
+                                                @if ($product->offer && $product->offer->status)
                                                 <div class="offer" style="display: flex;justify-content: space-around; ">
                                                     <span class="menu-title" style="display: block;font-size: 18px">
                                                         <s>

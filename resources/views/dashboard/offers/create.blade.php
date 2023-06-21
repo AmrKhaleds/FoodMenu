@@ -1,8 +1,6 @@
 @extends('layouts.app')
 @section('vendor_css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css"
-        integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/css/tables/datatable/datatables.min.css') }}">
 @endsection
 @section('title', 'انشاء عرض جديد')
 @section('content')
@@ -98,7 +96,6 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="discount">قيمة الخصم</label>
@@ -111,27 +108,47 @@
                                                             @enderror
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-group">
-                                                            <label for="category">الفئة</label>
-                                                            <select class="form-control" id="category_id">
-                                                                <option selected disabled>اختار فئة المنتج</option>
-                                                                <option value="" data-category-id="all">كل المنتجات
-                                                                </option>
-                                                                @foreach ($categories as $category)
-                                                                    <option value="{{ $category->name }}"
-                                                                        data-category-id="{{ $category->id }}">
-                                                                        {{ $category->name }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                            @error('category_id')
-                                                                <span id="name_error"
-                                                                    class="text-danger">{{ $message }}</span>
-                                                            @enderror
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col" id="allProducts">
+                                                        <label for="discount">جميع المنتجات</label>
+                                                        <div class="card-content collapse show">
+                                                            <div class="card-body card-dashboard">
+                                                                <table class="table table-striped table-bordered dom-positioning dataTable">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>اسم المنتج</th>
+                                                                            <th>الفئة</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @isset($products)
+                                                                            @foreach ($products as $product)
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <input id="product-{{ $product->id }}" type="checkbox" name="products[]" value="{{ $product->id }}">
+                                                                                    </td>
+                                                                                    <td>{{ $product->name }}</td>
+                                                                                    <td>
+                                                                                        <span class="badge badge badge-pill badge-info mr-2">{{ $product->category->name }}</span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        @endisset
+                                                                    </tbody>
+                                                                    <tfoot>
+                                                                        <tr>
+                                                                            <th>#</th>
+                                                                            <th>اسم المنتج</th>
+                                                                            <th>الفئة</th>
+                                                                        </tr>
+                                                                    </tfoot>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row" id="allProducts"></div>
                                             </div>
                                             <div class="form-actions">
                                                 <button type="submit" class="btn btn-primary">
@@ -151,50 +168,8 @@
     </div>
 @endsection
 @section('vendor_js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"
-        integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{{ asset('assets/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript"></script>
 @endsection
-@section('custom_js')
-    <script>
-        $(document).ready(function() {
-            $('#category_id').change(function() {
-                var categoryId = $(this).find(':selected').data('category-id');
-                $.ajax({
-                    url: "{{ route('getProducts') }}",
-                    type: "POST",
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        categoryId: categoryId
-                    },
-                    success: function(response) {
-                        // Process the retrieved products
-                        var productsHtml = ''; // Variable to accumulate product elements
-                        $.each(response.data, function(key, value) {
-                            var productElement = `
-                                <div class="col-md-4 mb-1">
-                                    <div class="fancy-checkbox">
-                                        <label>
-                                            <input id="product-${value.id}" type="checkbox" name="products[]" value="${value.id}">
-                                            <span></span>
-                                        </label>
-                                        <img src="https://smartmart-eg.com/storage/products/17736.jpg" alt="" class="rounded" style="width: 2rem;">
-                                        <span>${value.name}</span>
-                                    </div>
-                                </div>
-                                `;
-
-                            productsHtml += productElement; // Accumulate the product elements
-                        });
-
-                        $('#allProducts').html(productsHtml); // Set the HTML of #allProducts
-                    },
-                    error: function(xhr) {
-                        // Handle the error
-                        console.log(xhr.responseText);
-                    }
-                });
-            });
-        });
-    </script>
+@section('page_level_js')
+    <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-basic.js') }}" type="text/javascript"></script>
 @endsection

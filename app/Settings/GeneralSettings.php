@@ -23,7 +23,7 @@ class GeneralSettings extends Settings
         return [
             'site_name' => $this->site_name,
             'about_us' => $this->about_us,
-            'sit_logo' => $this->site_logo,
+            'site_logo' => $this->site_logo,
             'email' => $this->email,
             'phone' => $this->phone,
             'copyright' => $this->copyright,

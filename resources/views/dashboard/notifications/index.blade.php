@@ -60,22 +60,19 @@
                                                             <td>{{ ++$loop->index }}</td>
                                                             <td>{{ $notification->title }}</td>
                                                             <td>{{ $notification->message }}</td>
-                                                            <td><a href="{{ $notification->link }}">{{ $notification->link }}</a></td>
-                                                            <td>{{ $notification->created_at }}</td>
+                                                            <td><a href="{{ $notification->link }}">{{ $notification->title }}</a></td>
+                                                            <td><span style="color: red;">{{ $notification->created_at->diffForHumans() }}</span> <br> {{ $notification->created_at }} </td>
                                                             <td>
                                                                 <div class="btn-group" role="group" aria-label="Basic example"
                                                                     style="flex-wrap: nowrap;">
-                                                                    <a href=""
-                                                                        class="btn btn-primary btn-sm rounded-5 mr-1">
-                                                                        <i class="la la-eye"></i>
-                                                                    </a>
-                                                                    <form action=""
+                                                                    <form action="{{ route('notification.destroy', $notification->id) }}"
                                                                         method="POST">
                                                                         @method('DELETE')
                                                                         @csrf
                                                                         <button type="submit"
-                                                                            class="btn btn-danger btn-sm rounded-5 mr-1"><i
-                                                                                class="la la-remove"></i></button>
+                                                                        class="btn btn-danger btn-sm rounded-5 mr-1">
+                                                                            <i class="la la-remove"></i>
+                                                                        </button>
                                                                     </form>
                                                                 </div>
                                                             </td>

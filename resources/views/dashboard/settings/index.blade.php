@@ -75,7 +75,7 @@
                                                         <label for="about">Time Zone</label>
                                                         <input type="text" value="{{ config('app.timezone') }}" id="site_name"
                                                             class="form-control" placeholder="Time Zone"
-                                                            name="tome_zone">
+                                                            name="tome_zone" disabled>
                                                         @error('about')
                                                             <span id="abbr_error" class="text-danger">{{ $message }}</span>
                                                         @enderror
@@ -87,7 +87,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label for="logo" class="form-label">اللوجو</label>
-                                                        <input class="dropify" type="file" name="site_logo" data-show-errors="true" data-allowed-file-extensions="png jpg jpeg webp" data-min-width="400">
+                                                        <input class="dropify" type="file" name="site_logo" data-show-errors="true" data-allowed-file-extensions="png jpg jpeg webp" data-default-file="{{ logo($settings['site_logo']) }}">
                                                             @error('logo')
                                                                 <span id="direction_error" class="text-danger"> {{ $message }} </span>
                                                             @enderror
@@ -137,53 +137,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                                {{-- <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="services">Services</label>
-                                                        <input type="text" value="{{ old('services') }}" id="services"
-                                                            class="form-control" placeholder="Services"
-                                                            name="services">
-                                                            @error('services')
-                                                                <span id="name_error" class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="website">Website</label>
-                                                        <input type="text" value="{{ old('website') }}" id="website"
-                                                            class="form-control" placeholder="Website"
-                                                            name="website">
-                                                            @error('website')
-                                                                <span id="name_error" class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                    </div>
-                                                </div>
-                                            
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label for="longtDescription">Long Description</label>
-                                                        <textarea name="long_description" id="longtDescription" class="form-control">{{ old('long_description') }}</textarea>
-                                                        @error('long_description')
-                                                            <span id="abbr_error" class="text-danger">{{ $message }}</span>
-                                                        @enderror
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <label for="date">Date</label>
-                                                        <input type="date" value="{{ old('date') }}" id="date"
-                                                            class="form-control" placeholder="Date"
-                                                            name="date">
-                                                            @error('date')
-                                                                <span id="name_error" class="text-danger">{{ $message }}</span>
-                                                            @enderror
-                                                    </div>
-                                                </div>
-                                            </div> --}}
                                         </div>
                                         <div class="form-actions">
                                             <button type="submit" class="btn btn-primary">

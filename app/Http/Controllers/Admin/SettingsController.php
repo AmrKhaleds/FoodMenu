@@ -52,7 +52,9 @@ class SettingsController extends Controller
         $settings->copyright = $request->input('copyright');
         
         $settings->save();
-        // dd(config('app.timezone'));
+
+        toast('تم تحديث الإعدادت', 'success');
+        return redirect()->route('settings.index');
     }
 
     /**

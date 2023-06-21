@@ -16,8 +16,8 @@ class OrderObserver
     {
         // Send Realtime Notification After creating order
         event(new OrderNotificationEvent(
-            $order->order_number,
-            "New Order",
+            "طلب جديد : " . $order->order_number,
+            "من خلال : " . $order->order_type,
             url('/dashboard/orders/' . $order->id),
             $order->created_at,
         ));

@@ -16,13 +16,12 @@ class ProductsExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            '#',
-            'اسم المنتج',
-            'وصف المنتج',
-            'سعر المنتج',
-            'حالة المنتج',
-            'كمية المنتج',
-            'فئة المنتج'
+            'product_name',
+            'product_description',
+            'product_price',
+            'product_status',
+            'product_quantity',
+            'product_category'
         ];
     }
     /**
@@ -39,13 +38,12 @@ class ProductsExport implements FromCollection, WithHeadings, WithMapping
     public function map($invoice): array
     {
         return [
-            $invoice->id,
             $invoice->name,
             $invoice->desc,
             $invoice->price,
             $invoice->status ? 'مفعل' : 'غير مفعل',
             $invoice->quantity ?? 0,
-            $invoice->category->name,
+            $invoice->category_id,
         ];
     }
 }

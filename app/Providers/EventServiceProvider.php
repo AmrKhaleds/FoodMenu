@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Events\OrderNotificationEvent;
+use App\Events\OutOfStockEvent;
+use App\Events\OutOfStockProducts;
 use App\Listeners\NotificationListener;
+use App\Listeners\OutOfStockListener;
+use App\Listeners\SendOutOfStockNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,7 +26,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderNotificationEvent::class => [
             NotificationListener::class
-        ]
+        ],
+        OutOfStockEvent::class => [
+            OutOfStockListener::class
+        ],
     ];
 
     /**

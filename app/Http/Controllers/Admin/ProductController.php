@@ -55,6 +55,7 @@ class ProductController extends Controller
             'desc' => $requestData['desc'],
             'photo' => $photoWithOriginalExtention ?? 'product_photo.png',
             'price' => $requestData['price'],
+            'status' => $requestData['status'] ?? false,
             'quantity' => $requestData['quantity'],
             'category_id' => $requestData['category_id'],
         ]);
@@ -104,6 +105,7 @@ class ProductController extends Controller
             'desc' => $requestData['desc'],
             'photo' => $photoWithOriginalExtention,
             'price' => $requestData['price'],
+            'status' => $requestData['status'] ?? false,
             'quantity' => $requestData['quantity'],
             'category_id' => $requestData['category_id'],
         ]);
@@ -185,19 +187,13 @@ class ProductController extends Controller
         return redirect()->route('uploadProducts.index');
     }
     /**
-     * Delete All products table records
+     * Get Out Of Stock Products
      * 
+     * @return View
      */
-    public function databaseDestroy()
+    public function outOfStock()
     {
-        try{
-            Product::truncate();
-            Alert::alert('نجاح', 'تم مسح جميع المنتجات بنجاح', 'success')->autoClose(false);
-            return redirect()->route('databaseDestroy.index');
-        }catch(Exception $e)
-        {
-            Alert::alert('فشل', 'حدث خطأ ما', 'error')->autoClose(false);
-            return redirect()->route('databaseDestroy.index');
-        }
+        $products = Product::where('quantity', 0)->get();
+        return view('dashboard.products.out-of-stock', compact('products'));
     }
 }

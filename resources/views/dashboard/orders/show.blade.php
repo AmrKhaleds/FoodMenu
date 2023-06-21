@@ -25,8 +25,7 @@
                         <div id="invoice-company-details" class="row">
                             <div class="col-md-6 col-sm-12 text-center text-md-left">
                                 <div class="media">
-                                    <img src="{{ asset('assets/images/logo/logo.png') }}" width="100px" alt="company logo"
-                                        class="" style="background: #000;padding: 9px;border-radius: 20px;">
+                                    <img src="{{ logo($settings['site_logo']) }}" width="100px" alt="company logo">
                                     <div class="media-body">
                                         <ul class="ml-2 px-0 list-unstyled">
                                             <li class="text-bold-800">مطعم ماكس جريل</li>
@@ -41,34 +40,35 @@
                             <div class="col-md-6 col-sm-12 text-center text-md-right">
                                 <h2>فتورة رقم : {{ $order->order_number }}</h2>
                                 <ul class="px-0 list-unstyled">
-                                    <li>من خلال</li>
-                                    <li class="lead text-bold-800">{{ $order->request_type }}</li>
+                                    <li>رقم تتبع حالة الطلب : {{ $order->order_traking_number }}</li>
+                                    <li>حالة الطلب: {{ $order->order_status }}</li>
                                 </ul>
                             </div>
                         </div>
                         <!--/ Invoice Company Details -->
                         <!-- Invoice Customer Details -->
                         <div id="invoice-customer-details" class="row pt-2">
-                            <div class="col-sm-12 text-center text-md-left">
-                                <h3 class="text-muted" style="font-weight: bold">فتورة العميل</h3>
-                            </div>
+                            {{-- <div class="col-sm-12 text-center text-md-left">
+                            </div> --}}
                             <div class="col-md-6 col-sm-12 text-center text-md-left">
+                                <h3 class="text-muted" style="font-weight: bold">فتورة العميل</h3>
+
                                 <ul class="px-0 list-unstyled">
-                                    <li class="text-bold-800">
-                                        <h4 style="font-weight: bold">{{ $order->name }}</h4>
+                                    <li>
+                                        <span>{{ $order->order_user_name }}</span>
                                     </li>
                                     <li>
-                                        <h4 style="font-weight: bold">{{ $order->email }}</h4>
+                                        <span><a href="mailto:{{ $order->order_user_email }}">{{ $order->order_user_email }}</a></span>
                                     </li>
                                     <li>
-                                        <h4 style="font-weight: bold">{{ $order->phone }}</h4>
+                                        <span><a href="tel:{{ $order->order_user_phone }}">{{ $order->order_user_phone }}</a></span>
                                     </li>
                                 </ul>
                             </div>
                             <div class="col-md-6 col-sm-12 text-center text-md-right">
                                 <p>
                                 <h3 class="text-muted" style="font-weight: bold">تاريخ الفتورة</h3>
-                                <h4 style="font-weight: bold">{{ $order->created_at }}</h4>
+                                <h5>{{ $order->created_at }}</h5>
                                 </p>
                             </div>
                         </div>
@@ -82,58 +82,34 @@
                                             <tr>
                                                 <th>#</th>
                                                 <th>المنتج</th>
+                                                <th>الكمية المطلوبة</th>
                                                 <th class="text-right">السعر</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @php
-                                                $x = 1;
-                                            @endphp
                                             @foreach ($products as $product)
                                                 <tr>
-                                                    <th scope="row">{{ $x }}</th>
+                                                    <th scope="row">{{ $loop->iteration }}</th>
                                                     <td>
                                                         <p>{{ $product['name'] }}</p>
-                                                        <p class="text-muted">{{ $product['desc'] }}</p>
                                                     </td>
+                                                    <td>{{ $product['quantity'] }}</td>
                                                     <td class="text-right">{{ $product['price'] }} EGP</td>
                                                 </tr>
-                                                @php
-                                                    $x++;
-                                                @endphp
                                             @endforeach
                                         </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>المنتج</th>
+                                                <th>الكمية المطلوبة</th>
+                                                <th class="text-right">السعر</th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                 </div>
                             </div>
                             <div class="row">
-                                {{-- <div class="col-md-7 col-sm-12 text-center text-md-left">
-                                    <p class="lead">Payment Methods:</p>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <table class="table table-borderless table-sm">
-                                                <tbody>
-                                                    <tr>
-                                                        <td>Bank name:</td>
-                                                        <td class="text-right">ABC Bank, USA</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Acc name:</td>
-                                                        <td class="text-right">Amanda Orton</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>IBAN:</td>
-                                                        <td class="text-right">FGS165461646546AA</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>SWIFT code:</td>
-                                                        <td class="text-right">BTNPP34</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div> --}}
                                 <div class="col-md-5 col-sm-12">
                                     <p class="lead">إجمالى المنتجات</p>
                                     <div class="table-responsive">
@@ -141,15 +117,18 @@
                                             <tbody>
                                                 <tr>
                                                     <td>الإجمالى</td>
-                                                    <td class="text-right">EGP {{ $totalPrice }}</td>
+                                                    <td class="text-right">EGP {{ $order->order_amount }}</td>
                                                 </tr>
                                                 <tr class="bg-grey bg-lighten-4">
-                                                    <td class="text-bold-800">الدفع من خلال</td>
-                                                    <td class="text-bold-800 text-right">{{ $order->request_type }}</td>
+                                                    <td class="text-bold-800">الدفع عن طريق</td>
+                                                    <td class="text-bold-800 text-right">{{ $order->order_type }}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
+
+                                </div>
+                                <div class="col-md-5 col-sm-12">
                                     <div class="text-center">
                                         <p>Authorized person</p>
                                         <img src="{{ asset('assets/images/pages/signature-scan.png') }}" alt="signature"

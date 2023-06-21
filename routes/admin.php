@@ -1,16 +1,19 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\OfferController;
-use App\Http\Controllers\Admin\OrderController;
-use App\Http\Controllers\Admin\ProductController;
-use App\Http\Controllers\Admin\ProfileController;
-use App\Http\Controllers\Admin\RoomController;
-use App\Http\Controllers\Admin\SeatController;
-use App\Http\Controllers\Admin\SettingsController;
-use App\Http\Controllers\Admin\TableController;
+use App\Http\Controllers\Admin\{
+    CategoryController,
+    CityController,
+    HomeController,
+    NotificationController,
+    OfferController,
+    OrderController,
+    PlaceController,
+    ProductController,
+    ProfileController,
+    RoomController,
+    SettingsController,
+    TableController
+};
 use App\Models\Notification;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,10 +37,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function (){
     // Category Routes
     Route::resource('categories', CategoryController::class);
     // Products Routes
-    Route::view('products/database-delete', 'dashboard.products.deleteDatabase')->name('databaseDestroy.index');
     Route::view('products/download', 'dashboard.products.download')->name('downloadProducts.index');
     Route::view('products/upload', 'dashboard.products.upload')->name('uploadProducts.index');
-    Route::post('products/database-delete', [ProductController::class, 'databaseDestroy'])->name('databaseDestroy.delete');
+    Route::get('products/out-of-stock', [ProductController::class, 'outOfStock'])->name('product.outOfStock');
     Route::post('products/download', [ProductController::class, 'downloadProducts'])->name('downloadProducts.download');
     Route::post('products/upload', [ProductController::class, 'uplaodBulkProducts'])->name('uploadProducts.upload');
     Route::resource('products', ProductController::class);
@@ -57,12 +59,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function (){
         ]);
     })->name('resetNotificationCounter');
     Route::get('notifications', [NotificationController::class, 'index'])->name('notification.index');
+    Route::delete('notifications/{id}', [NotificationController::class, 'destroy'])->name('notification.destroy');
     // inDoor Routes
     Route::resource('rooms', RoomController::class);
     Route::resource('tables', TableController::class);
+    // Places Routes
+    Route::resource('cities', CityController::class);
+    Route::resource('places', PlaceController::class);
     // Update Status
     Route::post('update-category-status', [CategoryController::class, 'updateCategoryStatus'])->name('updateCategoryStatus');
     Route::post('update-product-status', [ProductController::class, 'updateProductStatus'])->name('updateProductStatus');
+    Route::post('update-offer-status', [OfferController::class, 'updateStatus'])->name('updateOfferStatus');
 });
 // Auth Routes
 Auth::routes(['register' => false]);

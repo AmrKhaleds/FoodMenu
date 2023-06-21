@@ -1,8 +1,5 @@
 @extends('layouts.app')
 @section('title', 'القاعات')
-@section('vendor_css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/vendors/css/tables/datatable/datatables.min.css') }}">
-@endsection
 @section('content')
     <div class="app-content content">
         <div class="content-wrapper">
@@ -13,7 +10,7 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="">الرئيسية </a>
                                 </li>
-                                <li class="breadcrumb-item"><a href=""> الفئات </a>
+                                <li class="breadcrumb-item">تفاصيل المطعم
                                 </li>
                                 <li class="breadcrumb-item active">@yield('title', 'انشاء فئة جديده')
                                 </li>
@@ -81,18 +78,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('vendor_js')
-    <script src="{{ asset('assets/vendors/js/tables/datatable/datatables.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/datatable/dataTables.buttons.min.js') }}" type="text/javascript">
-    </script>
-    <script src="{{ asset('assets/vendors/js/tables/buttons.flash.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/jszip.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/pdfmake.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/vfs_fonts.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/buttons.html5.min.js') }}" type="text/javascript"></script>
-    <script src="{{ asset('assets/vendors/js/tables/buttons.print.min.js') }}" type="text/javascript"></script>
-@endsection
-@section('page_level_js')
-    <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript"></script>
 @endsection

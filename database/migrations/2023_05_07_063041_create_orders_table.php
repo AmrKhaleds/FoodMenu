@@ -28,7 +28,7 @@ return new class extends Migration
             // resturant
             $table->text('order_user_address')->nullable();
             $table->string('order_user_place')->nullable();
-            $table->string('order_user_country')->nullable();
+            $table->string('order_user_city')->nullable();
 
             $table->enum('order_type', ['delivery', 'resturant']);
             $table->timestamps();

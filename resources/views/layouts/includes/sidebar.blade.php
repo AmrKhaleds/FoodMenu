@@ -45,8 +45,8 @@
                     <li class="{{ Route::currentRouteNamed('downloadProducts.index') ? 'active' : '' }}">
                         <a class="menu-item" href="{{ route('downloadProducts.index') }}" data-i18n="nav.templates.horz.main">استخراج شيت المنتجات</a>
                     </li>
-                    <li class="{{ Route::currentRouteNamed('databaseDestroy.index') ? 'active' : '' }}">
-                        <a class="menu-item" href="{{ route('databaseDestroy.index') }}" data-i18n="nav.templates.horz.main">مسح قاعدة بيانات المنتجات</a>
+                    <li class="{{ Route::currentRouteNamed('product.outOfStock') ? 'active' : '' }}">
+                        <a class="menu-item" href="{{ route('product.outOfStock') }}" data-i18n="nav.templates.horz.main">منتجات خارجة عن المخزون</a>
                     </li>
                 </ul>
             </li>
@@ -76,6 +76,20 @@
                     <li class="{{ Route::currentRouteNamed('tables.index') ? 'active open' : '' }}">
                         <a class="menu-item" href="{{ route('tables.index') }}"
                             data-i18n="nav.templates.horz.main">الطاولات</a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item"><a href="#"><i class="la l
+                la-bullhorn"></i><span class="menu-title"
+                        data-i18n="nav.templates.main">اماكن التوصيل</span></a>
+                <ul class="menu-content">
+                    <li class="{{ Route::currentRouteNamed('cities.index') ? 'active open' : '' }}">
+                        <a class="menu-item" href="{{ route('cities.index') }}"
+                            data-i18n="nav.templates.vert.main">المُدن</a>
+                    </li>
+                    <li class="{{ Route::currentRouteNamed('places.index') ? 'active open' : '' }}">
+                        <a class="menu-item" href="{{ route('places.index') }}"
+                            data-i18n="nav.templates.horz.main">المناطق</a>
                     </li>
                 </ul>
             </li>

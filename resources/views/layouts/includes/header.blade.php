@@ -10,7 +10,7 @@
                     <li class="nav-item mr-auto">
                         <a class="navbar-brand" href="{{ route('dashboard') }}">
                             <img class="brand-logo" alt="modern admin logo"
-                                src="{{ asset('assets/images/logo/logo.png') }}">
+                                src="{{ logo($settings['site_logo']) }}">
                             <h3 class="brand-text">{{ $settings['site_name'] }}</h3>
                         </a>
                     </li>
@@ -55,7 +55,7 @@
                                                 <div class="media-left align-self-center"><i
                                                         class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
                                                 <div class="media-body">
-                                                    <h6 class="media-heading">الطلب رقم : {{ $notification->title }}
+                                                    <h6 class="media-heading">{{ $notification->title }}
                                                     </h6>
                                                     <p class="notification-text font-small-3 text-muted">
                                                         {{ $notification->message }}</p>

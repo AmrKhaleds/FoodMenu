@@ -11,8 +11,8 @@
         </div>
         <div class="forms">
             <div class="wrapper">
-                <input type="radio" name="form" value="1" id="option-1" />
-                <input type="radio" name="form" value="2" checked id="option-2" />
+                <input type="radio" name="form" value="1" checked id="option-1" />
+                <input type="radio" name="form" value="2"  id="option-2" />
 
                 <label for="option-1" class="option option-1">
                     <div class="dot"></div>
@@ -27,7 +27,7 @@
                 @livewire('checkout-items')
                 @if(count($items) > 0)
                     {{-- Resturant --}}
-                    <form action="{{ route('checkout.restaurant') }}" method="post" id="form1" class="desc col-md-8" style="display: none">
+                    <form action="{{ route('checkout.restaurant') }}" method="post" id="form1" class="desc col-md-8" >
                         @csrf
                         <div class="row">
                             <div class="row" style="direction: rtl;">
@@ -46,45 +46,7 @@
                                         <span id="name_error" class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
-                                    <select name="request_type" id=""
-                                        style="    width: 100%;
-                                    color: rgb(255, 255, 255);
-                                    background: transparent;
-                                    border: 2px solid white;
-                                    height: 40px;direction: rtl;
-                                    margin-bottom: 16px;">
-                                        <option value="" selected disabled>صالة رقم</option>
-                                        <option value="resturant"
-                                            {{ old('request_type') == 'resturant' ? 'selected' : '' }}>
-                                            داخل المطعم</option>
-                                        <option value="delivery" {{ old('request_type') == 'delivery' ? 'selected' : '' }}>
-                                            ديليفرى</option>
-                                    </select>
-                                    @error('request_type')
-                                        <span id="name_error" class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="request_type" id=""
-                                        style="    width: 100%;
-                                    color: rgb(255, 255, 255);
-                                    background: transparent;
-                                    border: 2px solid white;
-                                    height: 40px;direction: rtl;
-                                    margin-bottom: 16px;">
-                                        <option value="" selected disabled>طاولة رقم</option>
-                                        <option value="resturant"
-                                            {{ old('request_type') == 'resturant' ? 'selected' : '' }}>
-                                            داخل المطعم</option>
-                                        <option value="delivery" {{ old('request_type') == 'delivery' ? 'selected' : '' }}>
-                                            ديليفرى</option>
-                                    </select>
-                                    @error('request_type')
-                                        <span id="name_error" class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-
+                                @livewire('restaurant-places-form')
                                 <div class="col-md-12" style="text-align: center">
                                     <button type="submit" id="submit" {{ count($items) == 0 ? "disabled" : "" }}>طلب</button>
                                 </div>
@@ -92,7 +54,7 @@
                         </div>
                     </form>
                     {{-- Deleviry --}}
-                    <form action="{{ route('checkout.delivery') }}" method="post" id="form2" class="desc col-md-8">
+                    <form action="{{ route('checkout.delivery') }}" method="post" id="form2" class="desc col-md-8" style="display: none">
                         @csrf
                         <div class="row">
                             <div class="row " style="direction: rtl;">
@@ -119,46 +81,7 @@
                                         <span id="name_error" class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
-                                <div class="col-md-6">
-                                    <select name="order_user_country" id=""
-                                        style="    width: 100%;
-                                    color: rgb(255, 255, 255);
-                                    background: transparent;
-                                    border: 2px solid white;
-                                    height: 40px;direction: rtl;
-                                    margin-bottom: 16px;">
-                                        <option value="" selected disabled>البلد المتاحة لخدمة التوصيل</option>
-                                        <option value="resturant"
-                                            {{ old('request_type') == 'resturant' ? 'selected' : '' }}>
-                                            دمنهور</option>
-                                        <option value="delivery"
-                                            {{ old('request_type') == 'delivery' ? 'selected' : '' }}>
-                                            اسكندرية</option>
-                                    </select>
-                                    @error('order_user_country')
-                                        <span id="name_error" class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="col-md-6">
-                                    <select name="order_user_place" id=""
-                                        style="    width: 100%;
-                                    color: rgb(255, 255, 255);
-                                    background: transparent;
-                                    border: 2px solid white;
-                                    height: 40px;direction: rtl;
-                                    margin-bottom: 16px;">
-                                        <option value="" selected disabled>المنطقة المتاحة لخدمة التوصيل</option>
-                                        <option value="resturant"
-                                            {{ old('request_type') == 'resturant' ? 'selected' : '' }}>
-                                            شارع المحافظة</option>
-                                        <option value="delivery"
-                                            {{ old('request_type') == 'delivery' ? 'selected' : '' }}>
-                                            ستانلى</option>
-                                    </select>
-                                    @error('request_type')
-                                        <span id="name_error" class="text-danger">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                                @livewire('delivery-places-form')
                                 <div class="col-md-12">
                                     <textarea type="text" name="order_user_address" id="" class="reservation-fields inputs"
                                         placeholder="العنوان بالمنطقة المختارة بالتفصيل" style="height: 150px">{{ old('order_user_address') }}</textarea>

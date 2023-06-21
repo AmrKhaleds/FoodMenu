@@ -24,6 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+
         return view('dashboard.categories.create');
     }
 
@@ -32,11 +33,8 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        
-        $category = new Category();
-        $category->name = $request['name']; // Replace with the actual name input
-        $category->save();
-
+        // dd($request->all());
+        Category::create($request->all());
         toast('تم انشاء الفئة بنجاح','success');
         return redirect()->route('categories.create');
     }
@@ -63,10 +61,12 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        $requestData = $request->only(['name']);
-        $category = Category::where('id', $id)->update($requestData);
+        $category = Category::where('id', $id)->update([
+            'name' => $request->name,
+            'status' => $request->status ?? false
+        ]);
+        
         if($category){
-
             toast('تم تعديل الفئة بنجاح','success');
             return redirect()->route('categories.index');
         }
@@ -85,7 +85,7 @@ class CategoryController extends Controller
             toast('تم حذف الفئة بنجاح','success');
             return redirect()->route('categories.index');
         }
-        toastr()->error('حدثت مشكلة اثناء حذف الفئة');
+        toast('حدثت مشكلة اثناء حذف الفئة', 'error');
         return redirect()->route('categories.index');
     }
 

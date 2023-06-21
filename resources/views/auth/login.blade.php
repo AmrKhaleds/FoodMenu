@@ -15,21 +15,9 @@
                                 <div class="card-header border-0">
                                     <div class="card-title text-center">
                                         <div class="p-1">
-                                            {{-- @if (file_exists(public_path('storage/images/logo/' . $dashboardSettings['white_logo'])))
-                                                <img style="width: 300px; "
-                                                    src="{{ asset('storage/images/logo/' . $dashboardSettings['white_logo']) }}"
+                                            <img style="width: 300px;"
+                                                    src="{{ logo($settings['site_logo']) }}"
                                                     alt="My Image">
-                                            @else
-                                                <img style="width: 300px;"
-                                                    src="{{ asset('assets/admin/images/logo/defaultLogo.png') }}"
-                                                    alt="My Image">
-                                            @endif --}}
-                                            {{-- <img style="width: 300px;" 
-                      src="
-                        {{ asset('storage/images/logo/' . $white_logo) ?? asset('asset/images/logo/defaultLogo.png')}}
-
-                        " 
-                        alt="branding logo"> --}}
                                         </div>
                                     </div>
                                     <h6 class="card-subtitle line-on-side text-muted text-center h2 pt-2">
