@@ -62,7 +62,8 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="start_date">تاريخ البداية</label>
-                                                            <input type="date" class="form-control" name="start_date">
+                                                            <input type="date" class="form-control" name="start_date"
+                                                                value="{{ old('start_date') }}">
                                                             @error('start_date')
                                                                 <span id="name_error"
                                                                     class="text-danger">{{ $message }}</span>
@@ -72,7 +73,8 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="end_date"> تاريخ النهاية</label>
-                                                            <input type="date" class="form-control" name="end_date">
+                                                            <input type="date" class="form-control" name="end_date"
+                                                                value="{{ old('end_date') }}">
                                                             @error('end_date')
                                                                 <span id="name_error"
                                                                     class="text-danger">{{ $message }}</span>
@@ -87,8 +89,8 @@
                                                             <select name="discount_type" class="form-control"
                                                                 id="discount_type">
                                                                 <option selected disabled>اختار نوع الخصم</option>
-                                                                <option value="percentage">نسبة مئوية</option>
-                                                                <option value="price">سعر</option>
+                                                                <option value="percentage" @selected(old('discount_type') == 'percentage')>نسبة مئوية</option>
+                                                                <option value="price" @selected(old('discount_type') == 'price')>سعر</option>
                                                             </select>
                                                             @error('discount_type')
                                                                 <span id="name_error"
@@ -114,7 +116,12 @@
                                                         <label for="discount">جميع المنتجات</label>
                                                         <div class="card-content collapse show">
                                                             <div class="card-body card-dashboard">
-                                                                <table class="table table-striped table-bordered dom-positioning dataTable">
+                                                                @error('products')
+                                                                    <span id="name_error"
+                                                                        class="text-danger">{{ $message }}</span>
+                                                                @enderror
+                                                                <table
+                                                                    class="table table-striped table-bordered dom-positioning dataTable">
                                                                     <thead>
                                                                         <tr>
                                                                             <th>#</th>
@@ -127,11 +134,16 @@
                                                                             @foreach ($products as $product)
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <input id="product-{{ $product->id }}" type="checkbox" name="products[]" value="{{ $product->id }}">
+                                                                                        <input
+                                                                                            id="product-{{ $product->id }}"
+                                                                                            type="checkbox" name="products[]"
+                                                                                            value="{{ $product->id }}"
+                                                                                            @if (is_array(old('products')) && in_array($product->id, old('products'))) checked @endif>
                                                                                     </td>
                                                                                     <td>{{ $product->name }}</td>
                                                                                     <td>
-                                                                                        <span class="badge badge badge-pill badge-info mr-2">{{ $product->category->name }}</span>
+                                                                                        <span
+                                                                                            class="badge badge badge-pill badge-info mr-2">{{ $product->category->name }}</span>
                                                                                     </td>
                                                                                 </tr>
                                                                             @endforeach

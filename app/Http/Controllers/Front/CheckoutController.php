@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CheckoutRequest;
+use App\Http\Requests\DeliveryRequest;
 use App\Http\Requests\RestaurantRequest;
 use App\Models\City;
 use App\Models\Order;
@@ -31,7 +31,7 @@ class CheckoutController extends Controller
         Session::put('product_quantities', []);
     }
 
-    public function deliveryOrder(CheckoutRequest $request)
+    public function deliveryOrder(DeliveryRequest $request)
     {
         try{
             $latestOrder = Order::orderBy('created_at', 'DESC')->first();
@@ -56,7 +56,6 @@ class CheckoutController extends Controller
             $placeInfo = Place::find($place_id);
             $request['order_user_city'] = $cityInfo->name;
             $request['order_user_place'] = $placeInfo->name;
-            // dd($request->all());
             
             $order = Order::create($request->all());
 

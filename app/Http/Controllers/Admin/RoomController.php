@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\RoomRequest;
 use App\Models\Room;
 use Illuminate\Http\Request;
 
@@ -28,7 +29,7 @@ class RoomController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RoomRequest $request)
     {
         // dd($request->all());
         $room = Room::create($request->all());
@@ -60,7 +61,7 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(RoomRequest $request, string $id)
     {
         $room = Room::where('id', $id)->update([
             'name' => $request->name,

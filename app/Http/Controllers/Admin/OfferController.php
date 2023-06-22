@@ -8,6 +8,7 @@ use App\Models\Sale;
 use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\OfferRequest;
 use App\Models\Offer;
 
 class OfferController extends Controller
@@ -34,9 +35,8 @@ class OfferController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(OfferRequest $request)
     {
-        // dd($request->all());
         $requestData = $request->all();
         try{
             $offer = Offer::create([
@@ -84,7 +84,7 @@ class OfferController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(OfferRequest $request, string $id)
     {
         /*
             WHen Makeing Order::where('id', $id)->update($request);

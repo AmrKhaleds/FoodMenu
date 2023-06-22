@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\TableRequest;
 use App\Models\Room;
 use App\Models\Table;
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class TableController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TableRequest $request)
     {
         $table = Table::create($request->all());
         if(!$table){

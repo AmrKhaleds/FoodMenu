@@ -42,7 +42,7 @@ class OutOfStockProduct extends Command
         {
             event(new OutOfStockEvent(
                 $outOfStockCount,
-                'http://127.0.0.1:8000/dashboard/products/out-of-stock',
+                url('dashboard/products/out-of-stock'),
                 Carbon::now(),
             ));
             Log::info('Out Of Stock sent Successfully');

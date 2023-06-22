@@ -7,9 +7,6 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
-    protected $commands = [
-        Commands\OutOfStockProduct::class,
-    ];
     /**
      * Define the application's command schedule.
      */
@@ -17,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
 
         // $schedule->command('product:out-of-stock')->daily();
-        // $schedule->command('offer:expire')->everyMinute();
+        // $schedule->command('offer:expire')->hourly();
 
 
         // $schedule->command('inspire')->hourly();
