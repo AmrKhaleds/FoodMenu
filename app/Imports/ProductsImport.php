@@ -18,12 +18,12 @@ class ProductsImport implements ToModel, WithHeadingRow
         // dd($row );
         // foreach($row as $)
         return new Product([
-            'name' => $row['product_category'],
-            'desc' => $row['product_description'],
-            'price' => $row['product_price'],
-            'status' => $row['product_status'],
-            'quantity' => $row['product_quantity'],
-            'category_id' => $row['product_category']
+            'name' => $row['name'],
+            'desc' => $row['description'],
+            'price' => $row['price'],
+            'status' => $row['status'],
+            'quantity' => $row['quantity'],
+            'category_id' => $row['category']
         ]);
     }
 }
