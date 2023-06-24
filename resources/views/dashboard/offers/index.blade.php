@@ -67,14 +67,11 @@
                                                             <td>{{ $offer->start_date }}</td>
                                                             <td>{{ $offer->end_date }}</td>
                                                             <td>
-                                                                <div class="container">
-                                                                    <label class="switch">
-                                                                        <input type="checkbox" name="status" class="status"
-                                                                            data-offer-id="{{ $offer->id }}"
-                                                                            @if ($offer->status == true) checked @endif />
-                                                                        <div></div>
-                                                                    </label>
-                                                                </div>
+                                                                @if($offer->status)
+                                                                    <span class="badge badge badge-success badge-glow badge-pill" style="width: 25px;height: 25px;display: block;"></span>
+                                                                @else
+                                                                <span class="badge badge badge-danger badge-glow badge-pill" style="width: 25px;height: 25px;display: block;"></span>
+                                                                @endif
                                                             </td>
                                                             <td>
                                                                 <div class="btn-group" role="group" aria-label="Basic example"
@@ -135,36 +132,4 @@
 @section('page_level_js')
     <script src="{{ asset('assets/js/scripts/tables/datatables/datatable-advanced.js') }}" type="text/javascript"></script>
 @endsection
-@section('custom_js')
-    <script>
-        $('.status').on('click', function() {
-            var offerId = $(this).data('offer-id');
-            var isChecked = $(this).prop('checked') ? 1 : 0; // Get the checked state and convert it to 1 or 0
-            $.ajax({
-                url: '/dashboard/update-offer-status',
-                type: 'POST',
-                data: {
-                    offer_id: offerId,
-                    status: isChecked // Pass the updated status as data
-                },
-                success: function(response) {
-                    if (response.status) {
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.msg
-                        });
-                    } else {
-                        Toast.fire({
-                            icon: 'error',
-                            title: response.msg
-                        });
-                    }
-                    // Handle UI updates based on the updated status
-                },
-                error: function(xhr, status, error) {
-                    console.log(xhr.responseText);
-                }
-            });
-        });
-    </script>
-@endsection
+

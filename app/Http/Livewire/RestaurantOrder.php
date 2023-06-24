@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Http\Requests\CheckoutRequest;
+use App\Http\Requests\RestaurantRequest;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use Exception;
@@ -24,7 +25,7 @@ class RestaurantOrder extends Component
         Session::put('product_quantities', []);
     }
 
-    public function restaurantOrder(CheckoutRequest $request)
+    public function restaurantOrder(RestaurantRequest $request)
     {
         try{
             $latestOrder = Order::orderBy('created_at', 'DESC')->first();
@@ -58,7 +59,7 @@ class RestaurantOrder extends Component
             $userSession->clear();
             $this->removeQuantity();
     
-            $message = 'شكراً لك على تعاونك تم ارسال الطلب بنجاح.<br> يمكنك متابعة حالة الطلب من خلال هذا الرقم ' . '<a href="' . $userUniqeNum . '">' . $userUniqeNum . '</a>';
+            $message = 'شكراً لك على تعاونك تم ارسال الطلب بنجاح.<br> يمكنك متابعة حالة الطلب من خلال هذا الرقم ' . '<a href="' . url('order-track?order_tracking_number=' . $userUniqeNum) . '">' . $userUniqeNum . '</a>';
             Alert::html('نجاح', $message, 'success');
             return redirect()->route('front');
         }catch(Exception $e){

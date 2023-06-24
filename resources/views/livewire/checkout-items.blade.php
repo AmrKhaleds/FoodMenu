@@ -1,6 +1,5 @@
 @if (count($items) > 0)
 <div class=" col-md-4 ">
-
     <ul class="orderItems">
         @foreach ($items as $item)
             <li class="item">

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Offer;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
@@ -29,13 +30,20 @@ class ExpireOffer extends Command
     public function handle()
     {
         $now = Carbon::now();
-        $offers = Offer::where('end_date', '<=', $now)->get();
+        $offers = Offer::with('product')->where('end_date', '<=', $now)->get();
+
+        $productIds = [];
 
         foreach ($offers as $offer) {
+            foreach ($offer->product as $product) {
+                $productIds[] = $product->id;
+            }
             $offer->status = '0';
             $offer->save();
         }
 
-        Log::info("done");
+        // Update the products in a single query
+        Product::whereIn('id', $productIds)->update(['offer_id' => null]);
+        Log::info("all Offers expired successfuly");
     }
 }

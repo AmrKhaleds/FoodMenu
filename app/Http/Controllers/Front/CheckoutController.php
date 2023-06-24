@@ -74,8 +74,8 @@ class CheckoutController extends Controller
             $userSession->clear();
             $this->removeQuantity();
     
-            $message = 'شكراً لك على تعاونك تم ارسال الطلب بنجاح.<br> يمكنك متابعة حالة الطلب من خلال هذا الرقم ' . '<a href="' . $userUniqeNum . '">' . $userUniqeNum . '</a>';
-            Alert::html('نجاح', $message, 'success');
+            $message = 'شكراً لك على تعاونك تم ارسال الطلب بنجاح.<br> يمكنك متابعة حالة الطلب من خلال هذا الرقم ' . '<a href="' . url('order-track?order_tracking_number=' . $userUniqeNum) . '">' . $userUniqeNum . '</a>';
+            Alert::html('نجاح', $message, 'success')->autoClose(null);
             return redirect()->route('front');
         }catch(Exception $e){
             dd($e);
@@ -130,8 +130,8 @@ class CheckoutController extends Controller
             $userSession->clear();
             $this->removeQuantity();
     
-            $message = 'شكراً لك على تعاونك تم ارسال الطلب بنجاح.<br> يمكنك متابعة حالة الطلب من خلال هذا الرقم ' . '<a href="' . $userUniqeNum . '">' . $userUniqeNum . '</a>';
-            Alert::html('نجاح', $message, 'success');
+            $message = 'شكراً لك على تعاونك تم ارسال الطلب بنجاح.<br> يمكنك متابعة حالة الطلب من خلال هذا الرقم ' . '<a href="' . url('order-track?order_tracking_number=' . $userUniqeNum) . '">' . $userUniqeNum . '</a>';
+            Alert::html('نجاح', $message, 'success')->autoClose(null);
             return redirect()->route('front');
         }catch(Exception $e){
             dd($e);
