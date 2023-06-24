@@ -65,8 +65,7 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item"><a href="#"><i class="la l
-                la-bullhorn"></i><span class="menu-title"
+            <li class=" nav-item"><a href="#"><i class="la la-folder-open"></i><span class="menu-title"
                         data-i18n="nav.templates.main">تفاصيل المطعم</span></a>
                 <ul class="menu-content">
                     <li class="{{ Route::currentRouteNamed('rooms.index') ? 'active open' : '' }}">
@@ -79,8 +78,7 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item"><a href="#"><i class="la l
-                la-bullhorn"></i><span class="menu-title"
+            <li class=" nav-item"><a href="#"><i class="la la-folder-open"></i><span class="menu-title"
                         data-i18n="nav.templates.main">اماكن التوصيل</span></a>
                 <ul class="menu-content">
                     <li class="{{ Route::currentRouteNamed('cities.index') ? 'active open' : '' }}">
@@ -99,7 +97,7 @@
                 </a>
             </li>
             <li class=" nav-item {{ Route::currentRouteNamed('front') ? 'active open' : '' }}">
-                <a href="{{ route('front') }}" target="_blank"><i class="la la-home"></i>
+                <a href="{{ route('front') }}" target="_blank"><i class="la la-external-link"></i>
                     <span class="menu-title" data-i18n="nav.dash.main">الموقع</span>
                 </a>
             </li>

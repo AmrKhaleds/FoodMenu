@@ -23,6 +23,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Font Awesome Icons CSS -->
+    <link rel="stylesheet" id="dina-font-awesome-css"
+    href="{{ asset('front/css/fontawesome/css/font-awesome.min.css') }}" type="text/css" media="all" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css" integrity="sha512-vebUliqxrVkBy3gucMhClmyQP9On/HAWQdKDXRaAlb/FKuTbxkjPKUyqVOxAcGwFDka79eTF+YXwfke1h3/wfg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Main CSS File -->
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/animations/scale.css">
