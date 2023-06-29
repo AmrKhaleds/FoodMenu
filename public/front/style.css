@@ -4834,7 +4834,7 @@ select>option {
     position: fixed;
     bottom: 14px;
     right: 20px;
-    background-color: rgb(23 24 25);
+    background-color: rgb(23 24 25 / 91%);
     z-index: 9999;
 }
 
