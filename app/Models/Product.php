@@ -31,4 +31,8 @@ class Product extends Model
         }
         return $this->price;
     }
+
+    public function scopeActive($query){
+        return $query->where('status', 1);
+    }
 }

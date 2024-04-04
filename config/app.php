@@ -85,6 +85,9 @@ return [
 
     'locale' => 'en',
 
+
+    'secret_key' => env('API_KEY'),
+    
     /*
     |--------------------------------------------------------------------------
     | Application Fallback Locale
